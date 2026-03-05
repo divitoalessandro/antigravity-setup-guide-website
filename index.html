@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity + Claude Code Setup</title>
+  <meta name="description" content="A professional cheatsheet for setting up Google Antigravity with Claude Code. Plugins, models, workflow, and project-scale best practices.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="hero-grain"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="nav-brand">AG + Claude Code</span>
+    <ul class="nav-links">
+      <li><a href="#plugins">Plugins</a></li>
+      <li><a href="#models">Models</a></li>
+      <li><a href="#workflow">Workflow</a></li>
+      <li><a href="#setup">Setup</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container">
+
+  <!-- HERO: Asymmetric layout -->
+  <section class="hero" style="--i:0">
+    <div class="hero-content reveal">
+      <h1>Antigravity +<br>Claude Code</h1>
+      <p class="hero-subtitle">
+        A professional setup guide for Google's agent-first IDE paired with Claude Code.
+        Plugins, model selection, workflow habits, and project-scale best practices
+        &mdash; all in one place.
+      </p>
+    </div>
+    <div class="hero-meta reveal" style="--i:1">
+      <span class="badge">v1.0</span>
+      <span class="badge badge-accent">Last updated Mar 2026</span>
+      <span class="badge">Static HTML &middot; No build tools</span>
+    </div>
+  </section>
+
+  <!-- PLUGINS -->
+  <section id="plugins" style="--i:2">
+    <div class="reveal" style="--i:2">
+      <h2>Essential Plugins (Tier 1)</h2>
+      <p class="mb-lg">These 5 plugins earn their place on day one. Everything else is optional until you have a concrete use case.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Plugin</th>
+              <th>What it does</th>
+              <th>Why essential</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>superpowers</td>
+              <td>Core runtime for skills, git worktrees, brainstorming, debugging</td>
+              <td>Everything else builds on this</td>
+            </tr>
+            <tr>
+              <td>episodic-memory</td>
+              <td>Gives Claude persistent memory across sessions</td>
+              <td>Without this, Claude forgets everything between conversations</td>
+            </tr>
+            <tr>
+              <td>context7</td>
+              <td>Pulls live library documentation into context</td>
+              <td>Prevents hallucinated APIs and outdated suggestions</td>
+            </tr>
+            <tr>
+              <td>commit-commands</td>
+              <td>Commit, push, and open PRs in a single step</td>
+              <td>Daily time saver with minimal overhead</td>
+            </tr>
+            <tr>
+              <td>github</td>
+              <td>GitHub integration for issues, PRs, and repo management</td>
+              <td>Required if your code lives on GitHub</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout mt-lg">
+        If you can't name a concrete use case from the last week, don't enable it.
+      </div>
+    </div>
+  </section>
+
+  <!-- MODELS -->
+  <section id="models" style="--i:3">
+    <div class="reveal" style="--i:3">
+      <h2>When to Use Which Model</h2>
+      <p class="mb-lg">Antigravity supports multiple AI models. Each has a sweet spot.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Best for</th>
+              <th>When to reach for it</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Gemini 3.1 Pro</td>
+              <td>Long context, codebase-wide reasoning, exploration</td>
+              <td>Default model in Antigravity. Use for broad codebase questions and refactoring.</td>
+            </tr>
+            <tr>
+              <td>Claude Sonnet 4.6</td>
+              <td>Nuanced writing, complex logic, architecture decisions</td>
+              <td>When you need careful reasoning, planning, or handling ambiguous requirements.</td>
+            </tr>
+            <tr>
+              <td>GPT-4o</td>
+              <td>General-purpose, wide ecosystem knowledge</td>
+              <td>When specifically requested by a client or team, or for broad general knowledge.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKFLOW -->
+  <section id="workflow" style="--i:4">
+    <div class="reveal" style="--i:4">
+      <h2>Workflow Habits</h2>
+      <p class="mb-lg">Agent-first development changes how you work. These habits make the difference.</p>
+
+      <ul class="workflow-step" style="list-style: none; padding: 0; border: none;">
+        <li><strong class="text-white">Start every session with context.</strong> Use episodic-memory to recall previous decisions before diving in.</li>
+        <li><strong class="text-white">Plan before you code.</strong> Use brainstorming and writing-plans skills. Let the agent think through the approach first.</li>
+        <li><strong class="text-white">One task per agent.</strong> Keep subagents focused. Broad requests produce mediocre results.</li>
+        <li><strong class="text-white">Verify before marking done.</strong> Run tests, check output, read diffs. Never trust "it should work."</li>
+        <li><strong class="text-white">Commit frequently.</strong> Small, focused commits. Use conventional commit messages. Let the agent handle the boilerplate.</li>
+        <li><strong class="text-white">Review agent output like a PR.</strong> Read the code. Understand the changes. You're the architect, the agent is the implementer.</li>
+        <li><strong class="text-white">Document decisions, not code.</strong> Write down why you chose an approach, not what the code does. The code speaks for itself.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SETUP: How much do I need? -->
+  <section id="setup" style="--i:5">
+    <div class="reveal" style="--i:5">
+      <h2>How Much Setup Do I Need?</h2>
+      <p class="mb-lg">Not every project needs a full CI/CD pipeline. Pick the column that matches your project, then follow the link for a detailed walkthrough.</p>
+
+      <div class="comparison-grid">
+        <!-- Column 1: Hobby -->
+        <div class="comparison-col">
+          <div class="comparison-col-header">
+            <h3>Hobby</h3>
+            <span class="badge">Weekend projects</span>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Git branches</div>
+            <div class="comparison-row-value"><code>main</code> only</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Merging</div>
+            <div class="comparison-row-value">Direct commit</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Testing</div>
+            <div class="comparison-row-value">None</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Documentation</div>
+            <div class="comparison-row-value">README</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">CI/CD</div>
+            <div class="comparison-row-value">None</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Environments</div>
+            <div class="comparison-row-value">Local only</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Commit style</div>
+            <div class="comparison-row-value">Anything goes</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Code review</div>
+            <div class="comparison-row-value">None</div>
+          </div>
+          <div class="comparison-cta">
+            <a href="hobby.html" class="btn btn-ghost">Learn more</a>
+          </div>
+        </div>
+
+        <!-- Column 2: Serious Solo -->
+        <div class="comparison-col">
+          <div class="comparison-col-header">
+            <h3>Serious Solo</h3>
+            <span class="badge badge-accent">Real apps</span>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Git branches</div>
+            <div class="comparison-row-value"><code>main</code> + feature branches</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Merging</div>
+            <div class="comparison-row-value">Squash merge via PR</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Testing</div>
+            <div class="comparison-row-value">Unit tests for critical paths</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Documentation</div>
+            <div class="comparison-row-value">README + inline comments</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">CI/CD</div>
+            <div class="comparison-row-value">Lint + test on push</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Environments</div>
+            <div class="comparison-row-value">Local + production</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Commit style</div>
+            <div class="comparison-row-value">Conventional commits</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Code review</div>
+            <div class="comparison-row-value">Self-review before merge</div>
+          </div>
+          <div class="comparison-cta">
+            <a href="solo.html" class="btn btn-primary">Learn more</a>
+          </div>
+        </div>
+
+        <!-- Column 3: Team & Client -->
+        <div class="comparison-col">
+          <div class="comparison-col-header">
+            <h3>Team & Client Projects</h3>
+            <span class="badge badge-success">Production</span>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Git branches</div>
+            <div class="comparison-row-value"><code>main</code> + <code>dev</code> + feature branches</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Merging</div>
+            <div class="comparison-row-value">Protected branches, required PR</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Testing</div>
+            <div class="comparison-row-value">Unit + integration + e2e</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Documentation</div>
+            <div class="comparison-row-value">README + ADRs + feature docs</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">CI/CD</div>
+            <div class="comparison-row-value">Full pipeline (test, build, deploy)</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Environments</div>
+            <div class="comparison-row-value">Local + staging + production</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Commit style</div>
+            <div class="comparison-row-value">Conventional commits, enforced</div>
+          </div>
+          <div class="comparison-row">
+            <div class="comparison-row-label">Code review</div>
+            <div class="comparison-row-value">Required peer review</div>
+          </div>
+          <div class="comparison-cta">
+            <a href="team.html" class="btn btn-ghost">Learn more</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>
