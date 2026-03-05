@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team & Client Projects — Antigravity + Claude Code</title>
+  <meta name="description"
+    content="Setup guide for team and client projects with Google Antigravity and Claude Code. Full CI/CD, code review, protected branches.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="grain"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#workflow">Workflow</a></li>
+        <li><a href="#why">Why</a></li>
+        <li><a href="#prompts">Prompts</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="subpage-hero">
+      <div class="hero-glow"></div>
+      <div class="hero-glow hero-glow-secondary"></div>
+      <div class="container">
+        <a href="index.html" class="back-link">&larr; Back to overview</a>
+        <div class="reveal-up">
+          <h1>
+            <span class="text-gradient">Team &</span><br>
+            <span class="serif">Client</span>
+          </h1>
+          <p class="hero-subtitle mt-md">
+            Production applications. Paid client work. Open source with contributors.
+            Multiple people touching the same codebase. No room for "it works on my machine."
+          </p>
+          <div style="margin-top: 1.25rem;">
+            <span class="badge badge-success">Production</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CHARACTER ==================== -->
+    <div class="section-divider"></div>
+    <section>
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">01 / Character</span>
+            What This Looks Like
+          </h2>
+          <p class="mb-xl">A startup product with 3 developers and a staging environment. A client project where
+            you deliver code that another team will maintain. An open-source library where strangers submit pull
+            requests. A freelance engagement where the client expects professional delivery.</p>
+          <p>Multiple people write code, review code, and deploy code. Mistakes affect real users and real revenue.
+            You need guardrails that prevent one person's bad day from breaking production. The process exists to
+            protect the team from itself &mdash; not to slow anyone down.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== WORKFLOW ==================== -->
+    <div class="section-divider"></div>
+    <section id="workflow" class="dot-grid">
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">02 / Workflow</span>
+            Step by Step
+          </h2>
+          <p class="mb-xl">Full professional workflow. Every step earns its place.</p>
+        </div>
+
+        <div class="reveal-up">
+          <div class="workflow-step">
+            <h3>Day 1</h3>
+            <ul>
+              <li>Initialize repo on GitHub with a clear <code>README.md</code>: project purpose, tech stack, how to run
+                locally, how to run tests, contribution guidelines</li>
+              <li>Create a <code>dev</code> branch &mdash; this is your integration branch where features come together
+                before going to production</li>
+              <li>Protect <code>main</code> &mdash; enable <strong class="text-bright">branch protection rules</strong>
+                requiring PR reviews and passing CI before merge</li>
+              <li>Set up a full <strong class="text-bright">CI/CD pipeline</strong>: lint, test, build on every PR.
+                Deploy to staging on merge to <code>dev</code>. Deploy to production on merge to <code>main</code>.</li>
+              <li>Establish <strong class="text-bright">branch naming conventions</strong>:
+                <code>feature/add-login</code>, <code>fix/cart-total</code>, <code>chore/update-deps</code>
+              </li>
+              <li>Generate a <code>CLAUDE.md</code> using the prompt below &mdash; every team member's Claude will
+                follow the same rules</li>
+              <li>Enable all five essential plugins for each team member: <strong
+                  class="text-bright">superpowers</strong>, <strong class="text-bright">episodic-memory</strong>,
+                <strong class="text-bright">context7</strong>, <strong class="text-bright">commit-commands</strong>,
+                <strong class="text-bright">github</strong>
+              </li>
+              <li>Agree on <strong class="text-bright">conventional commits</strong> &mdash; enforced via a commit-msg
+                hook or CI check, not just a suggestion</li>
+            </ul>
+          </div>
+
+          <div class="workflow-step">
+            <h3>Before Each Feature</h3>
+            <ul>
+              <li>Create a <strong class="text-bright">feature branch</strong> from <code>dev</code> (not from
+                <code>main</code>) &mdash; <code>feature/your-feature-name</code>
+              </li>
+              <li>Use the <strong class="text-bright">writing-plans</strong> skill to write a brief implementation plan
+                &mdash; especially for features touching multiple files or services</li>
+              <li>Write tests first using the <strong class="text-bright">test-driven-development</strong> skill &mdash;
+                define what "done" looks like before writing code</li>
+              <li>Open a <strong class="text-bright">draft PR</strong> early &mdash; this signals to the team what
+                you're working on and invites early feedback</li>
+              <li>Commit frequently with conventional messages. Each commit should be a logical unit that could be
+                reverted independently.</li>
+            </ul>
+          </div>
+
+          <div class="workflow-step">
+            <h3>Before Shipping</h3>
+            <ul>
+              <li>Mark the PR as <strong class="text-bright">ready for review</strong> &mdash; add a description of what
+                changed and why</li>
+              <li>Request a <strong class="text-bright">peer review</strong> &mdash; at least one other person reads the
+                code. Use the <strong class="text-bright">requesting-code-review</strong> skill if working with Claude.
+              </li>
+              <li>Ensure all CI checks pass: linting, tests, build, and any custom checks</li>
+              <li>Merge to <code>dev</code> first &mdash; let it bake in staging. Verify it works in a real environment.
+              </li>
+              <li>Create a <strong class="text-bright">release PR</strong> from <code>dev</code> to <code>main</code>
+                &mdash; this is the gateway to production</li>
+              <li>After merge to <code>main</code>, verify the production deployment. Monitor for errors.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== WHY IT MATTERS ==================== -->
+    <div class="section-divider"></div>
+    <section id="why">
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">03 / Why</span>
+            Cost of Skipping
+          </h2>
+
+          <div class="why-row">
+            <span class="why-label">Protected main branch</span>
+            <span class="why-cost">One accidental force-push and production is gone</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">Dev branch for integration</span>
+            <span class="why-cost">Merge conflicts pile up when everyone targets main directly</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">Required peer review</span>
+            <span class="why-cost">Bugs that one person misses, another catches in 30 seconds</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">Full CI/CD pipeline</span>
+            <span class="why-cost">Deploy broken code to production at 5pm on a Friday</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">Test coverage</span>
+            <span class="why-cost">Refactor something and silently break three other features</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">Staging environment</span>
+            <span class="why-cost">Discover environment-specific bugs only after users hit them</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">Branch naming conventions</span>
+            <span class="why-cost">Five developers, five different conventions, nobody knows what's in progress</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">Shared CLAUDE.md</span>
+            <span class="why-cost">Each team member's Claude generates code in a different style</span>
+          </div>
+          <div class="why-row" style="border-bottom: none;">
+            <span class="why-label">Enforced conventional commits</span>
+            <span class="why-cost">Auto-generated changelogs become useless noise</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SKILLS ==================== -->
+    <div class="section-divider"></div>
+    <section>
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">04 / Skills</span>
+            Useful Superpowers Skills
+          </h2>
+          <p class="mb-lg">At team scale, the full skill set becomes essential.</p>
+
+          <div class="skills-callout">
+            <span class="badge badge-accent">writing-plans</span>
+            <span class="badge badge-accent">test-driven-development</span>
+            <span class="badge badge-accent">requesting-code-review</span>
+            <span class="badge badge-accent">using-git-worktrees</span>
+            <span class="badge">commit-commands</span>
+            <span class="badge">episodic-memory</span>
+            <span class="badge">brainstorming</span>
+            <span class="badge">systematic-debugging</span>
+          </div>
+
+          <p class="mt-md" style="font-size: 0.8125rem;">
+            <strong class="text-bright">requesting-code-review</strong> ensures thorough review before merging, catching
+            issues a quick glance would miss.
+            <strong class="text-bright">writing-plans</strong> prevents multi-file features from going sideways.
+            <strong class="text-bright">systematic-debugging</strong> provides a structured approach to diagnosing
+            production issues instead of guessing.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SETUP PROMPTS ==================== -->
+    <div class="section-divider"></div>
+    <section id="prompts">
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">05 / Prompts</span>
+            Setup Prompts
+          </h2>
+          <p class="mb-xl">Copy these into Claude Code to bootstrap your team project with professional structure.</p>
+        </div>
+
+        <!-- Prompt 1: Project Bootstrap -->
+        <div class="prompt-section reveal-up">
+          <h3>Project Bootstrap</h3>
+          <p>Full project scaffold with CI/CD, branch protection, and team conventions.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Project Bootstrap</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>I'm starting a team/client project. Help me set it up with a professional structure that supports multiple developers.
+
+Ask me these four questions, then scaffold the project:
+
+1. What are you building? (one sentence)
+2. How many people will work on this? (approximate team size)
+3. What language/framework are you using?
+4. Is this a fresh repo or an existing one?
+
+After I answer, do the following:
+
+**Git setup:**
+- Initialize git repo if fresh (or verify existing)
+- Create a .gitignore appropriate for the stack
+- Create a `dev` branch from main
+- Document branch naming convention in README: feature/, fix/, chore/
+
+**Project structure:**
+- Create a README.md with: project name, description, tech stack, how to run locally, how to run tests, contribution guidelines, branch strategy
+- Create a sensible folder structure for the framework
+- Add linting config (ESLint, ruff, etc.) with sensible defaults
+- Set up a test runner with one example test
+- Add an .editorconfig for consistent formatting across editors
+
+**CI/CD:**
+- Create a GitHub Actions workflow (.github/workflows/ci.yml) that:
+  - Runs on push to main and dev, and on all pull requests
+  - Installs dependencies
+  - Runs linting
+  - Runs tests
+  - Runs build (if applicable)
+- Create a separate deploy workflow (.github/workflows/deploy.yml) that:
+  - Triggers on push to main only
+  - Placeholder steps for deployment (I'll fill in the specifics)
+
+**Branch protection (document, don't enforce — I'll set it up in GitHub):**
+- main: require PR, require 1 review, require CI pass, no direct push
+- dev: require PR, require CI pass
+
+**Plugins to enable for all team members:**
+- superpowers, episodic-memory, context7, commit-commands, github
+
+**Commit conventions:**
+- Add a commit-msg convention note in CONTRIBUTING.md
+- Format: type(scope): description
+- Types: feat, fix, chore, docs, test, refactor, style, ci
+
+Make an initial commit: "chore: initial project scaffold with CI/CD"
+
+Do NOT set up:
+- Docker (unless the framework requires it)
+- Kubernetes or cloud infrastructure
+- Monitoring or alerting
+- Database migrations (I'll handle that separately)</code></pre>
+          </div>
+        </div>
+
+        <!-- Prompt 2: Generate CLAUDE.md -->
+        <div class="prompt-section reveal-up">
+          <h3>Generate CLAUDE.md</h3>
+          <p>Creates a shared CLAUDE.md so every team member's Claude follows the same conventions.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Generate CLAUDE.md</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Generate a CLAUDE.md file for this team project. This file tells Claude Code how to work with this codebase. Every team member will use the same file, so it must be comprehensive and unambiguous.
+
+Ask me these questions first:
+
+1. What is this project? (one sentence)
+2. What is your tech stack? (language, framework, package manager, database, deployment target)
+3. What are the most important files or directories I should know about?
+4. Any hard rules Claude must never break? (e.g., "never commit to main", "never modify the migration files directly", "always use the ORM, never raw SQL")
+5. Any external services or APIs involved? (include auth providers, payment processors, etc.)
+
+Then generate a CLAUDE.md file at the project root with this structure:
+
+## Workflow & Behavior
+- Use conventional commits via /commit for all changes
+- Search episodic memory at the start of each session for prior context
+- NEVER commit directly to main or dev — always use a feature branch
+- Branch from dev, not from main
+- Use writing-plans skill before implementing features with more than 3 steps
+- Use test-driven-development skill — write tests before implementation
+- Open a draft PR early for visibility
+- Request code review before merging using requesting-code-review skill
+- Keep commits small, focused, and independently revertible
+- Ask before: deleting files, dropping tables, changing API contracts, modifying CI config, updating dependencies
+
+## Essential Commands
+[Fill based on tech stack — install, dev server, test, lint, build, deploy]
+
+## Architecture Overview
+[Fill based on answers — folder structure, key files, data flow, service boundaries]
+
+## Data Model
+[Fill if relevant — database tables, key relationships, important schemas, migration strategy]
+
+## Development Patterns
+[Fill based on stack — naming conventions, file organization, error handling, logging, API response format]
+
+## Critical Rules
+[Fill based on answer to question 4, plus these defaults:]
+- Never expose API keys, secrets, or credentials in code — use environment variables
+- Never skip tests to ship faster
+- Never bypass CI checks
+- Always handle errors at API boundaries with consistent error response format
+- Keep dependencies minimal and audited
+- Document breaking changes in PR description
+- Update README when adding new setup steps or changing how to run the project
+
+## Team Conventions
+- PR title format: type(scope): description (matching commit convention)
+- PR must include: what changed, why, how to test
+- Minimum 1 reviewer approval before merge
+- Squash merge feature branches into dev
+- Regular merge (or rebase) dev into main for releases
+
+Target length: 80–120 lines. Comprehensive but scannable.</code></pre>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <div class="section-divider"></div>
+    <footer class="footer">
+      <div class="container">
+        <p></p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // Floating nav morph on scroll
+    const nav = document.getElementById('nav');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          nav.classList.toggle('scrolled', window.scrollY > 80);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Scroll-triggered staggered reveal
+    const reveals = document.querySelectorAll('.reveal-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          if (entry.target.classList.contains('bento-grid')) {
+            const cards = entry.target.querySelectorAll('.bento-card');
+            cards.forEach((card, index) => {
+              card.style.animationDelay = `${index * 100}ms`;
+              card.classList.add('visible');
+            });
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // Bento Box Spotlight Effect
+    document.querySelectorAll('.bento-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  </script>
+  <script src="copy.js"></script>
+
+</body>
+
+</html>

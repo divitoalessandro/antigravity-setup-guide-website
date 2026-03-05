@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hobby Projects — Antigravity + Claude Code</title>
+  <meta name="description"
+    content="Setup guide for hobby projects with Google Antigravity and Claude Code. Lightweight workflow, minimal overhead.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="grain"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#workflow">Workflow</a></li>
+        <li><a href="#why">Why</a></li>
+        <li><a href="#prompts">Prompts</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="subpage-hero">
+      <div class="hero-glow"></div>
+      <div class="hero-glow hero-glow-secondary"></div>
+      <div class="container">
+        <a href="index.html" class="back-link">&larr; Back to overview</a>
+        <div class="reveal-up">
+          <h1>
+            <span class="serif">Hobby</span><br>
+            <span class="text-gradient">Projects</span>
+          </h1>
+          <p class="hero-subtitle mt-md">
+            Weekend experiments, learning repos, personal tools you build alone.
+            Minimal process, maximum momentum.
+          </p>
+          <div style="margin-top: 1.25rem;">
+            <span class="badge">Weekend projects</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CHARACTER ==================== -->
+    <div class="section-divider"></div>
+    <section>
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">01 / Character</span>
+            What This Looks Like
+          </h2>
+          <p class="mb-xl">A Saturday afternoon CLI tool. A browser extension you build to scratch your own itch.
+            A framework tutorial you follow along with. You're the only person who will ever touch this code,
+            and the goal is learning or solving a personal problem &mdash; not shipping to users.</p>
+          <p>These projects live fast. You want to move quickly, try things, break things, and not worry about
+            process slowing you down. The danger isn't lack of process &mdash; it's abandoning projects because
+            you over-engineered the setup.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== WORKFLOW ==================== -->
+    <div class="section-divider"></div>
+    <section id="workflow" class="dot-grid">
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">02 / Workflow</span>
+            Step by Step
+          </h2>
+          <p class="mb-xl">Three phases. Keep it lightweight.</p>
+        </div>
+
+        <div class="reveal-up">
+          <div class="workflow-step">
+            <h3>Day 1</h3>
+            <ul>
+              <li>Create a new folder and run <code>git init</code> &mdash; this tracks every change you make so you can
+                always go back</li>
+              <li>Push to GitHub with a basic <code>README.md</code> explaining what the project is in one sentence</li>
+              <li>Enable <strong class="text-bright">episodic-memory</strong> and <strong
+                  class="text-bright">commit-commands</strong> plugins in Claude Code</li>
+              <li>Start building. No branches, no CI, no config files. Just code.</li>
+            </ul>
+          </div>
+
+          <div class="workflow-step">
+            <h3>Before Each Feature</h3>
+            <ul>
+              <li>Commit what you have &mdash; even if it's messy. Small commits let you undo mistakes.</li>
+              <li>Use <code>/commit</code> to let Claude handle the commit message</li>
+              <li>Don't overthink structure. If it works, move on.</li>
+            </ul>
+          </div>
+
+          <div class="workflow-step">
+            <h3>Before Sharing or Shelving</h3>
+            <ul>
+              <li>Manual test: open it, click around, make sure nothing is obviously broken</li>
+              <li>Update the README if the project scope changed</li>
+              <li>Push to GitHub so it's backed up and shareable</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== WHY IT MATTERS ==================== -->
+    <div class="section-divider"></div>
+    <section id="why">
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">03 / Why</span>
+            Cost of Skipping
+          </h2>
+
+          <div class="why-row">
+            <span class="why-label">Git init on day one</span>
+            <span class="why-cost">Without it, you can't undo mistakes or recover deleted code</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">Frequent commits</span>
+            <span class="why-cost">Lose an afternoon of work to one bad refactor</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">Push to GitHub</span>
+            <span class="why-cost">Laptop dies, project dies with it</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">README</span>
+            <span class="why-cost">Come back in 3 months and have no idea what this project does</span>
+          </div>
+          <div class="why-row" style="border-bottom: none;">
+            <span class="why-label">Episodic memory</span>
+            <span class="why-cost">Claude forgets your entire context between sessions</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SKILLS ==================== -->
+    <div class="section-divider"></div>
+    <section>
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">04 / Skills</span>
+            Useful Superpowers Skills
+          </h2>
+          <p class="mb-lg">These Claude Code skills help even at the hobby level.</p>
+
+          <div class="skills-callout">
+            <span class="badge badge-accent">episodic-memory</span>
+            <span class="badge badge-accent">commit-commands</span>
+            <span class="badge">brainstorming</span>
+          </div>
+
+          <p class="mt-md" style="font-size: 0.8125rem;">
+            <strong class="text-bright">episodic-memory</strong> keeps context across sessions so you don't repeat
+            yourself.
+            <strong class="text-bright">commit-commands</strong> handles git commits with one command.
+            <strong class="text-bright">brainstorming</strong> helps when you're not sure what to build or how to
+            approach a problem.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SETUP PROMPTS ==================== -->
+    <div class="section-divider"></div>
+    <section id="prompts">
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">05 / Prompts</span>
+            Setup Prompts
+          </h2>
+          <p class="mb-xl">Copy these into Claude Code to bootstrap your project.</p>
+        </div>
+
+        <!-- Prompt 1: Project Bootstrap -->
+        <div class="prompt-section reveal-up">
+          <h3>Project Bootstrap</h3>
+          <p>Scaffolds your project with the right structure for a hobby project.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Project Bootstrap</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>I'm starting a new hobby project. Help me set it up with a lightweight structure.
+
+Ask me these two questions, then scaffold the project:
+
+1. What are you building? (one sentence)
+2. What language/framework are you using?
+
+After I answer, do the following:
+- Initialize a git repo if one doesn't exist
+- Create a README.md with: project name, one-line description, tech stack, and a "Getting Started" section
+- Create a sensible folder structure for the chosen framework (keep it minimal — no over-engineering)
+- Create a .gitignore appropriate for the language/framework
+- Make an initial commit with the message "chore: initial project scaffold"
+- Enable these plugins if not already active: episodic-memory, commit-commands
+
+Do NOT set up:
+- CI/CD pipelines
+- Testing frameworks
+- Branch protection rules
+- Docker or deployment configs
+- Linting configs (unless the framework includes one by default)
+
+Keep it simple. I want to start coding in under 2 minutes.</code></pre>
+          </div>
+        </div>
+
+        <!-- Prompt 2: Generate CLAUDE.md -->
+        <div class="prompt-section reveal-up">
+          <h3>Generate CLAUDE.md</h3>
+          <p>Creates a project-specific CLAUDE.md so Claude understands your codebase.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Generate CLAUDE.md</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Generate a CLAUDE.md file for this project. This file tells Claude Code how to work with this codebase.
+
+Ask me these questions first:
+
+1. What is this project? (one sentence)
+2. What is your tech stack? (language, framework, package manager)
+3. What are the most important files or directories I should know about?
+4. Any hard rules Claude must never break? (e.g., "never delete the database file", "always use async/await")
+5. Any external services or APIs involved?
+
+Then generate a CLAUDE.md file at the project root with this structure:
+
+## Workflow & Behavior
+- Always commit with conventional commit messages using /commit
+- Search episodic memory at the start of each session for prior context
+- Keep changes small and focused — one feature or fix per session
+- Don't over-engineer. This is a hobby project. Simple > clever.
+- Ask before deleting files or making breaking changes
+
+## Essential Commands
+[Fill based on tech stack — e.g., how to run, build, test]
+
+## Architecture Overview
+[Fill based on answers — brief description of folder structure and key files]
+
+## Critical Rules
+[Fill based on answer to question 4, plus sensible defaults]
+
+Keep it concise. Under 60 lines. No boilerplate padding.</code></pre>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <div class="section-divider"></div>
+    <footer class="footer">
+      <div class="container">
+        <p></p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // Floating nav morph on scroll
+    const nav = document.getElementById('nav');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          nav.classList.toggle('scrolled', window.scrollY > 80);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Scroll-triggered staggered reveal
+    const reveals = document.querySelectorAll('.reveal-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          if (entry.target.classList.contains('bento-grid')) {
+            const cards = entry.target.querySelectorAll('.bento-card');
+            cards.forEach((card, index) => {
+              card.style.animationDelay = `${index * 100}ms`;
+              card.classList.add('visible');
+            });
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // Bento Box Spotlight Effect
+    document.querySelectorAll('.bento-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  </script>
+  <script src="copy.js"></script>
+
+</body>
+
+</html>

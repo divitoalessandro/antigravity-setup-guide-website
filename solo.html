@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serious Solo Projects — Antigravity + Claude Code</title>
+  <meta name="description"
+    content="Setup guide for serious solo projects with Google Antigravity and Claude Code. Feature branches, testing, CI/CD.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="grain"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#workflow">Workflow</a></li>
+        <li><a href="#why">Why</a></li>
+        <li><a href="#prompts">Prompts</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="subpage-hero">
+      <div class="hero-glow"></div>
+      <div class="hero-glow hero-glow-secondary"></div>
+      <div class="container">
+        <a href="index.html" class="back-link">&larr; Back to overview</a>
+        <div class="reveal-up">
+          <h1>
+            <span class="text-gradient">Serious</span><br>
+            <span class="serif">Solo</span>
+          </h1>
+          <p class="hero-subtitle mt-md">
+            Real apps you ship to real users. SaaS products, client deliverables,
+            portfolio projects that need to actually work. You're alone, but the
+            stakes are real.
+          </p>
+          <div style="margin-top: 1.25rem;">
+            <span class="badge badge-accent">Real apps</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CHARACTER ==================== -->
+    <div class="section-divider"></div>
+    <section>
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">01 / Character</span>
+            What This Looks Like
+          </h2>
+          <p class="mb-xl">A SaaS you're building on weekends with plans to launch. A client project where you're
+            the sole developer but there's a paying customer on the other end. An open-source tool you maintain
+            alone that people actually depend on.</p>
+          <p>The code matters beyond today. You'll come back to it in weeks or months. Other people might read it.
+            Bugs have consequences &mdash; not just for you, but for users or clients. You need enough structure
+            to stay organized without the overhead of a full team process.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== WORKFLOW ==================== -->
+    <div class="section-divider"></div>
+    <section id="workflow" class="dot-grid">
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">02 / Workflow</span>
+            Step by Step
+          </h2>
+          <p class="mb-xl">Structured enough to prevent disasters. Light enough to stay productive.</p>
+        </div>
+
+        <div class="reveal-up">
+          <div class="workflow-step">
+            <h3>Day 1</h3>
+            <ul>
+              <li>Initialize git repo and push to GitHub</li>
+              <li>Create a <code>README.md</code> with project description, tech stack, and how to run locally</li>
+              <li>Set up a basic CI pipeline &mdash; a GitHub Action that runs linting and tests on every push (even if
+                you have zero tests at first, the pipeline is ready)</li>
+              <li>Enable plugins: <strong class="text-bright">superpowers</strong>, <strong
+                  class="text-bright">episodic-memory</strong>, <strong class="text-bright">context7</strong>, <strong
+                  class="text-bright">commit-commands</strong>, <strong class="text-bright">github</strong></li>
+              <li>Generate a <code>CLAUDE.md</code> using the prompt below &mdash; this is your project's instruction
+                manual for Claude</li>
+              <li>Use <strong class="text-bright">conventional commits</strong> from the start &mdash; a standardized
+                format like <code>feat:</code>, <code>fix:</code>, <code>chore:</code> that makes your git history
+                readable</li>
+            </ul>
+          </div>
+
+          <div class="workflow-step">
+            <h3>Before Each Feature</h3>
+            <ul>
+              <li>Create a <strong class="text-bright">feature branch</strong> &mdash; an isolated copy of the codebase
+                where you build one thing without affecting the stable <code>main</code> branch</li>
+              <li>Use <code>/plan</code> or the <strong class="text-bright">writing-plans</strong> skill to think
+                through the approach before writing code</li>
+              <li>Write tests for the critical path first &mdash; at minimum, test that the happy path works</li>
+              <li>Commit frequently with clear messages: <code>feat: add user login</code>,
+                <code>fix: handle empty cart</code>
+              </li>
+            </ul>
+          </div>
+
+          <div class="workflow-step">
+            <h3>Before Shipping</h3>
+            <ul>
+              <li>Open a <strong class="text-bright">pull request</strong> (PR) &mdash; even as a solo dev, this gives
+                you a place to review your own changes as a batch</li>
+              <li>Self-review the diff: read every line you changed. Catch the dumb mistakes before they ship.</li>
+              <li><strong class="text-bright">Squash merge</strong> into <code>main</code> &mdash; this collapses all
+                your feature commits into one clean commit on the main branch</li>
+              <li>Verify the CI pipeline passes before merging</li>
+              <li>Deploy from <code>main</code> only</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== WHY IT MATTERS ==================== -->
+    <div class="section-divider"></div>
+    <section id="why">
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">03 / Why</span>
+            Cost of Skipping
+          </h2>
+
+          <div class="why-row">
+            <span class="why-label">Feature branches</span>
+            <span class="why-cost">One broken commit on main and your production is down</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">Tests on critical paths</span>
+            <span class="why-cost">Ship a regression to your paying client, lose trust overnight</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">CI pipeline</span>
+            <span class="why-cost">Merge code that doesn't even compile. Happens more than you think.</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">Self-review via PR</span>
+            <span class="why-cost">Miss a console.log, a hardcoded password, or a broken import</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">Conventional commits</span>
+            <span class="why-cost">Come back in 3 months to "fix stuff" and "updates" in the git log</span>
+          </div>
+          <div class="why-row">
+            <span class="why-label">CLAUDE.md</span>
+            <span class="why-cost">Claude generates code that doesn't match your patterns or stack</span>
+          </div>
+          <div class="why-row" style="border-bottom: none;">
+            <span class="why-label">Squash merge</span>
+            <span class="why-cost">Main branch history becomes an unreadable mess of WIP commits</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SKILLS ==================== -->
+    <div class="section-divider"></div>
+    <section>
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">04 / Skills</span>
+            Useful Superpowers Skills
+          </h2>
+          <p class="mb-lg">At this level, the workflow skills start paying for themselves.</p>
+
+          <div class="skills-callout">
+            <span class="badge badge-accent">writing-plans</span>
+            <span class="badge badge-accent">test-driven-development</span>
+            <span class="badge badge-accent">commit-commands</span>
+            <span class="badge">episodic-memory</span>
+            <span class="badge">brainstorming</span>
+            <span class="badge">using-git-worktrees</span>
+          </div>
+
+          <p class="mt-md" style="font-size: 0.8125rem;">
+            <strong class="text-bright">writing-plans</strong> forces you to think before coding &mdash; prevents wasted
+            work on the wrong approach.
+            <strong class="text-bright">test-driven-development</strong> ensures you write tests before implementation.
+            <strong class="text-bright">using-git-worktrees</strong> lets you experiment in isolation without stashing
+            or switching branches.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SETUP PROMPTS ==================== -->
+    <div class="section-divider"></div>
+    <section id="prompts">
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">05 / Prompts</span>
+            Setup Prompts
+          </h2>
+          <p class="mb-xl">Copy these into Claude Code to bootstrap your project with the right structure.</p>
+        </div>
+
+        <!-- Prompt 1: Project Bootstrap -->
+        <div class="prompt-section reveal-up">
+          <h3>Project Bootstrap</h3>
+          <p>Sets up git, CI, folder structure, and essential config for a solo project.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Project Bootstrap</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>I'm starting a serious solo project. Help me set it up with proper structure for long-term maintenance.
+
+Ask me these three questions, then scaffold the project:
+
+1. What are you building? (one sentence)
+2. What language/framework are you using?
+3. Is this a fresh repo or an existing one?
+
+After I answer, do the following:
+
+**Git setup:**
+- Initialize git repo if fresh (or verify existing)
+- Create a .gitignore appropriate for the stack
+- Set up conventional commit style (I'll use /commit going forward)
+
+**Project structure:**
+- Create a README.md with: project name, description, tech stack, how to run locally, how to run tests
+- Create a sensible folder structure for the framework
+- Add a basic linting config if the framework supports it (ESLint, ruff, etc.)
+- Set up a minimal test runner and create one example test file
+
+**CI/CD:**
+- Create a GitHub Actions workflow (.github/workflows/ci.yml) that:
+  - Runs on push to main and on pull requests
+  - Installs dependencies
+  - Runs linting
+  - Runs tests
+  - Keep it under 30 lines if possible
+
+**Plugins to enable:**
+- superpowers, episodic-memory, context7, commit-commands, github
+
+Make an initial commit: "chore: initial project scaffold with CI"
+
+Do NOT set up:
+- Docker or containerization
+- Staging environments
+- Branch protection (I'll add that manually if needed)
+- Deployment pipelines (just CI for now)</code></pre>
+          </div>
+        </div>
+
+        <!-- Prompt 2: Generate CLAUDE.md -->
+        <div class="prompt-section reveal-up">
+          <h3>Generate CLAUDE.md</h3>
+          <p>Creates a project-specific CLAUDE.md so Claude understands your codebase and workflow.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Generate CLAUDE.md</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Generate a CLAUDE.md file for this project. This file tells Claude Code how to work with this codebase.
+
+Ask me these questions first:
+
+1. What is this project? (one sentence)
+2. What is your tech stack? (language, framework, package manager, database if any)
+3. What are the most important files or directories I should know about?
+4. Any hard rules Claude must never break? (e.g., "never commit to main directly", "always write tests for new features")
+5. Any external services or APIs involved?
+
+Then generate a CLAUDE.md file at the project root with this structure:
+
+## Workflow & Behavior
+- Use conventional commits via /commit for all changes
+- Search episodic memory at the start of each session for prior context
+- Always create a feature branch before starting work (never commit directly to main)
+- Use writing-plans skill before implementing features with more than 3 steps
+- Write tests for critical paths before marking work as done
+- Self-review changes before creating a PR
+- Keep commits small and focused — one logical change per commit
+- Ask before deleting files, dropping tables, or making breaking changes to APIs
+
+## Essential Commands
+[Fill based on tech stack — how to install, run dev server, run tests, lint, build]
+
+## Architecture Overview
+[Fill based on answers — folder structure, key files, data flow]
+
+## Data Model
+[Fill if relevant — database tables, key relationships, important schemas]
+
+## Development Patterns
+[Fill based on stack — naming conventions, file organization, error handling approach]
+
+## Critical Rules
+[Fill based on answer to question 4, plus these defaults:]
+- Never expose API keys or secrets in code
+- Never skip tests to ship faster
+- Always handle errors at API boundaries
+- Keep dependencies minimal — don't add a library for something the language can do natively
+
+Target length: 60–100 lines. Concise but complete.</code></pre>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <div class="section-divider"></div>
+    <footer class="footer">
+      <div class="container">
+        <p></p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // Floating nav morph on scroll
+    const nav = document.getElementById('nav');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          nav.classList.toggle('scrolled', window.scrollY > 80);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Scroll-triggered staggered reveal
+    const reveals = document.querySelectorAll('.reveal-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          if (entry.target.classList.contains('bento-grid')) {
+            const cards = entry.target.querySelectorAll('.bento-card');
+            cards.forEach((card, index) => {
+              card.style.animationDelay = `${index * 100}ms`;
+              card.classList.add('visible');
+            });
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // Bento Box Spotlight Effect
+    document.querySelectorAll('.bento-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+  </script>
+  <script src="copy.js"></script>
+
+</body>
+
+</html>

@@ -1,295 +1,565 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Antigravity + Claude Code Setup</title>
-  <meta name="description" content="A professional cheatsheet for setting up Google Antigravity with Claude Code. Plugins, models, workflow, and project-scale best practices.">
+  <title>Antigravity + Claude Code</title>
+  <meta name="description"
+    content="Professional setup guide for Google Antigravity with Claude Code. Plugins, models, workflow, and project-scale best practices.">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/style.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="hero-grain"></div>
+  <div class="grain"></div>
 
-<nav class="nav">
-  <div class="nav-inner">
-    <span class="nav-brand">AG + Claude Code</span>
-    <ul class="nav-links">
-      <li><a href="#plugins">Plugins</a></li>
-      <li><a href="#models">Models</a></li>
-      <li><a href="#workflow">Workflow</a></li>
-      <li><a href="#setup">Setup</a></li>
-    </ul>
-  </div>
-</nav>
-
-<main class="container">
-
-  <!-- HERO: Asymmetric layout -->
-  <section class="hero" style="--i:0">
-    <div class="hero-content reveal">
-      <h1>Antigravity +<br>Claude Code</h1>
-      <p class="hero-subtitle">
-        A professional setup guide for Google's agent-first IDE paired with Claude Code.
-        Plugins, model selection, workflow habits, and project-scale best practices
-        &mdash; all in one place.
-      </p>
-    </div>
-    <div class="hero-meta reveal" style="--i:1">
-      <span class="badge">v1.0</span>
-      <span class="badge badge-accent">Last updated Mar 2026</span>
-      <span class="badge">Static HTML &middot; No build tools</span>
-    </div>
-  </section>
-
-  <!-- PLUGINS -->
-  <section id="plugins" style="--i:2">
-    <div class="reveal" style="--i:2">
-      <h2>Essential Plugins (Tier 1)</h2>
-      <p class="mb-lg">These 5 plugins earn their place on day one. Everything else is optional until you have a concrete use case.</p>
-
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Plugin</th>
-              <th>What it does</th>
-              <th>Why essential</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>superpowers</td>
-              <td>Core runtime for skills, git worktrees, brainstorming, debugging</td>
-              <td>Everything else builds on this</td>
-            </tr>
-            <tr>
-              <td>episodic-memory</td>
-              <td>Gives Claude persistent memory across sessions</td>
-              <td>Without this, Claude forgets everything between conversations</td>
-            </tr>
-            <tr>
-              <td>context7</td>
-              <td>Pulls live library documentation into context</td>
-              <td>Prevents hallucinated APIs and outdated suggestions</td>
-            </tr>
-            <tr>
-              <td>commit-commands</td>
-              <td>Commit, push, and open PRs in a single step</td>
-              <td>Daily time saver with minimal overhead</td>
-            </tr>
-            <tr>
-              <td>github</td>
-              <td>GitHub integration for issues, PRs, and repo management</td>
-              <td>Required if your code lives on GitHub</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="callout mt-lg">
-        If you can't name a concrete use case from the last week, don't enable it.
-      </div>
-    </div>
-  </section>
-
-  <!-- MODELS -->
-  <section id="models" style="--i:3">
-    <div class="reveal" style="--i:3">
-      <h2>When to Use Which Model</h2>
-      <p class="mb-lg">Antigravity supports multiple AI models. Each has a sweet spot.</p>
-
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Model</th>
-              <th>Best for</th>
-              <th>When to reach for it</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Gemini 3.1 Pro</td>
-              <td>Long context, codebase-wide reasoning, exploration</td>
-              <td>Default model in Antigravity. Use for broad codebase questions and refactoring.</td>
-            </tr>
-            <tr>
-              <td>Claude Sonnet 4.6</td>
-              <td>Nuanced writing, complex logic, architecture decisions</td>
-              <td>When you need careful reasoning, planning, or handling ambiguous requirements.</td>
-            </tr>
-            <tr>
-              <td>GPT-4o</td>
-              <td>General-purpose, wide ecosystem knowledge</td>
-              <td>When specifically requested by a client or team, or for broad general knowledge.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- WORKFLOW -->
-  <section id="workflow" style="--i:4">
-    <div class="reveal" style="--i:4">
-      <h2>Workflow Habits</h2>
-      <p class="mb-lg">Agent-first development changes how you work. These habits make the difference.</p>
-
-      <ul class="workflow-step" style="list-style: none; padding: 0; border: none;">
-        <li><strong class="text-white">Start every session with context.</strong> Use episodic-memory to recall previous decisions before diving in.</li>
-        <li><strong class="text-white">Plan before you code.</strong> Use brainstorming and writing-plans skills. Let the agent think through the approach first.</li>
-        <li><strong class="text-white">One task per agent.</strong> Keep subagents focused. Broad requests produce mediocre results.</li>
-        <li><strong class="text-white">Verify before marking done.</strong> Run tests, check output, read diffs. Never trust "it should work."</li>
-        <li><strong class="text-white">Commit frequently.</strong> Small, focused commits. Use conventional commit messages. Let the agent handle the boilerplate.</li>
-        <li><strong class="text-white">Review agent output like a PR.</strong> Read the code. Understand the changes. You're the architect, the agent is the implementer.</li>
-        <li><strong class="text-white">Document decisions, not code.</strong> Write down why you chose an approach, not what the code does. The code speaks for itself.</li>
+  <!-- Navigation: Floating Pill -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <ul class="nav-links">
+        <li><a href="#get-started">Start</a></li>
+        <li><a href="#plugins">Plugins</a></li>
+        <li><a href="#models">Models</a></li>
+        <li><a href="#workflow">Workflow</a></li>
+        <li><a href="#setup">Setup</a></li>
       </ul>
     </div>
-  </section>
+  </nav>
 
-  <!-- SETUP: How much do I need? -->
-  <section id="setup" style="--i:5">
-    <div class="reveal" style="--i:5">
-      <h2>How Much Setup Do I Need?</h2>
-      <p class="mb-lg">Not every project needs a full CI/CD pipeline. Pick the column that matches your project, then follow the link for a detailed walkthrough.</p>
+  <main>
 
-      <div class="comparison-grid">
-        <!-- Column 1: Hobby -->
-        <div class="comparison-col">
-          <div class="comparison-col-header">
-            <h3>Hobby</h3>
-            <span class="badge">Weekend projects</span>
+    <!-- ==================== HERO ==================== -->
+    <section class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-glow hero-glow-secondary"></div>
+      <div class="container">
+        <div class="hero-inner">
+          <div class="hero-content">
+            <h1>
+              <span class="text-gradient">Setup your</span><br>
+              <span class="serif">Antigravity</span>
+            </h1>
+            <p class="hero-subtitle">
+              A reference guide for pairing Google's agent-first IDE
+              with Claude Code. The essential plugins, the right model
+              for the job, and how much process you actually need.
+            </p>
           </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Git branches</div>
-            <div class="comparison-row-value"><code>main</code> only</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Merging</div>
-            <div class="comparison-row-value">Direct commit</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Testing</div>
-            <div class="comparison-row-value">None</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Documentation</div>
-            <div class="comparison-row-value">README</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">CI/CD</div>
-            <div class="comparison-row-value">None</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Environments</div>
-            <div class="comparison-row-value">Local only</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Commit style</div>
-            <div class="comparison-row-value">Anything goes</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Code review</div>
-            <div class="comparison-row-value">None</div>
-          </div>
-          <div class="comparison-cta">
-            <a href="hobby.html" class="btn btn-ghost">Learn more</a>
+          <div class="hero-meta">
+            <div class="hero-terminal">
+              <div class="line"><span class="prompt">$</span> claude <span class="flag">--plugins</span></div>
+              <div class="line"><span class="dim">&gt;</span> superpowers <span class="dim">............</span> active
+              </div>
+              <div class="line"><span class="dim">&gt;</span> episodic-memory <span class="dim">......</span> active
+              </div>
+              <div class="line"><span class="dim">&gt;</span> context7 <span class="dim">.............</span> active
+              </div>
+              <div class="line"><span class="dim">&gt;</span> <span class="cursor"></span></div>
+            </div>
+            <div style="display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 0.75rem;">
+              <span class="badge">v1.0</span>
+              <span class="badge badge-accent">Mar 2026</span>
+            </div>
           </div>
         </div>
+        <div class="hero-start">
+          <a href="#get-started" class="btn btn-ghost hero-start-btn">Start <span class="btn-arrow">&darr;</span></a>
+        </div>
+      </div>
+    </section>
 
-        <!-- Column 2: Serious Solo -->
-        <div class="comparison-col">
-          <div class="comparison-col-header">
-            <h3>Serious Solo</h3>
-            <span class="badge badge-accent">Real apps</span>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Git branches</div>
-            <div class="comparison-row-value"><code>main</code> + feature branches</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Merging</div>
-            <div class="comparison-row-value">Squash merge via PR</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Testing</div>
-            <div class="comparison-row-value">Unit tests for critical paths</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Documentation</div>
-            <div class="comparison-row-value">README + inline comments</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">CI/CD</div>
-            <div class="comparison-row-value">Lint + test on push</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Environments</div>
-            <div class="comparison-row-value">Local + production</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Commit style</div>
-            <div class="comparison-row-value">Conventional commits</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Code review</div>
-            <div class="comparison-row-value">Self-review before merge</div>
-          </div>
-          <div class="comparison-cta">
-            <a href="solo.html" class="btn btn-primary">Learn more</a>
-          </div>
+    <!-- ==================== GET STARTED ==================== -->
+    <div class="section-divider"></div>
+    <section id="get-started">
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">00 / Get Started</span>
+            Download Google Antigravity
+          </h2>
+          <p class="mb-xl">Antigravity is Google's agent-first IDE &mdash; a VS Code fork with Gemini built in. Get it
+            first, then connect Claude Code.</p>
         </div>
 
-        <!-- Column 3: Team & Client -->
-        <div class="comparison-col">
-          <div class="comparison-col-header">
-            <h3>Team & Client Projects</h3>
-            <span class="badge badge-success">Production</span>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Git branches</div>
-            <div class="comparison-row-value"><code>main</code> + <code>dev</code> + feature branches</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Merging</div>
-            <div class="comparison-row-value">Protected branches, required PR</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Testing</div>
-            <div class="comparison-row-value">Unit + integration + e2e</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Documentation</div>
-            <div class="comparison-row-value">README + ADRs + feature docs</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">CI/CD</div>
-            <div class="comparison-row-value">Full pipeline (test, build, deploy)</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Environments</div>
-            <div class="comparison-row-value">Local + staging + production</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Commit style</div>
-            <div class="comparison-row-value">Conventional commits, enforced</div>
-          </div>
-          <div class="comparison-row">
-            <div class="comparison-row-label">Code review</div>
-            <div class="comparison-row-value">Required peer review</div>
-          </div>
-          <div class="comparison-cta">
-            <a href="team.html" class="btn btn-ghost">Learn more</a>
+        <div class="reveal-up">
+          <a href="https://antigravity.google/" target="_blank" rel="noopener" class="btn btn-primary"
+            style="margin-bottom: 2.5rem;">
+            Download Antigravity <span class="btn-arrow">&rarr;</span>
+          </a>
+
+          <!-- Toggle: How to activate Claude Code -->
+          <div class="toggle-section">
+            <button class="toggle-trigger" id="claude-toggle" aria-expanded="false">
+              <span class="toggle-icon">+</span>
+              <span>How to activate Claude Code in Antigravity</span>
+            </button>
+            <div class="toggle-content" id="claude-toggle-content">
+              <div class="toggle-steps">
+                <div class="toggle-step">
+                  <span class="toggle-step-num">1</span>
+                  <div>
+                    <div class="toggle-step-title">Install the Claude Code extension</div>
+                    <div class="toggle-step-desc">Open the Extensions panel in Antigravity (<code>Cmd+Shift+X</code>),
+                      search for <strong class="text-bright">Claude Code</strong> by Anthropic, and install it.</div>
+                  </div>
+                </div>
+                <div class="toggle-step">
+                  <span class="toggle-step-num">2</span>
+                  <div>
+                    <div class="toggle-step-title">Sign in to your Anthropic account</div>
+                    <div class="toggle-step-desc">You need a <strong class="text-bright">Claude Pro</strong>, <strong
+                        class="text-bright">Max</strong>, or <strong class="text-bright">Team</strong> subscription.
+                      Alternatively, connect via the <strong class="text-bright">Claude API</strong> with your API key
+                      if you prefer usage-based billing.</div>
+                  </div>
+                </div>
+                <div class="toggle-step">
+                  <span class="toggle-step-num">3</span>
+                  <div>
+                    <div class="toggle-step-title">Verify the connection</div>
+                    <div class="toggle-step-desc">Open the Claude Code panel and send a test message. If you see a
+                      response, you're connected. Install the <code>superpowers</code> plugin next &mdash; it's the
+                      foundation for everything below.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-</main>
+    <!-- ==================== PLUGINS ==================== -->
+    <div class="section-divider"></div>
+    <section id="plugins">
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">01 / Plugins</span>
+            Essential Plugins
+          </h2>
+          <p class="mb-xl">Five plugins that earn their place on day one. Everything else is optional until you have a
+            concrete reason.</p>
+        </div>
+
+        <div class="bento-grid plugin-grid reveal-up">
+          <!-- We no longer need the header row in the new design -->
+
+          <div class="bento-card">
+            <div class="bento-content">
+              <div class="plugin-name">superpowers</div>
+              <div class="plugin-desc">Core runtime for skills, git worktrees, brainstorming, debugging, and plan
+                execution.</div>
+              <div class="plugin-why">Everything else builds on this. It is the backbone.</div>
+            </div>
+          </div>
+
+          <div class="bento-card">
+            <div class="bento-content">
+              <div class="plugin-name">episodic-memory</div>
+              <div class="plugin-desc">Gives Claude persistent memory across sessions. Recalls previous decisions,
+                context, and patterns.</div>
+              <div class="plugin-why">Without this, every session starts from zero. Non-negotiable.</div>
+            </div>
+          </div>
+
+          <div class="bento-card">
+            <div class="bento-content">
+              <div class="plugin-name">context7</div>
+              <div class="plugin-desc">Pulls live, up-to-date library documentation directly into the conversation
+                context.</div>
+              <div class="plugin-why">Prevents hallucinated APIs and outdated code suggestions.</div>
+            </div>
+          </div>
+
+          <div class="bento-card">
+            <div class="bento-content">
+              <div class="plugin-name">commit-commands</div>
+              <div class="plugin-desc">Commit, push, and open pull requests in a single command. Handles conventional
+                commit messages.</div>
+              <div class="plugin-why">Daily time saver. Minimal overhead, real daily value.</div>
+            </div>
+          </div>
+
+          <div class="bento-card">
+            <div class="bento-content">
+              <div class="plugin-name">github</div>
+              <div class="plugin-desc">GitHub integration for issues, pull requests, repo management, and CI status
+                checks.</div>
+              <div class="plugin-why">Required if your code lives on GitHub.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout reveal-up">
+          If you can't name a concrete use case from the last week, don't enable it.
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== MODELS ==================== -->
+    <div class="section-divider"></div>
+    <section id="models" class="dot-grid">
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">02 / Models</span>
+            When to Use Which Model
+          </h2>
+          <p class="mb-xl">Antigravity supports multiple AI models. Each has a distinct strength. Pick deliberately, not
+            randomly.</p>
+        </div>
+
+        <div class="model-grid reveal-up">
+          <div class="model-row">
+            <div>
+              <div class="model-name">Gemini 3.1 Pro</div>
+              <div class="model-title">The default workhorse. Massive context window.</div>
+              <div class="model-desc">Best for codebase-wide exploration, large refactors, and questions that require
+                reasoning across many files simultaneously.</div>
+            </div>
+            <div>
+              <div class="model-usecase">Start here for everyday tasks in Antigravity. Its long context window makes it
+                ideal for "show me everything" type queries and broad refactoring across dozens of files.</div>
+            </div>
+          </div>
+          <div class="model-row">
+            <div>
+              <div class="model-name">Claude Opus 4.6</div>
+              <div class="model-title">The heavyweight. Deep thinking, hard problems.</div>
+              <div class="model-desc">The most capable Claude model. Excels at complex multi-step reasoning, intricate
+                debugging, and tasks where correctness is critical.</div>
+            </div>
+            <div>
+              <div class="model-usecase">Reach for Opus when the problem is genuinely hard &mdash; deep architectural
+                decisions, subtle bugs that Sonnet can't crack, or when you need the highest quality output regardless
+                of speed. Costs more, worth it for the hard stuff.</div>
+            </div>
+          </div>
+          <div class="model-row">
+            <div>
+              <div class="model-name">Claude Sonnet 4.6</div>
+              <div class="model-title">Fast, sharp, cost-efficient. The daily driver.</div>
+              <div class="model-desc">Excellent balance of speed and intelligence. Strong at architecture planning, code
+                generation, nuanced writing, and trade-off analysis.</div>
+            </div>
+            <div>
+              <div class="model-usecase">Your go-to Claude model for most tasks. Fast enough for iteration, smart enough
+                for complex work. Use Sonnet first, escalate to Opus only when you hit a ceiling.</div>
+            </div>
+          </div>
+          <div class="model-row">
+            <div>
+              <div class="model-name">GPT-4o</div>
+              <div class="model-title">General-purpose. Broad ecosystem knowledge.</div>
+              <div class="model-desc">Wide training data, strong general capability. Useful for broad knowledge
+                questions and when teams standardize on OpenAI tooling.</div>
+            </div>
+            <div>
+              <div class="model-usecase">Use when working with a team that requires OpenAI, or for tasks that benefit
+                from its broad general knowledge base. Not your primary — a fallback for specific contexts.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== WORKFLOW ==================== -->
+    <div class="section-divider"></div>
+    <section id="workflow" class="dot-grid">
+      <div class="container">
+        <div class="reveal-up">
+          <h2>
+            <span class="label">03 / Workflow</span><!-- renumbered -->
+            Habits for Agent-First Development
+          </h2>
+          <p class="mb-xl">Working with AI agents changes how you operate. These habits separate productive sessions
+            from wasted ones.</p>
+        </div>
+
+        <div class="bento-grid workflow-grid reveal-up">
+          <div class="bento-card">
+            <div class="bento-content">
+              <span class="workflow-num">01</span>
+              <div class="workflow-title">Start every session with context</div>
+              <div class="workflow-desc">Use episodic-memory to recall previous decisions before diving into new work.
+              </div>
+            </div>
+          </div>
+          <div class="bento-card">
+            <div class="bento-content">
+              <span class="workflow-num">02</span>
+              <div class="workflow-title">Plan before you code</div>
+              <div class="workflow-desc">Use brainstorming and writing-plans skills. Let the agent think through the
+                approach first.</div>
+            </div>
+          </div>
+          <div class="bento-card">
+            <div class="bento-content">
+              <span class="workflow-num">03</span>
+              <div class="workflow-title">One task per agent</div>
+              <div class="workflow-desc">Keep subagents focused on single responsibilities. Broad requests produce
+                mediocre results.</div>
+            </div>
+          </div>
+          <div class="bento-card">
+            <div class="bento-content">
+              <span class="workflow-num">04</span>
+              <div class="workflow-title">Verify before marking done</div>
+              <div class="workflow-desc">Run tests, check output, read diffs. Never trust "it should work."</div>
+            </div>
+          </div>
+          <div class="bento-card">
+            <div class="bento-content">
+              <span class="workflow-num">05</span>
+              <div class="workflow-title">Commit frequently</div>
+              <div class="workflow-desc">Small, focused commits. Conventional messages. Let the agent handle the
+                boilerplate.</div>
+            </div>
+          </div>
+          <div class="bento-card">
+            <div class="bento-content">
+              <span class="workflow-num">06</span>
+              <div class="workflow-title">Review output like a pull request</div>
+              <div class="workflow-desc">Read the code. Understand the changes. You are the architect, the agent is the
+                implementer.</div>
+            </div>
+          </div>
+          <div class="bento-card">
+            <div class="bento-content">
+              <span class="workflow-num">07</span>
+              <div class="workflow-title">Document decisions, not code</div>
+              <div class="workflow-desc">Write down why you chose an approach. The code speaks for itself.</div>
+            </div>
+          </div>
+          <div class="bento-card">
+            <div class="bento-content">
+              <span class="workflow-num">08</span>
+              <div class="workflow-title">Use worktrees for isolation</div>
+              <div class="workflow-desc">Never experiment on main. Worktrees give you a clean sandbox without stashing.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SETUP COMPARISON ==================== -->
+    <div class="section-divider"></div>
+    <section id="setup">
+      <div class="container">
+        <div class="comparison-section-header reveal-up">
+          <h2>
+            <span class="label">04 / Setup</span><!-- renumbered -->
+            How Much Setup Do You Need?
+          </h2>
+          <p>Not every project needs a CI/CD pipeline. Pick the column that matches your reality.</p>
+        </div>
+
+        <div class="comparison-cols reveal-up">
+          <!-- Hobby -->
+          <div class="comp-col">
+            <div class="comp-col-title">Hobby</div>
+            <div class="comp-col-badge"><span class="badge">Weekend projects</span></div>
+            <div class="comp-row">
+              <div class="comp-row-label">Git</div>
+              <div class="comp-row-value"><code>main</code> only</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Merging</div>
+              <div class="comp-row-value">Direct commit</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Testing</div>
+              <div class="comp-row-value">None</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Docs</div>
+              <div class="comp-row-value">README</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">CI/CD</div>
+              <div class="comp-row-value">None</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Environments</div>
+              <div class="comp-row-value">Local only</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Commits</div>
+              <div class="comp-row-value">Anything goes</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Review</div>
+              <div class="comp-row-value">None</div>
+            </div>
+            <div class="comp-cta">
+              <a href="hobby.html" class="btn btn-ghost">Deep dive <span class="btn-arrow">&rarr;</span></a>
+            </div>
+          </div>
+
+          <!-- Serious Solo (featured) -->
+          <div class="comp-col featured">
+            <div class="comp-col-title">Serious Solo</div>
+            <div class="comp-col-badge"><span class="badge badge-accent">Real apps</span></div>
+            <div class="comp-row">
+              <div class="comp-row-label">Git</div>
+              <div class="comp-row-value"><code>main</code> + feature branches</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Merging</div>
+              <div class="comp-row-value">Squash merge via PR</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Testing</div>
+              <div class="comp-row-value">Unit tests, critical paths</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Docs</div>
+              <div class="comp-row-value">README + inline comments</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">CI/CD</div>
+              <div class="comp-row-value">Lint + test on push</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Environments</div>
+              <div class="comp-row-value">Local + production</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Commits</div>
+              <div class="comp-row-value">Conventional commits</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Review</div>
+              <div class="comp-row-value">Self-review before merge</div>
+            </div>
+            <div class="comp-cta">
+              <a href="solo.html" class="btn btn-primary">Deep dive <span class="btn-arrow">&rarr;</span></a>
+            </div>
+          </div>
+
+          <!-- Team & Client -->
+          <div class="comp-col">
+            <div class="comp-col-title">Team & Client</div>
+            <div class="comp-col-badge"><span class="badge badge-success">Production</span></div>
+            <div class="comp-row">
+              <div class="comp-row-label">Git</div>
+              <div class="comp-row-value"><code>main</code> + <code>dev</code> + features</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Merging</div>
+              <div class="comp-row-value">Protected branches, required PR</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Testing</div>
+              <div class="comp-row-value">Unit + integration + e2e</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Docs</div>
+              <div class="comp-row-value">README + ADRs + feature docs</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">CI/CD</div>
+              <div class="comp-row-value">Full pipeline</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Environments</div>
+              <div class="comp-row-value">Local + staging + production</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Commits</div>
+              <div class="comp-row-value">Conventional, enforced</div>
+            </div>
+            <div class="comp-row">
+              <div class="comp-row-label">Review</div>
+              <div class="comp-row-value">Required peer review</div>
+            </div>
+            <div class="comp-cta">
+              <a href="team.html" class="btn btn-ghost">Deep dive <span class="btn-arrow">&rarr;</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <div class="section-divider"></div>
+    <footer class="footer">
+      <div class="container">
+        <p></p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // Floating nav morph on scroll
+    const nav = document.getElementById('nav');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          nav.classList.toggle('scrolled', window.scrollY > 80);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Scroll-triggered staggered reveal
+    const reveals = document.querySelectorAll('.reveal-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // If it's a grid, stagger its children
+          if (entry.target.classList.contains('bento-grid')) {
+            const cards = entry.target.querySelectorAll('.bento-card');
+            cards.forEach((card, index) => {
+              card.style.animationDelay = `${index * 100}ms`;
+              card.classList.add('visible');
+            });
+          }
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Bento Box Spotlight Effect
+    document.querySelectorAll('.bento-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    // Toggle sections
+    document.querySelectorAll('.toggle-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', !expanded);
+        const content = btn.nextElementSibling;
+        if (!expanded) {
+          content.style.maxHeight = content.scrollHeight + 'px';
+          btn.querySelector('.toggle-icon').textContent = '\u2212';
+        } else {
+          content.style.maxHeight = '0';
+          btn.querySelector('.toggle-icon').textContent = '+';
+        }
+      });
+    });
+  </script>
 
 </body>
+
 </html>
