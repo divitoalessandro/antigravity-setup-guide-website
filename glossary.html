@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe-Coder Glossary — Antigravity + Claude Code</title>
+  <meta name="description"
+    content="The A–Z glossary for vibe coders. AI terms, dev concepts, and workflow slang — explained simply.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .glossary-nav {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .glossary-nav-btn {
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 0.8125rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .glossary-nav-btn:hover,
+    .glossary-nav-btn.active {
+      border-color: var(--accent);
+      color: var(--text-primary);
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    .glossary-search {
+      width: 100%;
+      max-width: 480px;
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.9375rem;
+      margin-bottom: 2.5rem;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .glossary-search:focus {
+      border-color: var(--accent);
+    }
+
+    .glossary-search::placeholder {
+      color: var(--text-muted);
+    }
+
+    .glossary-category {
+      margin-bottom: 4rem;
+    }
+
+    .glossary-category-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .glossary-term {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.05));
+      transition: opacity 0.15s ease;
+    }
+
+    .glossary-term:last-child {
+      border-bottom: none;
+    }
+
+    .glossary-term.hidden {
+      display: none;
+    }
+
+    .term-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+    }
+
+    .term-name {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .term-toggle {
+      margin-left: auto;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .term-body {
+      display: none;
+    }
+
+    .term-body.open {
+      display: block;
+    }
+
+    .term-header.open .term-toggle {
+      transform: rotate(180deg);
+    }
+
+    .term-explanation {
+      color: var(--text-secondary);
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+      padding: 0.875rem 1rem;
+      background: var(--surface);
+      border-radius: 8px;
+      border-left: 2px solid var(--accent);
+    }
+
+    .term-meta {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .term-meta-row {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    .term-meta-label {
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      width: 5.5rem;
+      padding-top: 0.125rem;
+    }
+
+    .term-meta-value {
+      color: var(--text-secondary);
+    }
+
+    .term-meta-value code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem;
+      background: var(--surface);
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+      color: var(--accent-light, #a5b4fc);
+    }
+
+    .best-practices-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    .best-practices-table th {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .best-practices-table td {
+      padding: 0.875rem 0.75rem;
+      border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.05));
+      vertical-align: top;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .best-practices-table td:first-child {
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .best-practices-table td:nth-child(2) {
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      padding-right: 1.5rem;
+    }
+
+    .no-results {
+      color: var(--text-muted);
+      font-size: 0.9375rem;
+      padding: 2rem 0;
+      display: none;
+    }
+
+    .slang-letter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent-light, #a5b4fc);
+      background: rgba(99, 102, 241, 0.1);
+      padding: 0.15em 0.5em;
+      border-radius: 4px;
+      margin-right: 0.25rem;
+    }
+
+    @media (max-width: 600px) {
+      .term-meta-label { width: 4rem; }
+      .best-practices-table td:nth-child(2) { white-space: normal; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="grain"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#ai-basics">AI Basics</a></li>
+        <li><a href="#workflow">Workflow</a></li>
+        <li><a href="#dev-concepts">Dev</a></li>
+        <li><a href="#deployment">Ops</a></li>
+        <li><a href="#slang">Slang</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="subpage-hero">
+      <div class="hero-glow"></div>
+      <div class="hero-glow hero-glow-secondary"></div>
+      <div class="container">
+        <a href="index.html" class="back-link">&larr; Back to overview</a>
+        <div class="reveal-up">
+          <h1>
+            <span class="text-gradient">Vibe-Coder</span><br>
+            <span class="serif">Glossary</span>
+          </h1>
+          <p class="hero-subtitle mt-md">
+            The bridge between vibes and code. Terms from AI, modern workflow,
+            and dev slang — explained simply for everyone building with AI assistance.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== GLOSSARY ==================== -->
+    <div class="section-divider"></div>
+    <section>
+      <div class="container">
+
+        <!-- Search + Category Filter -->
+        <input
+          type="search"
+          class="glossary-search"
+          id="glossarySearch"
+          placeholder="Search terms…"
+          aria-label="Search glossary"
+        >
+
+        <div class="glossary-nav" id="categoryNav">
+          <a href="#ai-basics" class="glossary-nav-btn">AI-Dev Basics</a>
+          <a href="#workflow" class="glossary-nav-btn">Modern Workflow</a>
+          <a href="#dev-concepts" class="glossary-nav-btn">Core Dev Concepts</a>
+          <a href="#deployment" class="glossary-nav-btn">Deployment &amp; Ops</a>
+          <a href="#slang" class="glossary-nav-btn">Vibe-Coding Slang</a>
+          <a href="#best-practices" class="glossary-nav-btn">Best Practices</a>
+        </div>
+
+        <p class="no-results" id="noResults">No terms found.</p>
+
+        <!-- ========== 1. AI-DEV BASICS ========== -->
+        <div class="glossary-category" id="ai-basics">
+          <div class="glossary-category-label">01 / AI-Dev Basics</div>
+
+          <div class="glossary-term" data-term="Context Window">
+            <div class="term-header">
+              <span class="term-name">Context Window</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">The context window is the "working memory" of an LLM — everything the model can simultaneously "see" and take into account: your prompt, previous messages, uploaded files, and code.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">When a model starts "forgetting" earlier instructions, the context window is full. Fix: summarize key points at the start of each new session (system prompt or memo block).</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a whiteboard in a meeting room: only what's written on it is visible to everyone. When it's full, you have to erase the old stuff.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Token">
+            <div class="term-header">
+              <span class="term-name">Token</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Tokens are the smallest units an LLM breaks text into — roughly 4 characters or ¾ of an English word. AI APIs are billed per token consumed.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">The more precise your prompt, the fewer tokens you waste. Short, clear instructions beat sprawling essays. Quality over quantity when prompting.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like SMS character limits on old phone plans: you have a budget, use it wisely.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="LLM Large Language Model">
+            <div class="term-header">
+              <span class="term-name">LLM <span style="font-weight:400;color:var(--text-muted);font-size:0.875rem;">Large Language Model</span></span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">An LLM is an AI model trained on massive amounts of text that can generate, understand, and transform language. Claude, GPT-4, Gemini — all LLMs.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Different LLMs have different strengths: Claude excels at reasoning and long context, GPT-4 has broad creativity. Pick the right model for the task.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like different specialists: the architect plans the building, the contractor builds it — both experts, different strengths.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="RAG Retrieval-Augmented Generation">
+            <div class="term-header">
+              <span class="term-name">RAG <span style="font-weight:400;color:var(--text-muted);font-size:0.875rem;">Retrieval-Augmented Generation</span></span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">RAG is a technique where an LLM retrieves external knowledge sources (databases, documents) in real time before responding — keeping knowledge current and specific.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">When building an AI feature that should reference your own data, say: <code>"Implement this with RAG so the AI can reference our knowledge base."</code> This is the key difference from a generic chatbot.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Instead of memorizing everything, you have an open book during the exam. You can look it up — the answer is current and accurate.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="System Prompt">
+            <div class="term-header">
+              <span class="term-name">System Prompt</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">A system prompt is the background instruction that gives an LLM its role, tone, and constraints — it runs invisibly before your actual conversation begins.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">In your own AI apps, the system prompt is your most powerful tool. A good system prompt prevents 80% of hallucinations before they happen.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a job briefing before an interview: you tell the candidate who they should be before they enter the room.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Embedding Vector">
+            <div class="term-header">
+              <span class="term-name">Embedding / Vector</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Embeddings are numerical representations of text as multi-dimensional vectors — allowing a computer to "understand" that "dog" and "puppy" are semantically close.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">When building AI-powered search or RAG, you need embeddings. Tell your AI: <code>"Use embeddings to enable semantic search over this dataset."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a map of meaning: words with similar meanings are geographically close to each other.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Fine-Tuning">
+            <div class="term-header">
+              <span class="term-name">Fine-Tuning</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Fine-tuning means continuing to train an existing LLM on a specific, custom dataset — turning a generalist model into an expert for your particular domain.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Fine-tuning is rarely the first step. Always start with prompt engineering. It saves time and money, and solves most problems before you need training.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a generalist doctor who becomes a specialist: the foundational knowledge stays, specific expertise is added on top.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Hallucination">
+            <div class="term-header">
+              <span class="term-name">Hallucination</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Hallucinations are confident errors from an LLM — it invents facts, functions, or code that sounds plausible but is simply wrong.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Always verify. Prompt tip: <code>"If you're unsure about a fact or function name, say so explicitly instead of guessing."</code> Let the AI cite sources or test the code directly.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a confident colleague who makes up an answer instead of saying "I don't know." Sounds convincing, but it's nonsense.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ========== 2. MODERN WORKFLOW ========== -->
+        <div class="glossary-category" id="workflow">
+          <div class="glossary-category-label">02 / Modern Workflow</div>
+
+          <div class="glossary-term" data-term="MCP Model Context Protocol">
+            <div class="term-header">
+              <span class="term-name">MCP <span style="font-weight:400;color:var(--text-muted);font-size:0.875rem;">Model Context Protocol</span></span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">MCP is an open protocol that connects AI models to external tools and data sources — a universal socket between Claude and your code editor, database, or APIs.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">MCP is a game-changer: you can connect Claude directly to Figma, GitHub, Notion, or your own services — no copy-paste between tools.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like USB: every device used to need its own connector. MCP is the universal USB port for AI tools.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Agentic Workflow autonomous agent">
+            <div class="term-header">
+              <span class="term-name">Agentic Workflow</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Agentic workflows are AI flows where the model plans and executes multiple steps autonomously — it researches, writes code, tests, corrects, and repeats until the goal is reached.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">For complex features, give a high-level goal instead of step-by-step instructions: <code>"Act as an autonomous agent. Your goal is [X]. Plan the steps, execute them, and report back when done."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a self-directed freelancer: you give the brief, they deliver the result — without micromanagement.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Iterative Prompting">
+            <div class="term-header">
+              <span class="term-name">Iterative Prompting</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Iterative prompting is the process of refining a result through multiple focused follow-up prompts, rather than demanding everything in one massive prompt.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Strategy: 1) Generate rough structure. 2) Deepen one area. 3) Handle edge cases. 4) Run a code review prompt. Like sculpting, not casting.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like film editing: you shoot raw footage, then cut, then refine. No film is finished after the first take.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Prompt Engineering">
+            <div class="term-header">
+              <span class="term-name">Prompt Engineering</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Prompt engineering is the skill of crafting instructions for AI models so that output is precise, consistent, and high quality — one of the most valuable skills in vibe coding.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Techniques</span>
+                  <span class="term-meta-value">Few-Shot (examples in the prompt), Chain-of-Thought ("think step by step"), Role Assignment ("you are a senior React developer").</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a precise recipe: the more specific the ingredients and steps, the more reproducible the result.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="AI Code Review">
+            <div class="term-header">
+              <span class="term-name">AI Code Review</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">AI code review means having the AI systematically check generated or written code for bugs, security issues, and best practices — a structured quality gate before shipping.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Before deploying, prompt: <code>"Review this code for: 1) Security vulnerabilities, 2) Performance issues, 3) Edge cases I might have missed, 4) SOLID principle violations."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like spell-check, but for security and quality — not infallible, but much better than nothing.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Multi-Agent System">
+            <div class="term-header">
+              <span class="term-name">Multi-Agent System</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">A multi-agent system consists of multiple specialized AI agents working together: one plans, one writes code, one tests, one documents.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">For larger projects: <code>"You are the Architect agent. Your job is only to design the structure, not write code. Hand off to the Coder agent when done."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like an operating room team: surgeon, anesthesiologist, assistant — each a specialist, together they deliver the result.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ========== 3. CORE DEV CONCEPTS ========== -->
+        <div class="glossary-category" id="dev-concepts">
+          <div class="glossary-category-label">03 / Core Dev Concepts</div>
+
+          <div class="glossary-term" data-term="API Application Programming Interface">
+            <div class="term-header">
+              <span class="term-name">API <span style="font-weight:400;color:var(--text-muted);font-size:0.875rem;">Application Programming Interface</span></span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">An API is a clearly defined communication channel between two pieces of software — it specifies what requests can be made and what format responses come back in.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Almost everything in modern apps runs through APIs. Prompt: <code>"Create a wrapper function for this API that handles errors gracefully."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a power outlet: you know what goes in (plug) and what comes out (power) — what happens behind the wall is irrelevant.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Frontend Backend">
+            <div class="term-header">
+              <span class="term-name">Frontend vs. Backend</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Frontend is everything the user sees and interacts with (browser/app). Backend is the engine behind it: server, database, business logic — what the user never directly touches.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Always be explicit about which layer you mean: <code>"This validation should happen on the backend, not just the frontend."</code> Frontend-only validation is never secure.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">A restaurant: frontend = dining room and waitstaff. Backend = kitchen and storage. The guest only sees the restaurant.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="State Management">
+            <div class="term-header">
+              <span class="term-name">State Management</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">State is your app's current condition — which user is logged in, what's in the cart, whether a modal is open. State management describes how that state is stored and shared.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">One of the most common bugs: inconsistent state. Prompt: <code>"Where should this state live — local component state or global store? Explain the tradeoffs."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a cash register system: the current balance (state) must be visible to all cashiers and always up to date.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Database Schema">
+            <div class="term-header">
+              <span class="term-name">Database Schema</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">A database schema is the "blueprint" of your database: which tables exist, what fields each table has, and how tables relate to each other.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">The schema is one of your most important design decisions — mistakes here are expensive. Prompt early: <code>"Design a normalized database schema and explain the relationships."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like the floor plan of a house: changes after construction are expensive and disruptive.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Refactoring">
+            <div class="term-header">
+              <span class="term-name">Refactoring</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Refactoring means improving existing code — making it more readable, efficient, or maintainable — without changing its external behavior.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Prompt regularly: <code>"Refactor this code to be more readable and maintainable. Keep the same behavior."</code> Good code today saves debugging hours tomorrow.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a home renovation: the house stays the same, but it's tidier, more pleasant, and more functional.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Pull Request PR">
+            <div class="term-header">
+              <span class="term-name">Pull Request <span style="font-weight:400;color:var(--text-muted);font-size:0.875rem;">PR</span></span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">A pull request is a proposal to merge code changes into the main codebase — coupled with a review process where teammates inspect and comment on the code.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Even solo, a PR workflow has value: <code>"Write a PR description for these changes, including what was changed, why, and how to test it."</code> Forces you to think it through.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like editing before publishing: the text gets one more pass before it goes out.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Middleware">
+            <div class="term-header">
+              <span class="term-name">Middleware</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Middleware is code that runs between a request and a response — it can check (auth?), transform (logging), or block (rate limiting) before the request reaches its destination.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Always build auth, logging, and rate limiting as middleware — never inline in routes: <code>"Add authentication middleware to protect all routes under /api/private."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like airport security: you arrive, you're checked, you enter — or you don't.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Dependencies npm packages">
+            <div class="term-header">
+              <span class="term-name">Dependencies</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Dependencies are external libraries or packages your project uses — stored in <code>package.json</code> (Node) or <code>requirements.txt</code> (Python). Without them, your code won't run.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Be careful with too many dependencies: <code>"Do I really need a library for this, or can we implement it with native features?"</code> Fewer dependencies = fewer security risks.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like subcontractors: useful and efficient, but you depend on their reliability.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Async Await asynchronous">
+            <div class="term-header">
+              <span class="term-name">Async / Await</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Asynchronous code lets your app wait for slow operations (API calls, database queries) without blocking everything else. <code>async/await</code> is the modern, readable syntax for this.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">If your app "hangs" or shows data too late: <code>"Review this async code and make sure all asynchronous operations are properly awaited and errors are caught."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like ordering coffee: you order (request), go sit down (next operation), the barista calls your name (response).</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="REST GraphQL API">
+            <div class="term-header">
+              <span class="term-name">REST vs. GraphQL</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">REST and GraphQL are two API designs: REST has fixed endpoints (<code>/users</code>, <code>/orders</code>), GraphQL has a single endpoint where the client specifies exactly what data it needs.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Simple apps: REST. Complex, data-heavy apps: GraphQL. Prompt: <code>"For my use case [X], should I use REST or GraphQL? Explain the tradeoffs."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">REST = fixed-price menu. GraphQL = buffet where you only take what you want.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ========== 4. DEPLOYMENT & OPS ========== -->
+        <div class="glossary-category" id="deployment">
+          <div class="glossary-category-label">04 / Deployment &amp; Ops</div>
+
+          <div class="glossary-term" data-term="Vercel Hosting Deploy">
+            <div class="term-header">
+              <span class="term-name">Vercel</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Vercel is a cloud platform optimized for frontend frameworks (Next.js, React, Vue) — push to GitHub and your app is live in seconds. Zero-config deployment.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Ideal for vibe coders: Vercel handles hosting, SSL, CDN, and deployments automatically. Just push and ship.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like an automatic transmission: you don't need to know how it works — it just works.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Environment Variables .env secrets">
+            <div class="term-header">
+              <span class="term-name">Environment Variables <span style="font-weight:400;color:var(--text-muted);font-size:0.875rem;">.env</span></span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Environment variables are configuration values (API keys, database passwords) stored outside your code — in a <code>.env</code> file locally, in secrets at your hosting provider.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value"><strong>Never</strong> write API keys directly in code. The <code>.env</code> file never goes into git. Add it to <code>.gitignore</code> immediately.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a key safe: not everyone who sees the blueprint (code) should have the key (API key).</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Git GitHub Version Control">
+            <div class="term-header">
+              <span class="term-name">Git &amp; GitHub</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Git is the version control system for code — every change is saved, you can rewind to any point. GitHub is the cloud platform that hosts Git repositories and enables team collaboration.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Commit early and often. The 5 essential commands: <code>init</code>, <code>add</code>, <code>commit</code>, <code>push</code>, <code>pull</code>.</span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a save slot in a video game: you can return to any previous state at any time.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="CI/CD Continuous Integration Delivery pipeline">
+            <div class="term-header">
+              <span class="term-name">CI/CD <span style="font-weight:400;color:var(--text-muted);font-size:0.875rem;">Continuous Integration / Delivery</span></span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">CI/CD is a pipeline that automatically runs tests, builds your code, and deploys it on every push — without any manual steps.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Even solo, CI/CD is worth setting up: <code>"Create a GitHub Actions workflow that runs tests and deploys to Vercel on every push to main."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like quality control on an assembly line: every product is checked before it ships.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Docker Container">
+            <div class="term-header">
+              <span class="term-name">Docker / Container</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Docker packages an app with all its dependencies into a container — a standardized "package" that runs identically on any system. "Works on my machine" becomes irrelevant.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">For backends and complex services: <code>"Create a Dockerfile for this Node application and explain each step."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like shipping containers: wherever the container goes, the contents are always packed and protected the same way.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="DNS Domain">
+            <div class="term-header">
+              <span class="term-name">DNS &amp; Domain</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">DNS (Domain Name System) translates human-readable domain names (<code>myapp.com</code>) into IP addresses (<code>185.x.x.x</code>) that computers understand. It's the internet's phone book.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">DNS changes can take up to 48 hours (TTL). When setting up a domain: <code>"Walk me through connecting my domain to Vercel, including which DNS records to set."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a street address: you say "123 Main St" and the GPS finds the coordinates — DNS does the same for websites.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Logging Monitoring Error Tracking">
+            <div class="term-header">
+              <span class="term-name">Logging &amp; Monitoring</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Logging records what happens in your app (errors, user actions, performance). Monitoring gives you real-time alerts when something goes wrong.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">You only realize how important logging is once production crashes: <code>"Add structured logging to this API. Log errors with context and performance timing for database queries."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a flight recorder: when something goes wrong, you have the record of what happened.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ========== 5. VIBE-CODING SLANG ========== -->
+        <div class="glossary-category" id="slang">
+          <div class="glossary-category-label">05 / Vibe-Coding Slang A–Z</div>
+
+          <div class="glossary-term" data-term="Ablation Test">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">A</span> Ablation Test</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">You systematically remove individual parts of a system to understand what effect each has. For prompts: which part of the prompt produces which result?</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">When a prompt works well, gradually shorten it and see when quality drops. This finds your "Minimum Viable Instruction."</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Boilerplate">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">B</span> Boilerplate</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Boilerplate is standardized, repetitive code that every project needs — setup, config, standard imports. AI is perfect for generating it.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Never write boilerplate manually: <code>"Generate the boilerplate for a Next.js 14 project with TypeScript, Tailwind, shadcn/ui and Prisma ORM."</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Context Switching">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">C</span> Context Switching</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Context switching is the constant toggling between different tasks or tools — editor, browser, AI chat, terminal — which drains focus and momentum.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Minimize context switches. Use AI tools directly inside your editor (Cursor, Copilot, Antigravity). The less you app-switch, the more you stay in flow.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Dead Code">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">D</span> Dead Code</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Dead code is code that exists in the project but is never executed — old features, commented-out functions, unused variables. It confuses AI and bloats the codebase.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Clean up regularly: <code>"Analyze this codebase and identify dead code, unused imports and unreachable functions that can be safely removed."</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Edge Case">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">E</span> Edge Case</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">An edge case is a rare but possible scenario outside the normal workflow — empty inputs, extremely large numbers, missing data. Often the source of bugs.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">AI forgets edge cases. Always prompt explicitly: <code>"What edge cases should I handle for this feature? List them and then implement handling for each."</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Feature Creep">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">F</span> Feature Creep</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Feature creep is the uncontrolled growth of features outside the core scope — a common problem when AI keeps proposing ideas and you keep saying yes.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Define scope upfront: <code>"For now, we're building ONLY these features: [X, Y, Z]. Reject any suggestions that go beyond this scope."</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Golden Path">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">G</span> Golden Path</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">The golden path is the ideal, frictionless journey a typical user takes through your app — no errors, no detours, no confusion.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Build the golden path first, then handle edge cases: <code>"Implement the golden path for [feature] first. We'll handle errors and edge cases in the next iteration."</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Hot Reload HMR">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">H</span> Hot Reload</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Hot Reload (or Hot Module Replacement) updates the app in the browser the moment you save code — without a manual refresh and without losing state.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like a live preview while writing: you instantly see how the text looks as you format it.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="In-Context Learning Few-Shot">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">I</span> In-Context Learning</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">In-context learning means giving the LLM examples directly in the prompt (Few-Shot) so it learns the pattern and applies it to new cases — without any training.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Massively underrated technique. Instead of explaining, show 2–3 examples: <code>"Here are 3 examples of how I want the output: [...]. Now do the same for: [new case]."</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Jailbreak">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">J</span> Jailbreak</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">A jailbreak is an attempt to bypass the safety limits of an AI model. Ethically questionable to illegal — and mostly ineffective on well-built models.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Don't. There's almost always a legitimate way to reach the same goal. Better prompting beats boundary testing every time.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Knowledge Cutoff">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">K</span> Knowledge Cutoff</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">The knowledge cutoff is the date up to which an LLM has training data — after that, it knows nothing about new events, libraries, or API changes.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Always specify the version: <code>"I'm using Next.js 15.1 (released after your cutoff). Here's the relevant docs excerpt: [...]."</code> Prevents hallucinations about outdated APIs.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Latency">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">L</span> Latency</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Latency is the time between a request and a response — in AI apps, often the biggest UX problem. Streaming responses and thoughtful loading state design are the solution.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Always build loading states: <code>"Add a skeleton loading state while the AI response is streaming. Use progressive rendering so users see partial results immediately."</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="MVP Minimal Viable Product">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">M</span> MVP <span style="font-weight:400;color:var(--text-muted);font-size:0.875rem;">Minimal Viable Product</span></span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">An MVP is the smallest version of a product that delivers real value — just enough to get feedback, without needing to build everything perfectly first.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Define your MVP rigorously and defend it against feature creep: <code>"Help me define the absolute minimum features for an MVP of [idea]. What can we cut without losing core value?"</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Negative Prompting">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">N</span> Negative Prompting</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Negative prompting is the technique of explicitly telling AI what it should NOT do — often more effective than only describing what you want.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Combine positive and negative: <code>"Write clean React. Do NOT use class components, do NOT use deprecated lifecycle methods, do NOT install additional libraries."</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Over-Engineering">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">O</span> Over-Engineering</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Over-engineering means building an overly complex solution for a simple problem — common with AI, because models love proposing full enterprise-grade architectures.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value"><code>"Keep this simple. I don't need enterprise patterns. Build the simplest solution that works for my use case of [X users/requirements]."</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Pair Programming AI">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">P</span> Pair Programming with AI</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Pair programming with AI means developing in dialogue with the model — you provide context and decisions, the AI writes and explains code, you discuss approaches together.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Be the senior engineer on the team: <code>"Explain why you chose this approach over [alternative]. What are the tradeoffs?"</code> Understanding beats fast output.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Query database SQL">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">Q</span> Query</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">A query is a request to a database — written in SQL to read, write, update, or delete data. Poorly written queries are a common performance killer.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value"><code>"Analyze this database query for performance issues. Are there missing indexes? Can we optimize the JOIN operations?"</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Rubber Ducking Debugging">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">R</span> Rubber Ducking</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Rubber ducking means explaining your problem out loud — to a rubber duck, or to AI. Just the act of articulating the problem often reveals the solution.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value"><code>"I'm going to explain my problem to you. Don't solve it yet — just ask me clarifying questions until we both fully understand what's happening."</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Scaffolding">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">S</span> Scaffolding</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Scaffolding is the automatic generation of basic structures — folders, files, code templates — for a new project or feature.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value"><code>"Scaffold a complete project structure for [type]. Include folder structure, config files, and placeholder components with comments."</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Technical Debt">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">T</span> Technical Debt</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Technical debt is accumulated "bad code" — quick-and-dirty solutions that work short-term but become expensive to maintain long-term.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Review regularly: <code>"Review this codebase and identify technical debt. Prioritize what should be refactored first and why."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like credit card debt: convenient now, but the interest (bugs, maintenance cost) catches up with you.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Unit Test Smoke Test">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">U</span> Unit Test / Smoke Test</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Unit tests verify individual functions automatically. A smoke test is a quick, surface-level check that the most important functions of an app basically work — not whether everything is perfect, just whether the app is "breathing."</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">AI is great at writing tests: <code>"Write comprehensive unit tests for this function. Include edge cases, invalid inputs and boundary conditions."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like the first sip of coffee in the morning: you're not checking if it's perfect — you're checking if the machine made coffee at all.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Versioning Semantic Versioning SemVer">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">V</span> Versioning <span style="font-weight:400;color:var(--text-muted);font-size:0.875rem;">SemVer</span></span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">Semantic Versioning (SemVer) is a numbering system for software releases: <code>MAJOR.MINOR.PATCH</code> — <code>2.4.1</code> means 2nd major version, 4th new feature, 1st bugfix.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">When updating dependencies, a new MAJOR version may have breaking changes: <code>"What are the breaking changes between [Library] v2 and v3? What do I need to update in my code?"</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Webhook">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">W</span> Webhook</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">A webhook is an automatic HTTP call that a service sends when an event occurs — instead of constantly polling ("did anything happen?"), you get notified automatically.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">For integrations (Stripe, GitHub, Slack), always use webhooks: <code>"Set up a webhook endpoint that listens for [event] from [service] and handles it securely with signature verification."</code></span>
+                </div>
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Analogy</span>
+                  <span class="term-meta-value">Like push notifications: you don't call to ask for news — they notify you when something happens.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="XSS Cross-Site Scripting Security">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">X</span> XSS <span style="font-weight:400;color:var(--text-muted);font-size:0.875rem;">Cross-Site Scripting</span></span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">XSS is a security vulnerability where attackers inject malicious JavaScript into your website — through user inputs that aren't properly escaped or sanitized.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">A common blind spot in AI-generated code: <code>"Review all user input handling in this code for XSS vulnerabilities. Are all outputs properly escaped?"</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="YAGNI You Aren't Gonna Need It">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">Y</span> YAGNI</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">YAGNI — You Aren't Gonna Need It — is a software principle: don't build what you might need someday. Only build what you need right now. Prevents over-engineering.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">When AI suggests features that "could be useful": ask yourself if you actually need this now. Simpler code is more maintainable code.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glossary-term" data-term="Zero-Day Vulnerability Security">
+            <div class="term-header">
+              <span class="term-name"><span class="slang-letter">Z</span> Zero-Day Vulnerability</span>
+              <span class="term-toggle">▾</span>
+            </div>
+            <div class="term-body">
+              <p class="term-explanation">A zero-day vulnerability is a security flaw with no patch yet available — "day zero" means the developer had zero days to fix it before it was discovered or exploited.</p>
+              <div class="term-meta">
+                <div class="term-meta-row">
+                  <span class="term-meta-label">Vibe tip</span>
+                  <span class="term-meta-value">Keep dependencies updated and subscribe to security alerts for key libraries: <code>"What security scanning tools should I set up to catch vulnerabilities in my dependencies automatically?"</code></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ========== BEST PRACTICES ========== -->
+        <div class="glossary-category" id="best-practices">
+          <div class="glossary-category-label">06 / Best Practices</div>
+          <div class="reveal-up">
+            <p style="color:var(--text-secondary);font-size:0.9375rem;margin-bottom:1.5rem;line-height:1.7;">
+              The 10 most important rules for professional vibe coding — so you debug less and build more.
+            </p>
+            <table class="best-practices-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Rule</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>01</td>
+                  <td>Context before code</td>
+                  <td>Always explain the bigger context first: <em>"I'm building a [type] app for [audience] using [stack]. Now I need to…"</em></td>
+                </tr>
+                <tr>
+                  <td>02</td>
+                  <td>One thing at a time</td>
+                  <td>Never ask AI to build features A, B, and C simultaneously. Iterate: finish A, commit it, then move to B.</td>
+                </tr>
+                <tr>
+                  <td>03</td>
+                  <td>Name your stack explicitly</td>
+                  <td>Always specify: framework, version, key libraries. <em>"Using React 18, Next.js 15, TypeScript, Tailwind CSS 3.4, Prisma 5 with PostgreSQL."</em></td>
+                </tr>
+                <tr>
+                  <td>04</td>
+                  <td>Understand before copy-pasting</td>
+                  <td>Before inserting code: <em>"Explain this code to me in plain language. What does each section do?"</em></td>
+                </tr>
+                <tr>
+                  <td>05</td>
+                  <td>Never skip security</td>
+                  <td>After every major feature: <em>"Do a security review. Check for XSS, SQL injection, insecure auth, and exposed secrets."</em></td>
+                </tr>
+                <tr>
+                  <td>06</td>
+                  <td>Commit like a pro</td>
+                  <td>After every working step: commit. Use Conventional Commits: <code>feat: add user authentication</code> or <code>fix: resolve cart count bug</code>.</td>
+                </tr>
+                <tr>
+                  <td>07</td>
+                  <td>Define constraints</td>
+                  <td>Tell AI what it must NOT do: <em>"No jQuery, no class components, no inline styles, no additional npm packages."</em></td>
+                </tr>
+                <tr>
+                  <td>08</td>
+                  <td>Read error messages</td>
+                  <td>Never send "it doesn't work." Always include the full error message, stack trace, and relevant code. Precise errors = faster fixes.</td>
+                </tr>
+                <tr>
+                  <td>09</td>
+                  <td>Don't skip testing</td>
+                  <td>At minimum, smoke tests for critical paths: login, checkout, core feature. Five tests that run in 30 seconds beat zero tests every time.</td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td>Document your decisions</td>
+                  <td>Keep an <code>ARCHITECTURE.md</code> with why key decisions were made. Six months from now, you'll be glad — and AI will give better suggestions.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <div class="section-divider"></div>
+    <footer style="padding: 3rem 0 4rem;">
+      <div class="container">
+        <p style="color: var(--text-muted); font-size: 0.875rem;">
+          <strong style="color: var(--text-secondary);">Vibe on. Build things. Learn as you go.</strong><br>
+          From a senior developer who's been in your corner from the start.
+        </p>
+        <p style="color: var(--text-muted); font-size: 0.8125rem; margin-top: 0.5rem;">
+          <a href="index.html" style="color: var(--text-muted); text-decoration: none;">&larr; Back to overview</a>
+        </p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // ── Scroll-based nav shrink ──
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ── Reveal on scroll ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+
+    // ── Accordion ──
+    document.querySelectorAll('.term-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const isOpen = header.classList.contains('open');
+        document.querySelectorAll('.term-header').forEach(h => {
+          h.classList.remove('open');
+          h.nextElementSibling.classList.remove('open');
+        });
+        if (!isOpen) {
+          header.classList.add('open');
+          header.nextElementSibling.classList.add('open');
+        }
+      });
+    });
+
+    // ── Search ──
+    const searchInput = document.getElementById('glossarySearch');
+    const noResults = document.getElementById('noResults');
+
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.toLowerCase().trim();
+      let visible = 0;
+
+      document.querySelectorAll('.glossary-term').forEach(term => {
+        const text = (term.dataset.term + ' ' + term.textContent).toLowerCase();
+        const match = !q || text.includes(q);
+        term.classList.toggle('hidden', !match);
+        if (match) visible++;
+      });
+
+      document.querySelectorAll('.glossary-category').forEach(cat => {
+        const terms = cat.querySelectorAll('.glossary-term');
+        const anyVisible = [...terms].some(t => !t.classList.contains('hidden'));
+        cat.style.display = anyVisible ? '' : 'none';
+      });
+
+      noResults.style.display = visible === 0 ? 'block' : 'none';
+    });
+  </script>
+
+</body>
+</html>

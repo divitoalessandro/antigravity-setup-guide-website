@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe Coding 101 — Antigravity + Claude Code</title>
+  <meta name="description"
+    content="The complete guide to vibe coding: documentation systems, core concepts, tools, and workflows for building software with AI agents.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.0/dist/fonts/geist-sans/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Chapter navigation ── */
+    .chapter-nav {
+      position: sticky;
+      top: 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.8125rem;
+    }
+
+    .chapter-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      padding: 0.375rem 0.625rem;
+      border-radius: 6px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s ease, background 0.15s ease;
+      line-height: 1.4;
+    }
+
+    .chapter-nav-link:hover,
+    .chapter-nav-link.active {
+      color: var(--text-primary);
+      background: var(--surface);
+    }
+
+    .chapter-nav-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      width: 1.5rem;
+    }
+
+    /* ── Two-column layout ── */
+    .guide-layout {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .guide-layout { grid-template-columns: 1fr; }
+      .chapter-nav { display: none; }
+    }
+
+    /* ── Sections ── */
+    .guide-section {
+      margin-bottom: 5rem;
+      scroll-margin-top: 6rem;
+    }
+
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.375rem;
+    }
+
+    .section-title {
+      font-size: 1.625rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+
+    .section-lead {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+      max-width: 640px;
+    }
+
+    /* ── Callout boxes ── */
+    .callout {
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      border-left: 2px solid;
+      margin-bottom: 1.25rem;
+      font-size: 0.9375rem;
+      line-height: 1.7;
+    }
+
+    .callout-rule {
+      border-color: var(--accent);
+      background: rgba(99, 102, 241, 0.07);
+      color: var(--text-secondary);
+    }
+
+    .callout-warning {
+      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.07);
+      color: var(--text-secondary);
+    }
+
+    .callout-danger {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.07);
+      color: var(--text-secondary);
+    }
+
+    .callout-success {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.07);
+      color: var(--text-secondary);
+    }
+
+    .callout strong {
+      color: var(--text-primary);
+    }
+
+    /* ── Prompt examples ── */
+    .prompt-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.25rem;
+      position: relative;
+    }
+
+    .prompt-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .prompt-bad .prompt-label { color: #ef4444; }
+    .prompt-good .prompt-label { color: #10b981; }
+
+    .prompt-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      white-space: pre-wrap;
+    }
+
+    /* ── Concept cards ── */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .concept-card {
+      padding: 1.125rem 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+    }
+
+    .concept-card-title {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .concept-card-body {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ── Doc cards ── */
+    .doc-card {
+      display: flex;
+      gap: 1rem;
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      margin-bottom: 0.75rem;
+    }
+
+    .doc-card-icon {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent-light, #a5b4fc);
+      background: rgba(99, 102, 241, 0.1);
+      padding: 0.3em 0.5em;
+      border-radius: 4px;
+      flex-shrink: 0;
+      align-self: flex-start;
+      margin-top: 0.1rem;
+    }
+
+    .doc-card-content {}
+
+    .doc-card-title {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.375rem;
+    }
+
+    .doc-card-desc {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ── Tool cards ── */
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tool-card {
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+    }
+
+    .tool-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tool-card-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .tool-card-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6875rem;
+      padding: 0.2em 0.5em;
+      border-radius: 4px;
+      background: rgba(99, 102, 241, 0.12);
+      color: var(--accent-light, #a5b4fc);
+    }
+
+    .tool-card-body {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+
+    .tool-card-use {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ── Step list ── */
+    .step-list {
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem 0;
+    }
+
+    .step-list li {
+      counter-increment: step;
+      display: flex;
+      gap: 1rem;
+      padding: 0.875rem 0;
+      border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.05));
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .step-list li:last-child { border-bottom: none; }
+
+    .step-list li::before {
+      content: counter(step, decimal-leading-zero);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent-light, #a5b4fc);
+      flex-shrink: 0;
+      width: 1.75rem;
+      padding-top: 0.125rem;
+    }
+
+    /* ── Checklist ── */
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem 0;
+    }
+
+    .checklist li {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.04));
+    }
+
+    .checklist li:last-child { border-bottom: none; }
+
+    .check-icon {
+      color: #10b981;
+      flex-shrink: 0;
+      font-size: 0.875rem;
+      padding-top: 0.125rem;
+    }
+
+    /* ── Inline code ── */
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem;
+      background: var(--surface);
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+      color: var(--accent-light, #a5b4fc);
+    }
+
+    /* ── Dividers ── */
+    .subsection {
+      margin-bottom: 2.5rem;
+    }
+
+    .subsection-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.875rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Design style pills ── */
+    .style-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .style-card {
+      padding: 1rem 1.125rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .style-card-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      margin-bottom: 0.375rem;
+    }
+
+    .style-card-desc {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Folder structure ── */
+    .folder-tree {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8125rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .folder-tree .highlight { color: var(--accent-light, #a5b4fc); }
+    .folder-tree .comment { color: var(--text-muted); }
+
+    /* ── Phase checklist ── */
+    .phase-block {
+      margin-bottom: 1.5rem;
+    }
+
+    .phase-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="grain"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#foundation">Foundation</a></li>
+        <li><a href="#docs-system">Docs</a></li>
+        <li><a href="#core-concepts">Concepts</a></li>
+        <li><a href="#toolbox">Tools</a></li>
+        <li><a href="#build-loop">Build Loop</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="subpage-hero">
+      <div class="hero-glow"></div>
+      <div class="hero-glow hero-glow-secondary"></div>
+      <div class="container">
+        <a href="index.html" class="back-link">&larr; Back to overview</a>
+        <div class="reveal-up">
+          <h1>
+            <span class="text-gradient">Vibe Coding</span><br>
+            <span class="serif">101</span>
+          </h1>
+          <p class="hero-subtitle mt-md">
+            The complete system — from idea to deployed app. Documentation strategy,
+            core concepts, tool selection, and the build loop that separates
+            people who ship from people who stay stuck.
+          </p>
+          <div style="margin-top: 1.25rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <span class="badge">35 Chapters</span>
+            <span class="badge badge-success">Complete System</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <div class="section-divider"></div>
+    <section>
+      <div class="container">
+        <div class="guide-layout">
+
+          <!-- ── Chapter Navigation (sidebar) ── -->
+          <aside>
+            <nav class="chapter-nav" id="chapterNav">
+              <a href="#foundation" class="chapter-nav-link"><span class="chapter-nav-num">01</span>Foundation</a>
+              <a href="#docs-system" class="chapter-nav-link"><span class="chapter-nav-num">02</span>Documentation System</a>
+              <a href="#interrogation" class="chapter-nav-link"><span class="chapter-nav-num">03</span>The Interrogation</a>
+              <a href="#core-concepts" class="chapter-nav-link"><span class="chapter-nav-num">04</span>Core Concepts</a>
+              <a href="#styling" class="chapter-nav-link"><span class="chapter-nav-num">05</span>Styling & Design</a>
+              <a href="#architecture" class="chapter-nav-link"><span class="chapter-nav-num">06</span>Architecture</a>
+              <a href="#toolbox" class="chapter-nav-link"><span class="chapter-nav-num">07</span>The Toolbox</a>
+              <a href="#build-loop" class="chapter-nav-link"><span class="chapter-nav-num">08</span>Build Loop</a>
+              <a href="#shipping" class="chapter-nav-link"><span class="chapter-nav-num">09</span>Shipping</a>
+              <a href="#system" class="chapter-nav-link"><span class="chapter-nav-num">10</span>Complete System</a>
+            </nav>
+          </aside>
+
+          <!-- ── Content ── -->
+          <div>
+
+            <!-- ========== 01 FOUNDATION ========== -->
+            <div class="guide-section reveal-up" id="foundation">
+              <div class="section-eyebrow">01 / Foundation</div>
+              <h2 class="section-title">Why Vibe Coding Fails — and How to Fix It</h2>
+              <p class="section-lead">
+                Vibe coding isn't the problem. The problem is expecting AI to fill the gaps in your thinking.
+                AI is a translator. It converts your intent into code. When your intent is unclear,
+                the code will be unclear. The fix isn't better prompts — it's better understanding.
+              </p>
+
+              <div class="callout callout-rule">
+                <strong>The core insight:</strong> AI doesn't hallucinate because it's broken. It hallucinates because you gave it nothing to hold onto. No structure, no clarity, no foundation. Once you know what you're building, prompting becomes almost trivial — the words come naturally because you finally know what to ask for.
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">The Real Failure Mode</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  The most common pattern: open an AI tool, describe the app in one sentence, let it start coding immediately. No plan, no reference, no source of truth. Three files in, the project starts falling apart because every decision is being made by AI without constraints — and inconsistent decisions compound into chaos.
+                </p>
+                <div class="concept-grid">
+                  <div class="concept-card">
+                    <div class="concept-card-title">What people do</div>
+                    <div class="concept-card-body">Describe a vague idea → wait for magic → get broken code → blame AI → give up or start over.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">What actually works</div>
+                    <div class="concept-card-body">Interrogate the idea → write documentation → use docs as constraints → build step by step.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">The sequence that never fails</div>
+                    <div class="concept-card-body">Interrogation → Documentation → Code. In that order. Every single time.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">What You Need to Understand First</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  You don't need to memorize syntax. But you do need to understand the vocabulary well enough to describe your intent to AI. Every chapter in this guide builds that vocabulary. The concepts — components, state, routes, APIs — aren't abstract theory. They're the words that unlock precise, buildable prompts.
+                </p>
+                <div class="callout callout-success">
+                  <strong>The payoff:</strong> When you understand what a component is, you stop saying "make the header." You say "build the navbar component with responsive behavior, active state for the current route, and a mobile hamburger menu." Same request — completely different output quality.
+                </div>
+              </div>
+            </div>
+
+            <!-- ========== 02 DOCUMENTATION SYSTEM ========== -->
+            <div class="guide-section reveal-up" id="docs-system">
+              <div class="section-eyebrow">02 / Documentation System</div>
+              <h2 class="section-title">Documentation First. Code Second. Always.</h2>
+              <p class="section-lead">
+                Before writing a single line of code, write your project's canonical documentation.
+                These aren't docs for humans — they're constraints for AI. Every file you write
+                becomes a reference that AI reads, follows, and defers to instead of guessing.
+              </p>
+
+              <div class="callout callout-rule">
+                <strong>Why this works:</strong> AI operates with high capability but low certainty. Without documented constraints, it makes architectural decisions you never approved, adds features you didn't ask for, and produces code that solves problems you never articulated. Canonical docs eliminate the guessing entirely.
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">The Six Canonical Docs</div>
+
+                <div class="doc-card">
+                  <span class="doc-card-icon">PRD.md</span>
+                  <div class="doc-card-content">
+                    <div class="doc-card-title">Product Requirements Document</div>
+                    <div class="doc-card-desc">The full spec. What you're building, who it's for, what features exist, what's explicitly out of scope. User stories, success criteria, and non-goals. This is your contract. AI reads this and knows exactly what "done" looks like. Without it, you don't have an app plan — you have a wish.</div>
+                  </div>
+                </div>
+
+                <div class="doc-card">
+                  <span class="doc-card-icon">APP_FLOW.md</span>
+                  <div class="doc-card-content">
+                    <div class="doc-card-title">Application Flow</div>
+                    <div class="doc-card-desc">Every page and every user navigation path documented in plain English. What triggers each flow. Step-by-step sequences with decision points, success states, error states, and a full screen inventory with routes. Prevents AI from guessing how users move through your app.</div>
+                  </div>
+                </div>
+
+                <div class="doc-card">
+                  <span class="doc-card-icon">TECH_STACK.md</span>
+                  <div class="doc-card-content">
+                    <div class="doc-card-title">Technology Stack</div>
+                    <div class="doc-card-desc">Every package, dependency, API, and tool locked to exact versions. "Use React" means any version. "React 18.2.0, Next.js 14.1.0, TypeScript 5.3.3" means exactly what you specified. Eliminates hallucinated dependencies and random tech choices entirely.</div>
+                  </div>
+                </div>
+
+                <div class="doc-card">
+                  <span class="doc-card-icon">FRONTEND_GUIDELINES.md</span>
+                  <div class="doc-card-content">
+                    <div class="doc-card-title">Frontend Guidelines</div>
+                    <div class="doc-card-desc">Your complete design system. Fonts, color palette with exact hex codes, spacing scale, layout rules, component styles, responsive breakpoints, and UI library preferences. Every visual decision locked down. AI references this for every component. No random colors, no inconsistent spacing.</div>
+                  </div>
+                </div>
+
+                <div class="doc-card">
+                  <span class="doc-card-icon">BACKEND_STRUCTURE.md</span>
+                  <div class="doc-card-content">
+                    <div class="doc-card-title">Backend Structure</div>
+                    <div class="doc-card-desc">Database schema with every table, column, type, and relationship defined. Authentication logic, API endpoint contracts, storage rules, and edge cases. AI builds your backend against this blueprint — not against its own assumptions.</div>
+                  </div>
+                </div>
+
+                <div class="doc-card">
+                  <span class="doc-card-icon">IMPLEMENTATION_PLAN.md</span>
+                  <div class="doc-card-content">
+                    <div class="doc-card-title">Implementation Plan</div>
+                    <div class="doc-card-desc">A step-by-step build sequence. Not "build the app." More like: step 1.1 initialize project, step 1.2 install dependencies from TECH_STACK.md, step 2.1 build navbar per FRONTEND_GUIDELINES.md. The more steps, the less AI guesses. The less AI guesses, the fewer hallucinations.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">The Two Session Files</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  AI has no memory between sessions. When you close a terminal and open a new one, all context is gone. These two files are your persistence layer — the bridge between sessions.
+                </p>
+
+                <div class="doc-card">
+                  <span class="doc-card-icon">CLAUDE.md</span>
+                  <div class="doc-card-content">
+                    <div class="doc-card-title">AI Operating Manual (read automatically)</div>
+                    <div class="doc-card-desc">Claude Code reads this file from your project root automatically at the start of every session. It contains the condensed rules from all six docs: tech stack summary, naming conventions, file structure, component patterns, and forbidden actions. After every correction you make to AI's behavior, end with: "Edit CLAUDE.md so you don't make that mistake again." Over time, CLAUDE.md becomes a self-improving rulebook — mistake rates drop measurably because AI is encoding its own corrections.</div>
+                  </div>
+                </div>
+
+                <div class="doc-card">
+                  <span class="doc-card-icon">progress.txt</span>
+                  <div class="doc-card-content">
+                    <div class="doc-card-title">Session State Tracker</div>
+                    <div class="doc-card-desc">Tracks what's been done, what's in progress, and what's next. Update it after every completed feature. Start every new session by having AI read this file first. Without it, every session starts from zero context. With it, AI picks up exactly where you left off — no re-explaining your entire project for the 20th time.</div>
+                  </div>
+                </div>
+
+                <div class="prompt-block">
+                  <div class="prompt-label">Example progress.txt</div>
+                  <div class="prompt-text">COMPLETED:
+User auth via Clerk (login, signup, Google OAuth)
+Dashboard layout with sidebar navigation
+Products API endpoint (GET /api/products)
+
+IN PROGRESS:
+Product detail page (/products/[id])
+Need to connect frontend to API endpoint
+
+NEXT:
+Shopping cart functionality
+Checkout with Stripe
+
+KNOWN BUGS:
+Mobile nav doesn't close after link click</div>
+                </div>
+
+                <div class="callout callout-success">
+                  <strong>The lessons.md loop:</strong> Create a <code>lessons.md</code> file alongside these. After every correction and debugging session, have AI update it with the pattern that caused the issue and the rule that prevents it. Reference it in CLAUDE.md: <em>"Review lessons.md at session start."</em> This is the self-improvement loop that makes your AI smarter about your specific project over time.
+                </div>
+              </div>
+            </div>
+
+            <!-- ========== 03 INTERROGATION ========== -->
+            <div class="guide-section reveal-up" id="interrogation">
+              <div class="section-eyebrow">03 / The Interrogation System</div>
+              <h2 class="section-title">Make AI Tear Your Idea Apart Before Building It</h2>
+              <p class="section-lead">
+                Before writing your documentation — before writing anything — use AI to interrogate
+                your idea until there are no assumptions left. This is the step most people skip,
+                and it's why most projects fail.
+              </p>
+
+              <div class="subsection">
+                <div class="subsection-title">The Interrogation Prompt</div>
+
+                <div class="prompt-block callout-rule" style="border: 1px solid var(--border);">
+                  <div class="prompt-label">Start with this</div>
+                  <div class="prompt-text">"Before writing any code, interrogate my idea in planning mode only. Assume nothing. Ask questions until there are no assumptions left. One question at a time."</div>
+                </div>
+
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  AI hallucinates when your clarity ends. Extending your clarity forces AI to find the gaps in your thinking before it starts building on a broken foundation. A good interrogation session covers:
+                </p>
+
+                <ul class="checklist">
+                  <li><span class="check-icon">→</span> Who is this for? What is the core action a user takes?</li>
+                  <li><span class="check-icon">→</span> What happens when they complete that action?</li>
+                  <li><span class="check-icon">→</span> What data needs to be saved? What data needs to be displayed?</li>
+                  <li><span class="check-icon">→</span> What happens on error? What happens on success?</li>
+                  <li><span class="check-icon">→</span> Does this need authentication? A database? Mobile support?</li>
+                  <li><span class="check-icon">→</span> What is explicitly out of scope for the first version?</li>
+                </ul>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Interrogation → Documentation</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  Once the interrogation is complete, use the answers as raw material for your docs. The user description feeds your PRD. The data structure feeds your BACKEND_STRUCTURE. The flows feed your APP_FLOW. Then use this second prompt to generate the full doc set in one pass:
+                </p>
+
+                <div class="prompt-block">
+                  <div class="prompt-label">Doc generation prompt</div>
+                  <div class="prompt-text">"Based on our interrogation, generate my canonical documentation files:
+- PRD.md
+- APP_FLOW.md
+- TECH_STACK.md
+- FRONTEND_GUIDELINES.md
+- BACKEND_STRUCTURE.md
+- IMPLEMENTATION_PLAN.md
+
+Use the answers from our conversation as source material. Be specific and exhaustive. No ambiguity."</div>
+                </div>
+
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;">
+                  Review every draft AI produces. Correct anything vague, add anything missing, and lock them as your source of truth. The docs cross-reference each other by design — the PRD defines features, APP_FLOW defines how users experience them, TECH_STACK defines what builds them, FRONTEND_GUIDELINES defines how they look, BACKEND_STRUCTURE defines how data works, and IMPLEMENTATION_PLAN defines the build order.
+                </p>
+              </div>
+            </div>
+
+            <!-- ========== 04 CORE CONCEPTS ========== -->
+            <div class="guide-section reveal-up" id="core-concepts">
+              <div class="section-eyebrow">04 / Core Concepts</div>
+              <h2 class="section-title">The Vocabulary That Makes Prompts Work</h2>
+              <p class="section-lead">
+                You don't need to memorize syntax. You need to understand these concepts well enough
+                to describe them. When you know what a component, state, route, and API are, your
+                prompts become precise and buildable instead of vague and guessable.
+              </p>
+
+              <div class="subsection">
+                <div class="subsection-title">Components</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  A component is a reusable piece of interface. Think LEGO bricks — each piece is a component, you combine them to build something. A button is a component. A navigation bar is a component. A product card is a component made of smaller components (image, title, price, button).
+                </p>
+                <div class="callout callout-rule">
+                  When you say "build me a landing page," AI decides what components to create. If you don't specify, it guesses and might produce one giant unmaintainable file instead of clean, isolated, reusable pieces.
+                </div>
+                <div class="prompt-block prompt-bad">
+                  <div class="prompt-label">❌ Vague</div>
+                  <div class="prompt-text">"Build me a landing page"</div>
+                </div>
+                <div class="prompt-block prompt-good">
+                  <div class="prompt-label">✓ Specific</div>
+                  <div class="prompt-text">"Build a landing page with these components: Navbar, HeroSection, FeaturesGrid (3 cards), TestimonialCarousel, CTASection, Footer. Each in its own file in src/components/."</div>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">State</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  State is data that changes. When you click a button and something happens — state changed. When you type in a form and see your text — state changed. When you toggle dark mode — state changed. State is why your app feels alive. Without it, everything is static and nothing responds.
+                </p>
+                <div class="concept-grid">
+                  <div class="concept-card">
+                    <div class="concept-card-title">Common state examples</div>
+                    <div class="concept-card-body">Is the menu open or closed? Is the user logged in? What items are in the cart? What text is in the input? Is this loading or done?</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">When buttons don't work</div>
+                    <div class="concept-card-body">If a button click does nothing, it's almost always a state problem. The click happened, but nothing told the app to update.</div>
+                  </div>
+                </div>
+                <div class="prompt-block prompt-good">
+                  <div class="prompt-label">✓ State-aware prompt</div>
+                  <div class="prompt-text">"When the user clicks the button, set modal state to open. When they click outside the modal or press Escape, set it to closed."</div>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Layout</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  Every website is boxes inside boxes. Master this mental model and you understand 90% of web layout. The main structure: header at the top, main content in the middle, optional sidebar, footer at the bottom. Inside main content: sections divide the page, containers control width, grids organize into rows and columns, cards group related content.
+                </p>
+                <div class="prompt-block prompt-good">
+                  <div class="prompt-label">✓ Layout-specific prompt</div>
+                  <div class="prompt-text">"Two-column layout. Left sidebar 250px wide, fixed position (doesn't scroll). Main content takes the remaining width with max-w-3xl and centered."</div>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Pages vs Routes</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  A page is what the user sees. A route is the URL that shows that page. Routes can be static (<code>/about</code> always shows the same page) or dynamic (<code>/products/[id]</code> shows different products based on the ID in the URL).
+                </p>
+                <div class="prompt-block prompt-good">
+                  <div class="prompt-label">✓ Routes defined upfront</div>
+                  <div class="prompt-text">"I need 4 pages: home (/), about (/about), products listing (/products), single product (/products/[id]). Create the file structure and navigation links."</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ========== 05 STYLING & DESIGN ========== -->
+            <div class="guide-section reveal-up" id="styling">
+              <div class="section-eyebrow">05 / Styling & Design</div>
+              <h2 class="section-title">Making It Look Good — Deliberately</h2>
+              <p class="section-lead">
+                Styling is not an afterthought. It's a decision you make once, document in
+                FRONTEND_GUIDELINES.md, and enforce consistently across every component.
+                When every element uses the same design tokens, your app feels cohesive.
+                When each component invents its own values, it looks like five different people built it.
+              </p>
+
+              <div class="subsection">
+                <div class="subsection-title">UI vs UX</div>
+                <div class="concept-grid">
+                  <div class="concept-card">
+                    <div class="concept-card-title">UI — What it looks like</div>
+                    <div class="concept-card-body">Colors, fonts, button shapes, spacing, visual hierarchy. "Make it look better" is a UI request.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">UX — How it feels to use</div>
+                    <div class="concept-card-body">Can someone figure out what to do? Is the flow intuitive? Are people frustrated or delighted? "Make it easier to use" is a UX request.</div>
+                  </div>
+                </div>
+                <div class="callout callout-rule">
+                  <strong>Screenshot references are faster than words.</strong> Find a UI you love, screenshot it, feed it directly to Claude Code or Cursor. Prompt: "match this layout" or "use this UI as reference." AI can extract design patterns, spacing, color palettes, and component structures from a screenshot more accurately than from a written description.
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Design Tokens — The Foundation of Consistency</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  Design tokens are consistent values you reuse everywhere. Your brand color isn't "any blue" — it's the same hex code on every element. Your spacing isn't random — it's always multiples of 4px. Lock these in FRONTEND_GUIDELINES.md before writing the first component:
+                </p>
+                <div class="prompt-block">
+                  <div class="prompt-label">Token definition example</div>
+                  <div class="prompt-text">Colors: primary #3B82F6, background #0F0F11, surface #18181B, text #F4F4F5, muted #71717A
+Spacing scale: 4px, 8px, 12px, 16px, 24px, 32px, 48px, 64px
+Border radius: sm 4px, md 8px, lg 12px, full 999px
+Shadows: sm / md / lg with specific values
+Transitions: 150ms ease for interactions</div>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Design Languages Worth Knowing</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  Reference these by name in prompts and FRONTEND_GUIDELINES.md. Precise vocabulary unlocks specific, recognizable aesthetics instead of vague approximations.
+                </p>
+                <div class="style-grid">
+                  <div class="style-card">
+                    <div class="style-card-name">Glassmorphism</div>
+                    <div class="style-card-desc">Frosted glass effect. Translucent elements with background blur, subtle borders, soft shadows. Cards, modals, navigation bars. Risk: low contrast — keep text readable.</div>
+                  </div>
+                  <div class="style-card">
+                    <div class="style-card-name">Neobrutalism</div>
+                    <div class="style-card-desc">Raw, bold, intentionally unpolished. High-contrast colors, thick black borders, flat shadows, clashing palettes. Works for creative brands, indie tools, portfolios.</div>
+                  </div>
+                  <div class="style-card">
+                    <div class="style-card-name">Bento Grid</div>
+                    <div class="style-card-desc">Modular layouts with blocks of varying sizes. Big cards for important content, smaller for secondary. Responsive by nature. Perfect for dashboards, feature showcases.</div>
+                  </div>
+                  <div class="style-card">
+                    <div class="style-card-name">Dark Mode System</div>
+                    <div class="style-card-desc">Not just a toggle — a full design system. Define both light and dark palettes in FRONTEND_GUIDELINES.md before coding. Don't add it as an afterthought.</div>
+                  </div>
+                  <div class="style-card">
+                    <div class="style-card-name">Micro-interactions</div>
+                    <div class="style-card-desc">Subtle animations that respond to user actions. A button that scales on hover. A checkbox that bounces. These details separate polished from amateur.</div>
+                  </div>
+                  <div class="style-card">
+                    <div class="style-card-name">Kinetic Typography</div>
+                    <div class="style-card-desc">Text that moves, reacts to scroll or cursor. Use sparingly for hero sections and key moments. CSS transitions and Framer Motion make this achievable.</div>
+                  </div>
+                </div>
+                <div class="prompt-block prompt-good">
+                  <div class="prompt-label">✓ Design-specific prompt</div>
+                  <div class="prompt-text">"Glassmorphism cards with bento grid layout, dark mode, micro-interactions on hover states. Reference colors and spacing from FRONTEND_GUIDELINES.md."</div>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Responsive Design</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  Responsive means your site works on all screen sizes. Mobile-first is not a preference — it's a strategy. Building mobile-first forces you to prioritize content. What absolutely must be on the small screen? That's your core. Everything else is progressive enhancement.
+                </p>
+                <div class="concept-grid">
+                  <div class="concept-card">
+                    <div class="concept-card-title">Breakpoints</div>
+                    <div class="concept-card-body">Mobile: 0–640px · Tablet: 640–1024px · Desktop: 1024px+. Define these in FRONTEND_GUIDELINES.md and reference them in every layout decision.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">Tailwind mobile-first</div>
+                    <div class="concept-card-body">Unprefixed styles apply to all screens. <code>md:</code> and <code>lg:</code> kick in at breakpoints. <code>flex flex-col md:flex-row</code> = stacked mobile, side-by-side tablet+.</div>
+                  </div>
+                </div>
+                <div class="callout callout-warning">
+                  <strong>50%+ of your users are on phones.</strong> If you only test on your laptop, you're shipping a broken experience for most people. Test on mobile after every major component is built — not just before shipping.
+                </div>
+              </div>
+            </div>
+
+            <!-- ========== 06 ARCHITECTURE ========== -->
+            <div class="guide-section reveal-up" id="architecture">
+              <div class="section-eyebrow">06 / Architecture</div>
+              <h2 class="section-title">Frontend, Backend, APIs, and Data</h2>
+              <p class="section-lead">
+                Understanding how the pieces connect lets you tell AI exactly what to build
+                and where to put it. The more specific you are about architecture,
+                the less AI invents its own.
+              </p>
+
+              <div class="subsection">
+                <div class="subsection-title">Frontend vs Backend</div>
+                <div class="concept-grid">
+                  <div class="concept-card">
+                    <div class="concept-card-title">Frontend</div>
+                    <div class="concept-card-body">What users see and interact with. Runs in the browser. The interface, UI components, page routing, visual state. No database access directly.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">Backend</div>
+                    <div class="concept-card-body">What happens behind the scenes. Server-side logic, database access, authentication, business rules. Users never touch this directly.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">The flow</div>
+                    <div class="concept-card-body">Frontend collects input → sends to server → server validates and saves → sends confirmation → frontend shows result.</div>
+                  </div>
+                </div>
+                <div class="callout callout-danger">
+                  <strong>Never validate only on the frontend.</strong> Frontend validation is a convenience for users. Backend validation is security. Always validate inputs on the server — don't trust anything coming from the browser.
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">APIs</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  An API is how two systems talk to each other. Your frontend needs data from your backend — it asks via an API. Your app needs to process payments — it talks to Stripe via their API. Think of it as a waiter: you tell the waiter what you want, the waiter goes to the kitchen, brings back your order.
+                </p>
+                <div class="concept-grid">
+                  <div class="concept-card">
+                    <div class="concept-card-title">GET</div>
+                    <div class="concept-card-body">Retrieve data. Fetching a list of products, loading a user profile.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">POST</div>
+                    <div class="concept-card-body">Send new data. Submitting a form, creating a new record.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">PUT / PATCH</div>
+                    <div class="concept-card-body">Update existing data. Editing a profile, changing a status.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">DELETE</div>
+                    <div class="concept-card-body">Remove data. Deleting a post, canceling an order.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Databases</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  A database is where you save things permanently. Without one, everything resets on refresh. Use <strong>Supabase</strong> as your default — it handles both database and auth, has a generous free tier, and is designed for exactly this kind of workflow.
+                </p>
+                <div class="concept-grid">
+                  <div class="concept-card">
+                    <div class="concept-card-title">When you need a database</div>
+                    <div class="concept-card-body">Users can create accounts. Users can save their own content. Submissions need to be stored. Data grows over time.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">When you don't</div>
+                    <div class="concept-card-body">Static site, same content for everyone. Portfolio with no user interaction. Landing page that just collects emails via a form service.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Authentication</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  Authentication (login/logout) is harder than it looks. Passwords need encryption, sessions need management, tokens need handling. Don't build auth from scratch. Use a service. <strong>Clerk</strong> is the simplest with great UI out of the box. <strong>Supabase Auth</strong> works if you're already using Supabase.
+                </p>
+                <div class="callout callout-warning">
+                  <strong>One of the most common security mistakes</strong> is implementing auth manually without fully understanding the implications. The time you "save" by rolling your own auth is paid back tenfold in security vulnerabilities. Use a proven service and configure it.
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Folder Structure</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  A messy project confuses AI. When files are scattered arbitrarily, AI puts new files in random locations and nothing connects properly. Always tell AI where to put things, and lock the structure in your CLAUDE.md.
+                </p>
+                <div class="folder-tree">
+<span class="highlight">my-app/</span>
+├── src/
+│   ├── <span class="highlight">app/</span>           <span class="comment">→ pages and routes</span>
+│   ├── <span class="highlight">components/</span>    <span class="comment">→ reusable UI pieces</span>
+│   ├── <span class="highlight">lib/</span>           <span class="comment">→ utilities and helpers</span>
+│   └── <span class="highlight">styles/</span>        <span class="comment">→ CSS files</span>
+├── public/            <span class="comment">→ images and static files</span>
+├── <span class="highlight">.env</span>               <span class="comment">→ secrets (NEVER commit)</span>
+├── <span class="highlight">CLAUDE.md</span>          <span class="comment">→ AI rules and context</span>
+├── <span class="highlight">progress.txt</span>       <span class="comment">→ session tracking</span>
+├── PRD.md             <span class="comment">→ product requirements</span>
+├── APP_FLOW.md        <span class="comment">→ user flows</span>
+├── TECH_STACK.md      <span class="comment">→ locked dependencies</span>
+├── FRONTEND_GUIDELINES.md  <span class="comment">→ design system</span>
+├── BACKEND_STRUCTURE.md    <span class="comment">→ database and API spec</span>
+└── IMPLEMENTATION_PLAN.md  <span class="comment">→ build sequence</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ========== 07 TOOLBOX ========== -->
+            <div class="guide-section reveal-up" id="toolbox">
+              <div class="section-eyebrow">07 / The Toolbox</div>
+              <h2 class="section-title">The Right Tool for Each Phase</h2>
+              <p class="section-lead">
+                You don't need 50 tools. You need the right tools used at the right time.
+                The difference between someone who ships and someone who's stuck isn't
+                which AI model they use — it's knowing which model to use when.
+              </p>
+
+              <div class="subsection">
+                <div class="subsection-title">AI Coding Tools</div>
+                <div class="tool-grid">
+                  <div class="tool-card">
+                    <div class="tool-card-header">
+                      <span class="tool-card-name">Cursor</span>
+                      <span class="tool-card-tag">Build</span>
+                    </div>
+                    <div class="tool-card-body">AI-native editor that sees your entire project, understands file relationships, and can edit across multiple files at once. Four distinct modes for different phases.</div>
+                    <div class="tool-card-use">Use for: general implementation, multi-file edits, the core coding workflow</div>
+                  </div>
+                  <div class="tool-card">
+                    <div class="tool-card-header">
+                      <span class="tool-card-name">Claude / Claude Code</span>
+                      <span class="tool-card-tag">Think</span>
+                    </div>
+                    <div class="tool-card-body">Your thinking partner. Use for interrogation, writing canonical docs, planning architecture, complex product decisions. Claude Code runs in your terminal and auto-reads CLAUDE.md.</div>
+                    <div class="tool-card-use">Use for: docs, planning, architecture, documentation-heavy tasks</div>
+                  </div>
+                  <div class="tool-card">
+                    <div class="tool-card-header">
+                      <span class="tool-card-name">Kimi K2.5</span>
+                      <span class="tool-card-tag">Design</span>
+                    </div>
+                    <div class="tool-card-body">Native multimodal model. Feed it a screenshot, video, or design mockup and it generates frontend code that closely matches the visual. Where other models approximate, K2.5 replicates.</div>
+                    <div class="tool-card-use">Use for: visual-heavy frontend work, design-to-code translation</div>
+                  </div>
+                  <div class="tool-card">
+                    <div class="tool-card-header">
+                      <span class="tool-card-name">Codex</span>
+                      <span class="tool-card-tag">Debug</span>
+                    </div>
+                    <div class="tool-card-body">OpenAI's coding agent. Each task gets its own isolated sandbox preloaded with your repo. Reads your codebase, traces dependencies, proposes fixes across files. Can run tests and iterate until they pass.</div>
+                    <div class="tool-card-use">Use for: debugging, code review, finalizing before shipping</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Cursor's Four Modes</div>
+                <div class="doc-card">
+                  <span class="doc-card-icon">Ask</span>
+                  <div class="doc-card-content">
+                    <div class="doc-card-title">Read-only exploration</div>
+                    <div class="doc-card-desc">AI reads your codebase and answers questions without changing anything. Use it when you're exploring unfamiliar code, understanding how something works, or planning before touching files. "What does this function do?" "Why is this component re-rendering?" "What would break if I changed this?"</div>
+                  </div>
+                </div>
+                <div class="doc-card">
+                  <span class="doc-card-icon">Plan</span>
+                  <div class="doc-card-content">
+                    <div class="doc-card-title">Architect before you code</div>
+                    <div class="doc-card-desc">Describe what you want to build. Cursor creates a detailed implementation plan, asks clarifying questions, and can generate diagrams. Use at the start of every new feature. Review, adjust, approve — then hand to Agent mode. Also use Plan mode for verification: "Plan how to verify that this auth flow handles all edge cases."</div>
+                  </div>
+                </div>
+                <div class="doc-card">
+                  <span class="doc-card-icon">Agent</span>
+                  <div class="doc-card-content">
+                    <div class="doc-card-title">Autonomous implementation</div>
+                    <div class="doc-card-desc">AI writes code, edits files, runs terminal commands, installs packages, and fixes errors autonomously. Reads your entire project, follows your rules files, and implements features end-to-end. This is where most vibe coding happens.</div>
+                  </div>
+                </div>
+                <div class="doc-card">
+                  <span class="doc-card-icon">Debug</span>
+                  <div class="doc-card-content">
+                    <div class="doc-card-title">Structured debugging loop</div>
+                    <div class="doc-card-desc">For stubborn bugs. Instruments your code with runtime logs, generates multiple hypotheses, asks you to reproduce the bug, tests its fix, asks you to verify. More systematic than guessing — use this when a bug survives two or three regular fix attempts.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Infrastructure Stack</div>
+                <div class="tool-grid">
+                  <div class="tool-card">
+                    <div class="tool-card-header">
+                      <span class="tool-card-name">GitHub</span>
+                      <span class="tool-card-tag">Version Control</span>
+                    </div>
+                    <div class="tool-card-body">Where your code lives in the cloud with every change tracked. Non-negotiable. Without it, one mistake can destroy everything. With it, you can go back to any previous state in seconds.</div>
+                  </div>
+                  <div class="tool-card">
+                    <div class="tool-card-header">
+                      <span class="tool-card-name">Vercel</span>
+                      <span class="tool-card-tag">Deploy</span>
+                    </div>
+                    <div class="tool-card-body">Push to GitHub, Vercel automatically builds and deploys. You get a live URL. Free tier is generous. From your computer to live on the internet in minutes with zero config.</div>
+                  </div>
+                  <div class="tool-card">
+                    <div class="tool-card-header">
+                      <span class="tool-card-name">Supabase</span>
+                      <span class="tool-card-tag">Database + Auth</span>
+                    </div>
+                    <div class="tool-card-body">Free tier, good docs, handles database and auth in one place. If you're not sure what backend to use, use Supabase. It gets out of your way so you can focus on the product.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Advanced Workflow: Parallel Sessions</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  Once you've built a few projects with the basic system, these techniques multiply your speed significantly.
+                </p>
+                <div class="callout callout-success">
+                  <strong>Git worktrees are the single biggest productivity unlock.</strong> Spin up 3–5 worktrees, each running its own Claude Code session in parallel. One builds auth, another builds the dashboard layout, a third handles API endpoints. All share the same repo but work independently. What used to take a full day of sequential building becomes a few hours of parallel execution.
+                </div>
+                <div class="callout callout-rule">
+                  <strong>Subagents for complex problems.</strong> When a problem is big enough that one Claude session would choke on context, append "use subagents" to your request. Claude spins up focused sub-sessions for parallel analysis while keeping your main context window clean. One task per subagent. Think of it as delegating to a team.
+                </div>
+                <div class="callout callout-rule">
+                  <strong>Voice dictation for better prompts.</strong> You speak 3× faster than you type, and your prompts get dramatically more detailed as a result. On macOS, press <code>fn fn</code> to start dictating. Longer, more detailed prompts produce better outputs — voice is the shortcut to getting there without the friction.
+                </div>
+              </div>
+            </div>
+
+            <!-- ========== 08 BUILD LOOP ========== -->
+            <div class="guide-section reveal-up" id="build-loop">
+              <div class="section-eyebrow">08 / The Build Loop</div>
+              <h2 class="section-title">Git, Deploy, Debug, Iterate</h2>
+              <p class="section-lead">
+                Vibe coding is not a one-shot approach. It's iteration. The skill is iterating
+                quickly and knowing which tool to use at each step — not avoiding iteration
+                entirely, and not getting stuck in loops of the same broken code.
+              </p>
+
+              <div class="subsection">
+                <div class="subsection-title">Git — Commit Early and Often</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  Git tracks every change. Without it: you break something and can't undo it. With it: every change is saved, you can return to any previous state, and your code lives on GitHub — not just your computer.
+                </p>
+                <div class="prompt-block">
+                  <div class="prompt-label">Core git commands</div>
+                  <div class="prompt-text">git add .              # stage changes
+git commit -m "feat: add user login"   # save with message
+git push               # upload to GitHub
+git pull               # download latest changes</div>
+                </div>
+                <div class="callout callout-rule">
+                  Commit after every major feature that works. If you break something, you can always roll back. The message matters too — use Conventional Commits: <code>feat: add X</code>, <code>fix: resolve Y</code>, <code>refactor: clean up Z</code>. Your AI can write these for you: <em>"Write a clear git commit message for these changes following Conventional Commits."</em>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Environment Variables — Never Expose Secrets</div>
+                <div class="callout callout-danger">
+                  <strong>Never put API keys in your code.</strong> They go in a <code>.env</code> file, accessed via <code>process.env.YOUR_KEY_NAME</code>. Add <code>.env</code> to <code>.gitignore</code>. Never paste API keys in screenshots or AI chat. If you commit a key to a public repo, assume it's compromised immediately — go revoke it and create a new one. When deploying to Vercel, add environment variables in Vercel's dashboard — they don't transfer from your local <code>.env</code> automatically.
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Reading Error Messages</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  Errors are instructions, not insults. They tell you exactly what went wrong. Read them. An error message has three parts: the type, the description, and the location.
+                </p>
+                <div class="prompt-block">
+                  <div class="prompt-label">Anatomy of an error</div>
+                  <div class="prompt-text">TypeError: Cannot read property 'map' of undefined
+    at ProductList (src/components/ProductList.tsx:15:23)
+
+→ TypeError: using something in the wrong way
+→ 'map' of undefined: called .map() on something that doesn't exist yet
+→ ProductList.tsx:15:23: exact file and line number to investigate</div>
+                </div>
+                <div class="prompt-block prompt-good">
+                  <div class="prompt-label">✓ How to give AI an error</div>
+                  <div class="prompt-text">"I'm getting this error: [full error message and stack trace]. Here's the code at that line: [paste relevant code]. I expected it to [what you expected]."</div>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">The Debugging Loop</div>
+                <ol class="step-list">
+                  <li>Read the error message. Actually read it.</li>
+                  <li>Find the location. What file, what line number.</li>
+                  <li>Understand the claim. What does the error say is wrong?</li>
+                  <li>Check the obvious first. Typos, missing imports, wrong variable names.</li>
+                  <li>Give AI context: error + code + what you expected to happen.</li>
+                  <li>If it survives 2–3 rounds, switch to Cursor Debug mode or Codex. Don't keep throwing the same fix at the same bug.</li>
+                </ol>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">How to Iterate Well</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  Nobody's first output is right. That's normal and expected. The skill is iterating quickly with specificity.
+                </p>
+                <div class="prompt-block prompt-bad">
+                  <div class="prompt-label">❌ Bad iteration</div>
+                  <div class="prompt-text">"It doesn't look right, fix it."</div>
+                </div>
+                <div class="prompt-block prompt-good">
+                  <div class="prompt-label">✓ Good iteration</div>
+                  <div class="prompt-text">"The product grid shows 4 columns on desktop but I need 3. The card images are stretched — they should be object-cover. And there's no loading state while data is fetching."</div>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Breaking Big Ideas into Small Pieces</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  AI struggles with large, vague requests. "Build me a full e-commerce site" produces garbage. Break everything into pieces — each one is a single conversation or single task, each builds on the last, and each can be tested independently. This is exactly what your IMPLEMENTATION_PLAN.md already contains.
+                </p>
+                <div class="prompt-block prompt-good">
+                  <div class="prompt-label">✓ Execution prompt</div>
+                  <div class="prompt-text">"Read CLAUDE.md and progress.txt first. Then build step 4.2 from IMPLEMENTATION_PLAN.md only. Style per FRONTEND_GUIDELINES.md. Stop after that step and report what was built."</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ========== 09 SHIPPING ========== -->
+            <div class="guide-section reveal-up" id="shipping">
+              <div class="section-eyebrow">09 / Shipping & Maintaining</div>
+              <h2 class="section-title">When to Ship, and How to Keep It Running</h2>
+              <p class="section-lead">
+                The best app you never ship is worse than the average app that's live.
+                Know when you're done. Know how to keep the project alive after it ships.
+              </p>
+
+              <div class="subsection">
+                <div class="subsection-title">Verify Before You Ship</div>
+                <ul class="checklist">
+                  <li><span class="check-icon">✓</span> Does it work on mobile? Actually open it on your phone.</li>
+                  <li><span class="check-icon">✓</span> Does it work in different browsers?</li>
+                  <li><span class="check-icon">✓</span> What happens with no data? Are empty states handled?</li>
+                  <li><span class="check-icon">✓</span> What happens with wrong data? Are error states handled?</li>
+                  <li><span class="check-icon">✓</span> What happens with slow internet? Are loading states in place?</li>
+                  <li><span class="check-icon">✓</span> Can you break it by clicking fast or submitting twice?</li>
+                  <li><span class="check-icon">✓</span> Are all secrets hidden from browser dev tools?</li>
+                </ul>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Definition of Done</div>
+                <div class="concept-grid">
+                  <div class="concept-card">
+                    <div class="concept-card-title">You're done when</div>
+                    <div class="concept-card-body">The core feature works. Users can complete the main action. It doesn't break on common paths. It's deployed and accessible.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">You're NOT done when</div>
+                    <div class="concept-card-body">It's "perfect." Every edge case is handled. It has every feature you imagined. It looks exactly like a Dribbble mockup.</div>
+                  </div>
+                </div>
+                <div class="callout callout-rule">
+                  Ship the simple version and get real feedback. Then improve based on actual usage patterns, not hypothetical ones. A never-ending feature list kills more projects than bad code does.
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Deployment with Vercel</div>
+                <ol class="step-list">
+                  <li>Push code to GitHub</li>
+                  <li>Connect the GitHub repo to Vercel (one-time setup)</li>
+                  <li>Vercel automatically builds and deploys on every push</li>
+                  <li>Add environment variables in Vercel's dashboard (not from your local .env)</li>
+                  <li>You get a live URL at <code>your-app.vercel.app</code> within minutes</li>
+                </ol>
+                <div class="callout callout-warning">
+                  <strong>99% of deploy bugs</strong> are either missing environment variables or wrong build settings. When something works locally but breaks on Vercel, paste the Vercel error logs to AI: <em>"It works on localhost but breaks on Vercel. Here's the error from Vercel's build logs:"</em>
+                </div>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Maintaining What You Built</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  Good documentation makes returning to a project 10× faster. Bad documentation means starting over. When you come back after three months:
+                </p>
+                <div class="prompt-block prompt-good">
+                  <div class="prompt-label">✓ Session restart prompt</div>
+                  <div class="prompt-text">"Read CLAUDE.md, progress.txt, and PRD.md. I'm returning to this project after a break. Summarize where things stand against IMPLEMENTATION_PLAN.md and what needs attention next."</div>
+                </div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;">
+                  Treat your codebase like a home that someone unfamiliar will need to navigate. Keep dependencies updated, write comments on non-obvious logic, use consistent naming, and update your documentation every time something meaningful changes.
+                </p>
+              </div>
+
+              <div class="subsection">
+                <div class="subsection-title">Third-Party Services — Use Them</div>
+                <p style="color:var(--text-secondary);font-size:0.9375rem;line-height:1.75;margin-bottom:1rem;">
+                  Your core product is the unique thing you're building. Everything else is infrastructure. Use existing services for infrastructure — they've solved these problems better than you'll solve them in a week.
+                </p>
+                <div class="concept-grid">
+                  <div class="concept-card">
+                    <div class="concept-card-title">Auth</div>
+                    <div class="concept-card-body">Clerk (simplest, great UI), Supabase Auth (if already on Supabase)</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">Payments</div>
+                    <div class="concept-card-body">Stripe. The standard. Don't reinvent payment processing.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">Email</div>
+                    <div class="concept-card-body">Resend or SendGrid for transactional email.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">File uploads</div>
+                    <div class="concept-card-body">Uploadthing or Supabase Storage for media.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">Components</div>
+                    <div class="concept-card-body">shadcn/ui — copies code into your project, you own it, fully customizable.</div>
+                  </div>
+                  <div class="concept-card">
+                    <div class="concept-card-title">Icons / Fonts</div>
+                    <div class="concept-card-body">Lucide React for icons. Google Fonts or Geist for typography.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ========== 10 COMPLETE SYSTEM ========== -->
+            <div class="guide-section reveal-up" id="system">
+              <div class="section-eyebrow">10 / The Complete System</div>
+              <h2 class="section-title">The Full Checklist — Start to Ship</h2>
+              <p class="section-lead">
+                Vibe coding is meticulous planning, systems, documentation, vocabulary, and iteration.
+                Here's the complete reference. Bookmark it, come back to it at the start of every project.
+              </p>
+
+              <div class="phase-block">
+                <div class="phase-title">Before Building</div>
+                <ul class="checklist">
+                  <li><span class="check-icon">01</span> Run the interrogation prompt. Let AI tear your idea apart with questions until no assumptions remain.</li>
+                  <li><span class="check-icon">02</span> Answer every question. Clarity now prevents guesswork later.</li>
+                  <li><span class="check-icon">03</span> Generate the six canonical docs: PRD.md, APP_FLOW.md, TECH_STACK.md, FRONTEND_GUIDELINES.md, BACKEND_STRUCTURE.md, IMPLEMENTATION_PLAN.md.</li>
+                  <li><span class="check-icon">04</span> Write CLAUDE.md with project rules, references to all six docs, and a lessons.md self-improvement loop.</li>
+                  <li><span class="check-icon">05</span> Create progress.txt with your starting state.</li>
+                  <li><span class="check-icon">06</span> Gather UI screenshots for visual reference.</li>
+                  <li><span class="check-icon">07</span> Initialize git and push initial commit to GitHub.</li>
+                </ul>
+              </div>
+
+              <div class="phase-block">
+                <div class="phase-title">While Building</div>
+                <ul class="checklist">
+                  <li><span class="check-icon">→</span> AI reads CLAUDE.md, progress.txt, and lessons.md first, every session.</li>
+                  <li><span class="check-icon">→</span> Use Ask and Plan modes to architect before coding. Never jump straight to Agent.</li>
+                  <li><span class="check-icon">→</span> Match tool to task: K2.5 for visual frontend, Claude Code for architecture, Cursor Agent for general implementation.</li>
+                  <li><span class="check-icon">→</span> Work in small pieces. One feature at a time. One step from IMPLEMENTATION_PLAN.md at a time.</li>
+                  <li><span class="check-icon">→</span> Use screenshot references for all UI work.</li>
+                  <li><span class="check-icon">→</span> Commit to git after each working feature.</li>
+                  <li><span class="check-icon">→</span> Update progress.txt after each feature.</li>
+                  <li><span class="check-icon">→</span> After every correction, update CLAUDE.md and lessons.md so AI never makes the same mistake twice.</li>
+                  <li><span class="check-icon">→</span> Test on mobile regularly — not just at the end.</li>
+                </ul>
+              </div>
+
+              <div class="phase-block">
+                <div class="phase-title">Before Shipping</div>
+                <ul class="checklist">
+                  <li><span class="check-icon">✓</span> Test on an actual mobile device.</li>
+                  <li><span class="check-icon">✓</span> Verify error states and empty states are handled.</li>
+                  <li><span class="check-icon">✓</span> Confirm all secrets are hidden from the browser.</li>
+                  <li><span class="check-icon">✓</span> Walk through the main user flow end-to-end.</li>
+                  <li><span class="check-icon">✓</span> Check performance — is anything noticeably slow?</li>
+                  <li><span class="check-icon">✓</span> Use Codex to debug, review, and finalize.</li>
+                </ul>
+              </div>
+
+              <div class="phase-block">
+                <div class="phase-title">After Shipping</div>
+                <ul class="checklist">
+                  <li><span class="check-icon">→</span> Update docs to reflect what was actually built.</li>
+                  <li><span class="check-icon">→</span> Update dependencies periodically — outdated packages have known vulnerabilities.</li>
+                  <li><span class="check-icon">→</span> Iterate based on real user feedback, not hypothetical scenarios.</li>
+                  <li><span class="check-icon">→</span> Keep progress.txt and lessons.md current for future sessions.</li>
+                  <li><span class="check-icon">→</span> Turn repeated workflows into reusable skills and slash commands.</li>
+                </ul>
+              </div>
+
+              <div class="callout callout-success" style="margin-top:2rem;">
+                <strong>The summary in one line:</strong> Claude does the thinking. Cursor builds. Kimi K2.5 handles visual frontend. Codex debugs and finishes. GitHub tracks everything. Vercel ships it. You provide the direction, vocabulary, and iteration. The AI does the typing.
+              </div>
+            </div>
+
+          </div><!-- /content -->
+        </div><!-- /guide-layout -->
+      </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <div class="section-divider"></div>
+    <footer style="padding: 3rem 0 4rem;">
+      <div class="container">
+        <p style="color: var(--text-muted); font-size: 0.875rem;">
+          <strong style="color: var(--text-secondary);">Interrogation → Documentation → Code.</strong><br>
+          In that order. Every single time.
+        </p>
+        <p style="color: var(--text-muted); font-size: 0.8125rem; margin-top: 0.5rem;">
+          <a href="index.html" style="color: var(--text-muted); text-decoration: none;">&larr; Back to overview</a>
+          &nbsp;·&nbsp;
+          <a href="glossary.html" style="color: var(--text-muted); text-decoration: none;">Vibe-Coder Glossar →</a>
+        </p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // ── Scroll-based nav shrink ──
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ── Reveal on scroll ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+
+    // ── Active chapter nav on scroll ──
+    const sections = document.querySelectorAll('.guide-section');
+    const navLinks = document.querySelectorAll('.chapter-nav-link');
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+          });
+        }
+      });
+    }, { threshold: 0.3, rootMargin: '-80px 0px -60% 0px' });
+
+    sections.forEach(s => sectionObserver.observe(s));
+  </script>
+
+</body>
+</html>

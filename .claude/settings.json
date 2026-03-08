@@ -1,4 +1,10 @@
 {
+  "permissions": {
+    "allow": [
+      "mcp__plugin_episodic-memory_episodic-memory__search",
+      "mcp__plugin_episodic-memory_episodic-memory__read"
+    ]
+  },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true,
     "superpowers@superpowers-marketplace": true
