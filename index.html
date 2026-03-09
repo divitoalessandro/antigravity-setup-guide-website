@@ -27,7 +27,7 @@
         <li><a href="#workflow">Workflow</a></li>
         <li><a href="#setup">Setup</a></li>
         <li><a href="vibe-coding-101.html">Vibe 101</a></li>
-        <li><a href="glossary.html">Glossar</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
       </ul>
     </div>
   </nav>
@@ -560,6 +560,54 @@
         }
       });
     });
+  </script>
+
+  <!-- Mobile FAB Menu -->
+  <button class="mobile-fab" id="mobileMenuBtn" aria-label="Menu" aria-expanded="false">
+    <span class="mobile-fab-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+  </button>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+    <a href="#get-started">Start</a>
+    <a href="#plugins">Plugins</a>
+    <a href="#models">Models</a>
+    <a href="#workflow">Workflow</a>
+    <a href="#setup">Setup</a>
+    <a href="vibe-coding-101.html">Vibe 101</a>
+    <a href="glossary.html">Glossary</a>
+  </nav>
+  <div class="mobile-scrim" id="mobileScrim"></div>
+  <script>
+    (function () {
+      var btn = document.getElementById('mobileMenuBtn');
+      var menu = document.getElementById('mobileMenu');
+      var scrim = document.getElementById('mobileScrim');
+      function openMenu() {
+        btn.classList.add('open');
+        menu.classList.add('open');
+        scrim.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+      function closeMenu() {
+        btn.classList.remove('open');
+        menu.classList.remove('open');
+        scrim.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+      btn.addEventListener('click', function () {
+        menu.classList.contains('open') ? closeMenu() : openMenu();
+      });
+      scrim.addEventListener('click', closeMenu);
+      menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', closeMenu);
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+    })();
   </script>
 
 </body>
