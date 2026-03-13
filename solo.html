@@ -258,6 +258,10 @@ After I answer, do the following:
   - Runs tests
   - Keep it under 30 lines if possible
 
+**Session files:**
+- Create a progress.txt with sections: COMPLETED, IN PROGRESS, NEXT, KNOWN BUGS (all empty to start)
+- Create a lessons.md with header: "Corrections and patterns to avoid. AI reads this at session start."
+
 **Plugins to enable:**
 - superpowers, episodic-memory, context7, commit-commands, github
 
@@ -296,11 +300,16 @@ Then generate a CLAUDE.md file at the project root with this structure:
 ## Workflow & Behavior
 - Use conventional commits via /commit for all changes
 - Search episodic memory at the start of each session for prior context
+- Read progress.txt and lessons.md at the start of every session
 - Always create a feature branch before starting work (never commit directly to main)
-- Use writing-plans skill before implementing features with more than 3 steps
+- Enter plan mode (writing-plans) before implementing anything with 3+ steps
 - Write tests for critical paths before marking work as done
 - Self-review changes before creating a PR
 - Keep commits small and focused — one logical change per commit
+- After completing a feature, update progress.txt
+- After any correction or debugging session, update lessons.md with the pattern and the fix
+- Verify work before marking done — run tests, check the UI, confirm end-to-end
+- Fix bugs autonomously when encountered — don't just report them, resolve them
 - Ask before deleting files, dropping tables, or making breaking changes to APIs
 
 ## Essential Commands
@@ -315,14 +324,58 @@ Then generate a CLAUDE.md file at the project root with this structure:
 ## Development Patterns
 [Fill based on stack — naming conventions, file organization, error handling approach]
 
+## Task Management
+- Plan before building. Break features into steps.
+- One feature at a time. Commit after each logical unit.
+- Capture lessons in lessons.md after corrections.
+
 ## Critical Rules
 [Fill based on answer to question 4, plus these defaults:]
 - Never expose API keys or secrets in code
 - Never skip tests to ship faster
 - Always handle errors at API boundaries
 - Keep dependencies minimal — don't add a library for something the language can do natively
+- Simplicity first. Don't over-engineer. Minimal dependencies.
+- No lazy fixes — find root causes, not workarounds
 
 Target length: 60–100 lines. Concise but complete.</code></pre>
+          </div>
+        </div>
+
+        <!-- Prompt 3: Generate Project Docs -->
+        <div class="prompt-section reveal-up">
+          <h3>Generate Project Docs</h3>
+          <p>Creates the core planning documents that become your project&rsquo;s source of truth.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Generate Project Docs</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Generate the core planning documents for this project. These docs become the source of truth that CLAUDE.md references.
+
+Before generating, either:
+- Run an interrogation first: "Interrogate my idea. Assume nothing. Ask questions until there are no assumptions left. One question at a time."
+- Or answer these questions yourself if you already have clarity:
+  1. Who is this for and what is the core action they take?
+  2. What data needs to be saved and displayed?
+  3. What happens on error vs success?
+  4. What is explicitly out of scope for v1?
+
+Then generate these three files in the project root:
+
+**PRD.md** — Product requirements: what the product does, who it's for, core features for v1, explicit non-goals. This is the contract for what "done" looks like.
+
+**TECH_STACK.md** — Locked dependencies: language, framework, database, auth provider, hosting, package manager. Exact versions. No "or" — pick one of everything. Prevents hallucinated dependencies.
+
+**IMPLEMENTATION_PLAN.md** — Step-by-step build sequence. Not "build the app." Specific steps like: 1.1 initialize project, 1.2 install dependencies from TECH_STACK.md, 2.1 build auth flow, etc. Each step should be completable in a single session.
+
+Be specific and exhaustive. No ambiguity.
+
+After generating, update CLAUDE.md to reference these docs:
+- "Read PRD.md for product requirements"
+- "Follow IMPLEMENTATION_PLAN.md for build order"
+- "Reference TECH_STACK.md for dependency decisions"</code></pre>
           </div>
         </div>
 

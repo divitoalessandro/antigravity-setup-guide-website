@@ -292,6 +292,10 @@ After I answer, do the following:
 - main: require PR, require 1 review, require CI pass, no direct push
 - dev: require PR, require CI pass
 
+**Session files:**
+- Create a progress.txt with sections: COMPLETED, IN PROGRESS, NEXT, KNOWN BUGS, BLOCKED (all empty to start)
+- Create a lessons.md with header: "Team knowledge base — corrections, patterns to avoid, and debugging solutions. AI reads this at session start. Update after every debugging session."
+
 **Plugins to enable for all team members:**
 - superpowers, episodic-memory, context7, commit-commands, github
 
@@ -335,13 +339,20 @@ Then generate a CLAUDE.md file at the project root with this structure:
 ## Workflow & Behavior
 - Use conventional commits via /commit for all changes
 - Search episodic memory at the start of each session for prior context
+- Read progress.txt and lessons.md at the start of every session
 - NEVER commit directly to main or dev — always use a feature branch
 - Branch from dev, not from main
-- Use writing-plans skill before implementing features with more than 3 steps
+- Enter plan mode (writing-plans) before implementing anything with 3+ steps
 - Use test-driven-development skill — write tests before implementation
 - Open a draft PR early for visibility
 - Request code review before merging using requesting-code-review skill
 - Keep commits small, focused, and independently revertible
+- After completing a feature, update progress.txt
+- After any correction or debugging session, update lessons.md
+- Verify work before marking done — tests pass, CI green, feature works end-to-end
+- For complex multi-file tasks, use subagents to keep the main context window clean
+- Fix bugs autonomously. Don't leave broken code for someone else.
+- Demand elegance — clean abstractions, consistent patterns (skip for trivial one-line fixes)
 - Ask before: deleting files, dropping tables, changing API contracts, modifying CI config, updating dependencies
 
 ## Essential Commands
@@ -356,6 +367,13 @@ Then generate a CLAUDE.md file at the project root with this structure:
 ## Development Patterns
 [Fill based on stack — naming conventions, file organization, error handling, logging, API response format]
 
+## Task Management
+- Plan before building. Use writing-plans for anything touching 3+ files.
+- Work one step at a time from IMPLEMENTATION_PLAN.md.
+- Update progress.txt after every completed feature.
+- Capture corrections and debugging insights in lessons.md.
+- Reference PRD.md for product decisions, not assumptions.
+
 ## Critical Rules
 [Fill based on answer to question 4, plus these defaults:]
 - Never expose API keys, secrets, or credentials in code — use environment variables
@@ -365,6 +383,9 @@ Then generate a CLAUDE.md file at the project root with this structure:
 - Keep dependencies minimal and audited
 - Document breaking changes in PR description
 - Update README when adding new setup steps or changing how to run the project
+- Simplicity first. Minimal impact changes.
+- No lazy fixes — root causes only, no placeholder code or TODO comments
+- No changes without reading the relevant docs first
 
 ## Team Conventions
 - PR title format: type(scope): description (matching commit convention)
@@ -374,6 +395,43 @@ Then generate a CLAUDE.md file at the project root with this structure:
 - Regular merge (or rebase) dev into main for releases
 
 Target length: 80–120 lines. Comprehensive but scannable.</code></pre>
+          </div>
+        </div>
+
+        <!-- Prompt 3: Generate Canonical Docs -->
+        <div class="prompt-section reveal-up">
+          <h3>Generate Canonical Docs</h3>
+          <p>Creates the full documentation set that becomes the shared source of truth for the entire team.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Generate Canonical Docs</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Generate the full canonical documentation set for this project. These docs become the shared source of truth for the entire team.
+
+Start with an interrogation:
+"Before writing any code, interrogate my idea in planning mode only. Assume nothing. Ask questions until there are no assumptions left. One question at a time."
+
+Once the interrogation is complete, generate all six files in the project root:
+
+**PRD.md** — Product requirements: what the product does, who it's for, core features, user stories, success criteria, explicit non-goals for v1. This is the contract for what "done" looks like.
+
+**APP_FLOW.md** — User flows: every screen, every action, every transition. What the user sees and does, step by step. Decision points, success states, error states, and a full screen inventory with routes.
+
+**TECH_STACK.md** — Locked dependencies: language, framework, database, auth provider, hosting, CI/CD, package manager. Exact versions. No "or" — pick one of everything. Prevents hallucinated dependencies.
+
+**FRONTEND_GUIDELINES.md** — Design system: colors (exact hex), spacing scale, typography, component patterns, responsive breakpoints, dark/light mode rules, UI library preferences.
+
+**BACKEND_STRUCTURE.md** — Database schema with every table, column, type, and relationship. API endpoint contracts. Authentication logic. Storage rules. Error response format.
+
+**IMPLEMENTATION_PLAN.md** — Step-by-step build sequence. Specific steps like: 1.1 initialize project, 1.2 install deps from TECH_STACK.md, 2.1 build auth per BACKEND_STRUCTURE.md. Each step references the relevant doc. Each step is completable in a single session.
+
+Be specific and exhaustive. No ambiguity. Docs should cross-reference each other.
+
+After generating, update CLAUDE.md to reference all six docs and add:
+- "Reference the canonical docs for all product and architecture decisions"
+- "Never contradict what's in the docs — update the doc first if something needs to change"</code></pre>
           </div>
         </div>
 

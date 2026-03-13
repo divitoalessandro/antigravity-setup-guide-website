@@ -1380,6 +1380,11 @@ section {
 
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
+  .container,
+  .container-narrow {
+    padding: 0 1.25rem;
+  }
+
   .hero {
     min-height: auto;
     padding: 3rem 0 2rem;
