@@ -174,7 +174,7 @@
     /* ── Concept cards ── */
     .concept-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
@@ -208,6 +208,8 @@
       border-radius: 10px;
       background: var(--surface);
       margin-bottom: 0.75rem;
+      overflow: hidden;
+      min-width: 0;
     }
 
     .doc-card-icon {
@@ -222,7 +224,9 @@
       margin-top: 0.1rem;
     }
 
-    .doc-card-content {}
+    .doc-card-content {
+      min-width: 0;
+    }
 
     .doc-card-title {
       font-size: 0.9375rem;
@@ -240,7 +244,7 @@
     /* ── Tool cards ── */
     .tool-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
@@ -352,6 +356,7 @@
       padding: 0.1em 0.4em;
       border-radius: 4px;
       color: var(--accent-light, #a5b4fc);
+      word-break: break-all;
     }
 
     /* ── Dividers ── */
@@ -371,7 +376,7 @@
     /* ── Design style pills ── */
     .style-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
       gap: 0.875rem;
       margin-bottom: 1.5rem;
     }
@@ -406,6 +411,8 @@
       border-radius: 8px;
       padding: 1.25rem 1.5rem;
       margin-bottom: 1.25rem;
+      max-width: 100%;
+      overflow-x: auto;
     }
 
     .folder-tree .highlight { color: var(--accent-light, #a5b4fc); }
@@ -427,8 +434,14 @@
 
     /* ── Mobile responsive ── */
     @media (max-width: 768px) {
+      main {
+        overflow-x: hidden;
+      }
+
       .guide-section {
         margin-bottom: 3rem;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
       }
 
       .concept-grid,
@@ -437,18 +450,55 @@
         grid-template-columns: 1fr;
       }
 
-      .folder-tree,
+      .folder-tree {
+        overflow-x: auto;
+        font-size: 0.6875rem;
+        padding: 1rem;
+      }
+
       .prompt-block {
         overflow-x: auto;
+        max-width: 100%;
       }
 
       .prompt-text {
+        white-space: pre-wrap;
+        word-break: break-all;
         overflow-wrap: break-word;
-        word-break: break-word;
+        font-size: 0.75rem;
       }
 
       .section-title {
         font-size: 1.25rem;
+      }
+
+      .callout {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+
+      .doc-card {
+        flex-direction: column;
+        gap: 0.625rem;
+      }
+
+      .doc-card-desc {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+
+      .tool-card-body,
+      .concept-card-body {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+      }
+
+      .step-list li {
+        gap: 0.625rem;
+      }
+
+      .checklist li {
+        gap: 0.5rem;
       }
     }
   </style>
