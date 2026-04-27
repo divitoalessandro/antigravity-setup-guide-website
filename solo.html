@@ -25,6 +25,7 @@
         <li><a href="#workflow">Workflow</a></li>
         <li><a href="#why">Why</a></li>
         <li><a href="#prompts">Prompts</a></li>
+        <li><a href="changelog.html">Changelog</a></li>
       </ul>
     </div>
   </nav>
@@ -89,6 +90,9 @@
           <div class="workflow-step">
             <h3>Day 1</h3>
             <ul>
+              <li>Run the <a href="#prompts"><strong class="text-bright">7-step Setup Procedure</strong></a> below first
+                &mdash; it generates your canonical docs, CLAUDE.md, progress.txt, and initial commit before any product
+                code is written</li>
               <li>Initialize git repo and push to GitHub</li>
               <li>Create a <code>README.md</code> with project description, tech stack, and how to run locally</li>
               <li>Set up a basic CI pipeline &mdash; a GitHub Action that runs linting and tests on every push (even if
@@ -207,177 +211,231 @@
       </div>
     </section>
 
-    <!-- ==================== SETUP PROMPTS ==================== -->
+    <!-- ==================== SETUP PROCEDURE ==================== -->
     <div class="section-divider"></div>
     <section id="prompts">
       <div class="container">
         <div class="reveal-up">
           <h2>
-            <span class="label">05 / Prompts</span>
-            Setup Prompts
+            <span class="label">05 / Setup Procedure</span>
+            Before Building
           </h2>
-          <p class="mb-xl">Copy these into Claude Code to bootstrap your project with the right structure.</p>
+          <p class="mb-md">Seven steps, run in order, before any product code is written. This procedure mirrors the
+            <a href="vibe-coding-101.html#system">Vibe 101 checklist</a> &mdash; scoped to a serious solo build.
+          </p>
+          <p class="mb-xl" style="font-size: 0.8125rem;">
+            <strong class="text-bright">Before you start</strong>, enable these plugins: superpowers, episodic-memory,
+            context7, commit-commands, github.
+          </p>
         </div>
 
-        <!-- Prompt 1: Project Bootstrap -->
+        <!-- Step 01 — Interrogate the Idea -->
         <div class="prompt-section reveal-up">
-          <h3>Project Bootstrap</h3>
-          <p>Sets up git, CI, folder structure, and essential config for a solo project.</p>
+          <h3>01 &mdash; Interrogate the Idea</h3>
+          <p>Make AI tear the idea apart before any code or doc gets written. Run this in planning mode only.
+            Answer one question at a time until no assumptions remain.</p>
 
           <div class="code-box">
             <div class="code-box-header">
-              <span class="code-box-label">Prompt &mdash; Project Bootstrap</span>
+              <span class="code-box-label">Prompt &mdash; Interrogation</span>
               <button class="copy-btn">Copy</button>
             </div>
-            <pre><code>I'm starting a serious solo project. Help me set it up with proper structure for long-term maintenance.
+            <pre><code>Before writing any code or docs, interrogate my idea in planning mode only. Assume nothing. Ask questions until there are no assumptions left. One question at a time.
 
-Ask me these three questions, then scaffold the project:
+Cover at minimum:
+- Who is this for and what is the core action they take?
+- What happens on success? On error?
+- What data is saved? What is displayed?
+- Auth, database, mobile support — needed?
+- What is explicitly out of scope for v1?
 
-1. What are you building? (one sentence)
-2. What language/framework are you using?
-3. Is this a fresh repo or an existing one?
-
-After I answer, do the following:
-
-**Git setup:**
-- Initialize git repo if fresh (or verify existing)
-- Create a .gitignore appropriate for the stack
-- Set up conventional commit style (I'll use /commit going forward)
-
-**Project structure:**
-- Create a README.md with: project name, description, tech stack, how to run locally, how to run tests
-- Create a sensible folder structure for the framework
-- Add a basic linting config if the framework supports it (ESLint, ruff, etc.)
-- Set up a minimal test runner and create one example test file
-
-**CI/CD:**
-- Create a GitHub Actions workflow (.github/workflows/ci.yml) that:
-  - Runs on push to main and on pull requests
-  - Installs dependencies
-  - Runs linting
-  - Runs tests
-  - Keep it under 30 lines if possible
-
-**Session files:**
-- Create a progress.txt with sections: COMPLETED, IN PROGRESS, NEXT, KNOWN BUGS (all empty to start)
-- Create a lessons.md with header: "Corrections and patterns to avoid. AI reads this at session start."
-
-**Plugins to enable:**
-- superpowers, episodic-memory, context7, commit-commands, github
-
-Make an initial commit: "chore: initial project scaffold with CI"
-
-Do NOT set up:
-- Docker or containerization
-- Staging environments
-- Branch protection (I'll add that manually if needed)
-- Deployment pipelines (just CI for now)</code></pre>
+Do not start writing docs until I confirm the interrogation is complete.</code></pre>
           </div>
         </div>
 
-        <!-- Prompt 2: Generate CLAUDE.md -->
+        <!-- Step 02 — Answer Every Question -->
         <div class="prompt-section reveal-up">
-          <h3>Generate CLAUDE.md</h3>
-          <p>Creates a project-specific CLAUDE.md so Claude understands your codebase and workflow.</p>
-
-          <div class="code-box">
-            <div class="code-box-header">
-              <span class="code-box-label">Prompt &mdash; Generate CLAUDE.md</span>
-              <button class="copy-btn">Copy</button>
-            </div>
-            <pre><code>Generate a CLAUDE.md file for this project. This file tells Claude Code how to work with this codebase.
-
-Ask me these questions first:
-
-1. What is this project? (one sentence)
-2. What is your tech stack? (language, framework, package manager, database if any)
-3. What are the most important files or directories I should know about?
-4. Any hard rules Claude must never break? (e.g., "never commit to main directly", "always write tests for new features")
-5. Any external services or APIs involved?
-
-Then generate a CLAUDE.md file at the project root with this structure:
-
-## Workflow & Behavior
-- Use conventional commits via /commit for all changes
-- Search episodic memory at the start of each session for prior context
-- Read progress.txt and lessons.md at the start of every session
-- Always create a feature branch before starting work (never commit directly to main)
-- Enter plan mode (writing-plans) before implementing anything with 3+ steps
-- Write tests for critical paths before marking work as done
-- Self-review changes before creating a PR
-- Keep commits small and focused — one logical change per commit
-- After completing a feature, update progress.txt
-- After any correction or debugging session, update lessons.md with the pattern and the fix
-- Verify work before marking done — run tests, check the UI, confirm end-to-end
-- Fix bugs autonomously when encountered — don't just report them, resolve them
-- Ask before deleting files, dropping tables, or making breaking changes to APIs
-
-## Essential Commands
-[Fill based on tech stack — how to install, run dev server, run tests, lint, build]
-
-## Architecture Overview
-[Fill based on answers — folder structure, key files, data flow]
-
-## Data Model
-[Fill if relevant — database tables, key relationships, important schemas]
-
-## Development Patterns
-[Fill based on stack — naming conventions, file organization, error handling approach]
-
-## Task Management
-- Plan before building. Break features into steps.
-- One feature at a time. Commit after each logical unit.
-- Capture lessons in lessons.md after corrections.
-
-## Critical Rules
-[Fill based on answer to question 4, plus these defaults:]
-- Never expose API keys or secrets in code
-- Never skip tests to ship faster
-- Always handle errors at API boundaries
-- Keep dependencies minimal — don't add a library for something the language can do natively
-- Simplicity first. Don't over-engineer. Minimal dependencies.
-- No lazy fixes — find root causes, not workarounds
-
-Target length: 60–100 lines. Concise but complete.</code></pre>
-          </div>
+          <h3>02 &mdash; Answer Every Question</h3>
+          <p>No prompt for this step &mdash; just discipline. Clarity now prevents guesswork later. Cover every
+            category below in plain English. Your answers become the raw material for the docs in step 03.</p>
+          <ul>
+            <li>Audience and core user action</li>
+            <li>Success states, error states, edge cases</li>
+            <li>Data model: what is saved, displayed, computed</li>
+            <li>Authentication and third-party services</li>
+            <li>Out-of-scope list for v1</li>
+          </ul>
         </div>
 
-        <!-- Prompt 3: Generate Project Docs -->
+        <!-- Step 03 — Generate the Canonical Docs -->
         <div class="prompt-section reveal-up">
-          <h3>Generate Project Docs</h3>
-          <p>Creates the core planning documents that become your project&rsquo;s source of truth.</p>
+          <h3>03 &mdash; Generate the Canonical Docs</h3>
+          <p>Documentation first. Code second. Always. For a solo build, three docs cover the essentials. If you want
+            the full six-doc set (APP_FLOW, FRONTEND_GUIDELINES, BACKEND_STRUCTURE), see the
+            <a href="vibe-coding-101.html#docs-system">Vibe 101 documentation system</a>.</p>
 
           <div class="code-box">
             <div class="code-box-header">
               <span class="code-box-label">Prompt &mdash; Generate Project Docs</span>
               <button class="copy-btn">Copy</button>
             </div>
-            <pre><code>Generate the core planning documents for this project. These docs become the source of truth that CLAUDE.md references.
-
-Before generating, either:
-- Run an interrogation first: "Interrogate my idea. Assume nothing. Ask questions until there are no assumptions left. One question at a time."
-- Or answer these questions yourself if you already have clarity:
-  1. Who is this for and what is the core action they take?
-  2. What data needs to be saved and displayed?
-  3. What happens on error vs success?
-  4. What is explicitly out of scope for v1?
-
-Then generate these three files in the project root:
+            <pre><code>Based on our interrogation, generate these three canonical documentation files at the project root. Use the answers from our conversation as source material. Be specific and exhaustive. No ambiguity. Each doc should cross-reference the others.
 
 **PRD.md** — Product requirements: what the product does, who it's for, core features for v1, explicit non-goals. This is the contract for what "done" looks like.
 
 **TECH_STACK.md** — Locked dependencies: language, framework, database, auth provider, hosting, package manager. Exact versions. No "or" — pick one of everything. Prevents hallucinated dependencies.
 
-**IMPLEMENTATION_PLAN.md** — Step-by-step build sequence. Not "build the app." Specific steps like: 1.1 initialize project, 1.2 install dependencies from TECH_STACK.md, 2.1 build auth flow, etc. Each step should be completable in a single session.
-
-Be specific and exhaustive. No ambiguity.
-
-After generating, update CLAUDE.md to reference these docs:
-- "Read PRD.md for product requirements"
-- "Follow IMPLEMENTATION_PLAN.md for build order"
-- "Reference TECH_STACK.md for dependency decisions"</code></pre>
+**IMPLEMENTATION_PLAN.md** — Step-by-step build sequence. Specific steps like: 1.1 initialize project, 1.2 install dependencies from TECH_STACK.md, 2.1 build auth flow, etc. Each step references the relevant doc. Each step is completable in a single session.</code></pre>
           </div>
         </div>
+
+        <!-- Step 04 — Write CLAUDE.md (+ lessons.md) -->
+        <div class="prompt-section reveal-up">
+          <h3>04 &mdash; Write CLAUDE.md (+ lessons.md)</h3>
+          <p>Now that the docs exist, distil their rules into a CLAUDE.md Claude reads at session start. Create
+            lessons.md alongside it &mdash; the self-improvement loop that makes AI smarter about your codebase.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Generate CLAUDE.md + lessons.md</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Generate a CLAUDE.md at the project root and an empty lessons.md alongside it. CLAUDE.md must reference PRD.md, TECH_STACK.md, and IMPLEMENTATION_PLAN.md and condense their rules into Claude-readable instructions.
+
+Structure:
+
+## Workflow & Behavior
+- Read CLAUDE.md, progress.txt, and lessons.md at the start of every session
+- Reference PRD.md for product decisions, TECH_STACK.md for dependency choices, IMPLEMENTATION_PLAN.md for build order — never contradict them; update the doc first if something needs to change
+- Use conventional commits via /commit
+- Always create a feature branch before starting work — never commit directly to main
+- Enter plan mode (writing-plans) before implementing anything with 3+ steps
+- Write tests for critical paths before marking work as done
+- Self-review changes before creating a PR
+- Keep commits small, focused, one logical change per commit
+- After completing a feature, update progress.txt
+- After every correction or debugging session, update lessons.md with the pattern that caused the issue and the rule that prevents it
+- Verify before marking done — run tests, check the UI, confirm end-to-end
+- Fix bugs autonomously — don't just report them, resolve them
+- Ask before deleting files, dropping tables, or making breaking changes to APIs
+
+## Essential Commands
+[Fill from TECH_STACK.md — install, dev server, test, lint, build]
+
+## Architecture Overview
+[Summarise — folder structure, key files, data flow]
+
+## Critical Rules
+[Distil from PRD.md non-goals plus:]
+- Never expose API keys or secrets in code — environment variables only
+- Never skip tests to ship faster
+- Always handle errors at API boundaries
+- Keep dependencies minimal — don't add a library for something the language can do natively
+- Simplicity first. No lazy fixes — root causes only.
+
+Also create lessons.md with this header and nothing else:
+"Corrections and patterns to avoid. AI reads this at session start. Update after every debugging session with: (1) the pattern that caused the issue, (2) the rule that prevents it."
+
+Target CLAUDE.md length: 60–100 lines. Concise but complete.</code></pre>
+          </div>
+        </div>
+
+        <!-- Step 05 — Create progress.txt -->
+        <div class="prompt-section reveal-up">
+          <h3>05 &mdash; Create progress.txt</h3>
+          <p>The session-state tracker. AI has no memory between sessions; this file is the bridge. Update it after
+            every completed feature.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Create progress.txt</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Create a progress.txt file at the project root with exactly this structure (sections empty to start). I will update it after every completed feature, and AI must read it at the start of every session.
+
+COMPLETED:
+
+IN PROGRESS:
+
+NEXT:
+
+KNOWN BUGS:
+
+Then add a line to CLAUDE.md confirming: "Read progress.txt at session start; update it after every completed feature."</code></pre>
+          </div>
+        </div>
+
+        <!-- Step 06 — Gather UI Screenshots -->
+        <div class="prompt-section reveal-up">
+          <h3>06 &mdash; Gather UI Screenshots</h3>
+          <p>Visual references prevent AI from inventing UI from scratch. Collect screenshots of patterns you want to
+            mimic before any frontend work begins.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Set up screenshots folder</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Set up a /screenshots folder at the project root and walk me through what to collect.
+
+Required references (3–5 minimum):
+- Apps with similar user flows to ours
+- Components I want to mimic: navigation, forms, empty states, loading states
+- Color palettes and typography I like
+- Mobile references for responsive behaviour
+
+File-naming convention: kebab-case, descriptive — dashboard-ref.png, button-states.png, mobile-nav.png.
+
+Then add this line to CLAUDE.md: "When building UI, reference /screenshots before generating new visuals. Match the established visual language; do not invent."</code></pre>
+          </div>
+        </div>
+
+        <!-- Step 07 — Initialize Git & Push -->
+        <div class="prompt-section reveal-up">
+          <h3>07 &mdash; Initialize Git &amp; Push</h3>
+          <p>Lock everything you've created into version control. The initial commit captures docs, CLAUDE.md,
+            progress.txt, and the screenshots folder before a single line of product code is written.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Git init &amp; first push</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Initialize git for this project and push to GitHub.
+
+- Initialize a git repo if one doesn't exist.
+- Create a .gitignore appropriate for the stack (reference TECH_STACK.md).
+- Create a README.md with: project name, one-line description, tech stack, how to run locally, how to run tests.
+- Stage everything created so far: PRD.md, TECH_STACK.md, IMPLEMENTATION_PLAN.md, CLAUDE.md, lessons.md, progress.txt, /screenshots, README.md, .gitignore.
+- Initial commit: "chore: initial scaffold with canonical docs".
+- Help me create a new GitHub repo and push.</code></pre>
+          </div>
+        </div>
+
+        <!-- Step 07b — Project Tooling (optional) -->
+        <div class="prompt-section reveal-up">
+          <h3>07b &mdash; Project Tooling <span class="badge" style="margin-left: 0.5rem;">Optional</span></h3>
+          <p>Not part of the canonical Vibe 101 procedure, but worth doing for a serious solo project: linting,
+            test runner, CI. Run after step 07.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Solo tooling layer</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Set up the optional tooling layer for this solo project.
+
+- Linting config (ESLint, ruff, etc.) with sensible defaults.
+- Minimal test runner with one example test file.
+- GitHub Actions workflow (.github/workflows/ci.yml) that runs on push and PRs: install deps → lint → test. Keep under 30 lines.
+- Configure conventional commits — I'll use /commit going forward.
+
+Commit: "chore: add CI and linting".
+
+Do NOT set up: Docker, staging environments, branch protection, deployment pipelines.</code></pre>
+          </div>
+        </div>
+
 
       </div>
     </section>
@@ -451,6 +509,7 @@ After generating, update CLAUDE.md to reference these docs:
     <a href="#workflow">Workflow</a>
     <a href="#why">Why</a>
     <a href="#prompts">Prompts</a>
+    <a href="changelog.html">Changelog</a>
   </nav>
   <div class="mobile-scrim" id="mobileScrim"></div>
   <script>

@@ -25,6 +25,7 @@
         <li><a href="#workflow">Workflow</a></li>
         <li><a href="#why">Why</a></li>
         <li><a href="#prompts">Prompts</a></li>
+        <li><a href="changelog.html">Changelog</a></li>
       </ul>
     </div>
   </nav>
@@ -88,6 +89,8 @@
           <div class="workflow-step">
             <h3>Day 1</h3>
             <ul>
+              <li>Run the <a href="#prompts"><strong class="text-bright">7-step Setup Procedure</strong></a> below first
+                &mdash; even at hobby scale, the docs and CLAUDE.md save hours later</li>
               <li>Create a new folder and run <code>git init</code> &mdash; this tracks every change you make so you can
                 always go back</li>
               <li>Push to GitHub with a basic <code>README.md</code> explaining what the project is in one sentence</li>
@@ -180,96 +183,188 @@
       </div>
     </section>
 
-    <!-- ==================== SETUP PROMPTS ==================== -->
+    <!-- ==================== SETUP PROCEDURE ==================== -->
     <div class="section-divider"></div>
     <section id="prompts">
       <div class="container">
         <div class="reveal-up">
           <h2>
-            <span class="label">05 / Prompts</span>
-            Setup Prompts
+            <span class="label">05 / Setup Procedure</span>
+            Before Building
           </h2>
-          <p class="mb-xl">Copy these into Claude Code to bootstrap your project.</p>
+          <p class="mb-md">Seven steps, run in order, before any product code is written. This procedure mirrors the
+            <a href="vibe-coding-101.html#system">Vibe 101 checklist</a> &mdash; scoped down for hobby builds. Same
+            skeleton as <a href="solo.html#prompts">solo</a> and <a href="team.html#prompts">team</a>, lighter prompts.
+          </p>
+          <p class="mb-xl" style="font-size: 0.8125rem;">
+            <strong class="text-bright">Before you start</strong>, enable these plugins: episodic-memory,
+            commit-commands.
+          </p>
         </div>
 
-        <!-- Prompt 1: Project Bootstrap -->
+        <!-- Step 01 — Interrogate the Idea -->
         <div class="prompt-section reveal-up">
-          <h3>Project Bootstrap</h3>
-          <p>Scaffolds your project with the right structure for a hobby project.</p>
+          <h3>01 &mdash; Interrogate the Idea</h3>
+          <p>Even at hobby scale, a 60-second interrogation prevents an afternoon of guesswork. Three or four
+            questions is enough.</p>
 
           <div class="code-box">
             <div class="code-box-header">
-              <span class="code-box-label">Prompt &mdash; Project Bootstrap</span>
+              <span class="code-box-label">Prompt &mdash; Quick Interrogation</span>
               <button class="copy-btn">Copy</button>
             </div>
-            <pre><code>I'm starting a new hobby project. Help me set it up with a lightweight structure.
+            <pre><code>Before I start coding, ask me 3–4 quick questions to make sure my idea is clear. One question at a time.
 
-Ask me these two questions, then scaffold the project:
+Cover:
+- Who is this for and what is the one core action they take?
+- What is the simplest version that would still be useful?
+- What is explicitly out of scope?
 
-1. What are you building? (one sentence)
-2. What language/framework are you using?
-
-After I answer, do the following:
-- Initialize a git repo if one doesn't exist
-- Create a README.md with: project name, one-line description, tech stack, and a "Getting Started" section
-- Create a sensible folder structure for the chosen framework (keep it minimal — no over-engineering)
-- Create a .gitignore appropriate for the language/framework
-- Make an initial commit with the message "chore: initial project scaffold"
-- Enable these plugins if not already active: episodic-memory, commit-commands
-
-Do NOT set up:
-- CI/CD pipelines
-- Testing frameworks
-- Branch protection rules
-- Docker or deployment configs
-- Linting configs (unless the framework includes one by default)
-
-Keep it simple. I want to start coding in under 2 minutes.</code></pre>
+Do not start writing anything until I confirm the answers are good.</code></pre>
           </div>
         </div>
 
-        <!-- Prompt 2: Generate CLAUDE.md -->
+        <!-- Step 02 — Answer Every Question -->
         <div class="prompt-section reveal-up">
-          <h3>Generate CLAUDE.md</h3>
-          <p>Creates a project-specific CLAUDE.md so Claude understands your codebase.</p>
+          <h3>02 &mdash; Answer Every Question</h3>
+          <p>No prompt for this step &mdash; just answer plainly. Your answers feed step 03.</p>
+          <ul>
+            <li>The audience and the one core action</li>
+            <li>The simplest useful version</li>
+            <li>What you are explicitly not building</li>
+          </ul>
+        </div>
+
+        <!-- Step 03 — Generate the Canonical Docs -->
+        <div class="prompt-section reveal-up">
+          <h3>03 &mdash; Generate the Canonical Docs</h3>
+          <p>For a hobby build, one doc is enough: a PRD that captures what you're building. If the project grows up,
+            see the <a href="vibe-coding-101.html#docs-system">full six-doc set</a>.</p>
 
           <div class="code-box">
             <div class="code-box-header">
-              <span class="code-box-label">Prompt &mdash; Generate CLAUDE.md</span>
+              <span class="code-box-label">Prompt &mdash; Generate PRD.md</span>
               <button class="copy-btn">Copy</button>
             </div>
-            <pre><code>Generate a CLAUDE.md file for this project. This file tells Claude Code how to work with this codebase.
+            <pre><code>Based on our interrogation, generate a PRD.md at the project root.
+
+**PRD.md** — Product requirements: what the product does, who it's for, the one core feature for v1, and an explicit non-goals list. Keep it short — under 40 lines. This is the contract for what "done" looks like for v1.
+
+Be specific. No vague language like "the app should be fast" — say what fast means.</code></pre>
+          </div>
+        </div>
+
+        <!-- Step 04 — Write CLAUDE.md (+ lessons.md) -->
+        <div class="prompt-section reveal-up">
+          <h3>04 &mdash; Write CLAUDE.md (+ lessons.md)</h3>
+          <p>Tell Claude how to work with this codebase. Keep it short. Add lessons.md so corrections compound over
+            sessions.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Generate CLAUDE.md + lessons.md</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Generate a CLAUDE.md at the project root and an empty lessons.md alongside it.
 
 Ask me these questions first:
-
 1. What is this project? (one sentence)
 2. What is your tech stack? (language, framework, package manager)
-3. What are the most important files or directories I should know about?
-4. Any hard rules Claude must never break? (e.g., "never delete the database file", "always use async/await")
-5. Any external services or APIs involved?
+3. Any hard rules Claude must never break?
 
-Then generate a CLAUDE.md file at the project root with this structure:
+Then generate CLAUDE.md with this structure:
 
 ## Workflow & Behavior
+- Read CLAUDE.md, progress.txt, and lessons.md at the start of every session
+- Reference PRD.md for product decisions
 - Always commit with conventional commit messages using /commit
 - Search episodic memory at the start of each session for prior context
-- Keep changes small and focused — one feature or fix per session
+- Keep changes small — one feature or fix per session
 - Don't over-engineer. This is a hobby project. Simple > clever.
-- After any correction, edit CLAUDE.md so the same mistake isn't repeated
+- After every correction, update CLAUDE.md and lessons.md so the same mistake isn't repeated
 - Ask before deleting files or making breaking changes
 
 ## Essential Commands
-[Fill based on tech stack — e.g., how to run, build, test]
+[Fill based on tech stack — how to run, build, test]
 
 ## Architecture Overview
-[Fill based on answers — brief description of folder structure and key files]
+[Brief — folder structure and key files]
 
 ## Critical Rules
-[Fill based on answer to question 4, plus sensible defaults]
+[From answer to question 3, plus sensible defaults]
 
-Keep it concise. Under 60 lines. No boilerplate padding.</code></pre>
+Also create lessons.md with this single header line:
+"Corrections and patterns to avoid. AI reads this at session start. Update after every correction with the pattern that caused the issue and the rule that prevents it."
+
+Keep CLAUDE.md under 60 lines. No boilerplate padding.</code></pre>
           </div>
         </div>
+
+        <!-- Step 05 — Create progress.txt -->
+        <div class="prompt-section reveal-up">
+          <h3>05 &mdash; Create progress.txt</h3>
+          <p>So the next session doesn't start from zero context.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Create progress.txt</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Create a progress.txt file at the project root with exactly this structure (sections empty to start):
+
+COMPLETED:
+
+IN PROGRESS:
+
+NEXT:
+
+KNOWN BUGS:
+
+Then add a line to CLAUDE.md: "Read progress.txt at session start; update it after every completed feature."</code></pre>
+          </div>
+        </div>
+
+        <!-- Step 06 — Gather UI Screenshots -->
+        <div class="prompt-section reveal-up">
+          <h3>06 &mdash; Gather UI Screenshots</h3>
+          <p>Even one or two visual references stop AI from inventing UI from scratch.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Set up screenshots folder</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Create a /screenshots folder at the project root.
+
+I will save 2–3 visual references there: apps with similar flows, components I want to copy, or color palettes I like. Use kebab-case names: ref-dashboard.png, ref-button.png.
+
+Add this line to CLAUDE.md: "Reference /screenshots before generating any UI."</code></pre>
+          </div>
+        </div>
+
+        <!-- Step 07 — Initialize Git & Push -->
+        <div class="prompt-section reveal-up">
+          <h3>07 &mdash; Initialize Git &amp; Push</h3>
+          <p>Lock everything in version control before product code starts. Even a hobby project deserves a backup.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Git init &amp; first push</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Initialize git for this project and push to GitHub.
+
+- Initialize a git repo if one doesn't exist.
+- Create a .gitignore appropriate for the language/framework.
+- Create a README.md with: project name, one-line description, tech stack, "Getting Started" section.
+- Stage everything: PRD.md, CLAUDE.md, lessons.md, progress.txt, /screenshots, README.md, .gitignore.
+- Initial commit: "chore: initial scaffold".
+- Help me push to a new GitHub repo.
+
+Do NOT set up CI, testing frameworks, branch protection, Docker, or linting configs. Keep it simple — start coding in under 2 minutes from here.</code></pre>
+          </div>
+        </div>
+
 
       </div>
     </section>
@@ -343,6 +438,7 @@ Keep it concise. Under 60 lines. No boilerplate padding.</code></pre>
     <a href="#workflow">Workflow</a>
     <a href="#why">Why</a>
     <a href="#prompts">Prompts</a>
+    <a href="changelog.html">Changelog</a>
   </nav>
   <div class="mobile-scrim" id="mobileScrim"></div>
   <script>
