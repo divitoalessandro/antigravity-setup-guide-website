@@ -28,6 +28,7 @@
         <li><a href="#setup">Setup</a></li>
         <li><a href="vibe-coding-101.html">Vibe 101</a></li>
         <li><a href="glossary.html">Glossary</a></li>
+        <li><a href="changelog.html">Changelog</a></li>
       </ul>
     </div>
   </nav>
@@ -63,8 +64,9 @@
               <div class="line"><span class="dim">&gt;</span> <span class="cursor"></span></div>
             </div>
             <div style="display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 0.75rem;">
-              <span class="badge">v1.0</span>
-              <span class="badge badge-accent">Mar 2026</span>
+              <a href="changelog.html" class="badge"
+                style="text-decoration:none;cursor:pointer;">v1.1</a>
+              <span class="badge badge-accent">Apr 2026</span>
             </div>
           </div>
         </div>
@@ -231,15 +233,29 @@
           </div>
           <div class="model-row">
             <div>
-              <div class="model-name">Claude Opus 4.6</div>
+              <div class="model-name">Gemini 3.1 Flash</div>
+              <div class="model-title">High-throughput. Real-time pipelines and bulk work.</div>
+              <div class="model-desc">The efficient counterpart to 3.1 Pro. ~360+ tokens/sec output, multimodal,
+                long context. Cheap enough to run at scale: $0.25 / $1.50 per million input/output tokens.</div>
+            </div>
+            <div>
+              <div class="model-usecase">Use for tasks where speed and unit cost dominate: classification pipelines,
+                data extraction over thousands of records, in-IDE autocomplete, summarisation of long files. Not the
+                model for hard architectural calls &mdash; that's still Pro/Opus territory.</div>
+            </div>
+          </div>
+          <div class="model-row">
+            <div>
+              <div class="model-name">Claude Opus 4.7</div>
               <div class="model-title">The heavyweight. Deep thinking, hard problems.</div>
-              <div class="model-desc">The most capable Claude model. Excels at complex multi-step reasoning, intricate
+              <div class="model-desc">The most capable Claude model. Step-change in agentic coding over 4.6, plus
+                high-resolution image support (up to 2576px). Excels at complex multi-step reasoning, intricate
                 debugging, and tasks where correctness is critical.</div>
             </div>
             <div>
               <div class="model-usecase">Reach for Opus when the problem is genuinely hard &mdash; deep architectural
-                decisions, subtle bugs that Sonnet can't crack, or when you need the highest quality output regardless
-                of speed. Costs more, worth it for the hard stuff.</div>
+                decisions, subtle bugs that Sonnet can't crack, agentic workflows that span many tool calls, or screenshot-
+                heavy debugging where image fidelity matters. Costs more, worth it for the hard stuff.</div>
             </div>
           </div>
           <div class="model-row">
@@ -256,14 +272,31 @@
           </div>
           <div class="model-row">
             <div>
-              <div class="model-name">GPT-4o</div>
-              <div class="model-title">General-purpose. Broad ecosystem knowledge.</div>
-              <div class="model-desc">Wide training data, strong general capability. Useful for broad knowledge
-                questions and when teams standardize on OpenAI tooling.</div>
+              <div class="model-name">Claude Haiku 4.5</div>
+              <div class="model-title">Fast, cheap, surprisingly capable. The agent runner.</div>
+              <div class="model-desc">Anthropic's small model with near-frontier reasoning at $1 / $5 per million
+                input/output tokens. 200K context. Built for high-volume agentic loops where Sonnet would be
+                overkill on cost.</div>
             </div>
             <div>
-              <div class="model-usecase">Use when working with a team that requires OpenAI, or for tasks that benefit
-                from its broad general knowledge base. Not your primary — a fallback for specific contexts.</div>
+              <div class="model-usecase">Use for sub-agent tasks (file searches, focused refactors), interactive
+                chatbots, rapid prototyping, structured data extraction, and anything you'd loop hundreds of times.
+                When you'd otherwise reach for Sonnet but the task is narrow and well-defined, drop to Haiku and pocket
+                the cost.</div>
+            </div>
+          </div>
+          <div class="model-row">
+            <div>
+              <div class="model-name">GPT-5.5</div>
+              <div class="model-title">Tool-using generalist. Codex-grade at agentic work.</div>
+              <div class="model-desc">OpenAI's latest (Apr 2026). Strong at writing and debugging code, online
+                research, data analysis, and operating across software tools end-to-end. More token-efficient than
+                5.4 despite higher per-token pricing.</div>
+            </div>
+            <div>
+              <div class="model-usecase">Use when working with a team standardized on OpenAI, when you need a model
+                that can drive Codex-style multi-tool workflows (researching, editing files, running checks), or as a
+                second opinion on hard coding tasks alongside Claude.</div>
             </div>
           </div>
         </div>
@@ -578,6 +611,7 @@
     <a href="#setup">Setup</a>
     <a href="vibe-coding-101.html">Vibe 101</a>
     <a href="glossary.html">Glossary</a>
+    <a href="changelog.html">Changelog</a>
   </nav>
   <div class="mobile-scrim" id="mobileScrim"></div>
   <script>

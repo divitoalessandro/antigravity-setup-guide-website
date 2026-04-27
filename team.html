@@ -25,6 +25,7 @@
         <li><a href="#workflow">Workflow</a></li>
         <li><a href="#why">Why</a></li>
         <li><a href="#prompts">Prompts</a></li>
+        <li><a href="changelog.html">Changelog</a></li>
       </ul>
     </div>
   </nav>
@@ -88,6 +89,9 @@
           <div class="workflow-step">
             <h3>Day 1</h3>
             <ul>
+              <li>Run the <a href="#prompts"><strong class="text-bright">7-step Setup Procedure</strong></a> below first
+                &mdash; it generates your canonical docs, CLAUDE.md, progress.txt, and initial commit before any product
+                code is written</li>
               <li>Initialize repo on GitHub with a clear <code>README.md</code>: project purpose, tech stack, how to run
                 locally, how to run tests, contribution guidelines</li>
               <li>Create a <code>dev</code> branch &mdash; this is your integration branch where features come together
@@ -231,207 +235,260 @@
       </div>
     </section>
 
-    <!-- ==================== SETUP PROMPTS ==================== -->
+    <!-- ==================== SETUP PROCEDURE ==================== -->
     <div class="section-divider"></div>
     <section id="prompts">
       <div class="container">
         <div class="reveal-up">
           <h2>
-            <span class="label">05 / Prompts</span>
-            Setup Prompts
+            <span class="label">05 / Setup Procedure</span>
+            Before Building
           </h2>
-          <p class="mb-xl">Copy these into Claude Code to bootstrap your team project with professional structure.</p>
+          <p class="mb-md">Seven steps, run in order, before any product code is written. This procedure mirrors the
+            <a href="vibe-coding-101.html#system">Vibe 101 checklist</a> &mdash; scoped to team and client work.
+          </p>
+          <p class="mb-xl" style="font-size: 0.8125rem;">
+            <strong class="text-bright">Before you start</strong>, every team member should have these plugins enabled:
+            superpowers, episodic-memory, context7, commit-commands, github.
+          </p>
         </div>
 
-        <!-- Prompt 1: Project Bootstrap -->
+        <!-- Step 01 — Interrogate the Idea -->
         <div class="prompt-section reveal-up">
-          <h3>Project Bootstrap</h3>
-          <p>Full project scaffold with CI/CD, branch protection, and team conventions.</p>
+          <h3>01 &mdash; Interrogate the Idea</h3>
+          <p>Make AI tear the idea apart before any code or doc gets written. Run this in planning mode only.
+            Answer one question at a time until no assumptions remain.</p>
 
           <div class="code-box">
             <div class="code-box-header">
-              <span class="code-box-label">Prompt &mdash; Project Bootstrap</span>
+              <span class="code-box-label">Prompt &mdash; Interrogation</span>
               <button class="copy-btn">Copy</button>
             </div>
-            <pre><code>I'm starting a team/client project. Help me set it up with a professional structure that supports multiple developers.
+            <pre><code>Before writing any code or docs, interrogate my idea in planning mode only. Assume nothing. Ask questions until there are no assumptions left. One question at a time.
 
-Ask me these four questions, then scaffold the project:
+Cover at minimum:
+- Who is this for and what is the core action they take?
+- What happens on success? On error?
+- What data is saved? What is displayed?
+- Auth, database, mobile support — needed?
+- What is explicitly out of scope for v1?
+- For a team build: who owns what, where does code live, what is the deploy target?
 
-1. What are you building? (one sentence)
-2. How many people will work on this? (approximate team size)
-3. What language/framework are you using?
-4. Is this a fresh repo or an existing one?
-
-After I answer, do the following:
-
-**Git setup:**
-- Initialize git repo if fresh (or verify existing)
-- Create a .gitignore appropriate for the stack
-- Create a `dev` branch from main
-- Document branch naming convention in README: feature/, fix/, chore/
-
-**Project structure:**
-- Create a README.md with: project name, description, tech stack, how to run locally, how to run tests, contribution guidelines, branch strategy
-- Create a sensible folder structure for the framework
-- Add linting config (ESLint, ruff, etc.) with sensible defaults
-- Set up a test runner with one example test
-- Add an .editorconfig for consistent formatting across editors
-
-**CI/CD:**
-- Create a GitHub Actions workflow (.github/workflows/ci.yml) that:
-  - Runs on push to main and dev, and on all pull requests
-  - Installs dependencies
-  - Runs linting
-  - Runs tests
-  - Runs build (if applicable)
-- Create a separate deploy workflow (.github/workflows/deploy.yml) that:
-  - Triggers on push to main only
-  - Placeholder steps for deployment (I'll fill in the specifics)
-
-**Branch protection (document, don't enforce — I'll set it up in GitHub):**
-- main: require PR, require 1 review, require CI pass, no direct push
-- dev: require PR, require CI pass
-
-**Session files:**
-- Create a progress.txt with sections: COMPLETED, IN PROGRESS, NEXT, KNOWN BUGS, BLOCKED (all empty to start)
-- Create a lessons.md with header: "Team knowledge base — corrections, patterns to avoid, and debugging solutions. AI reads this at session start. Update after every debugging session."
-
-**Plugins to enable for all team members:**
-- superpowers, episodic-memory, context7, commit-commands, github
-
-**Commit conventions:**
-- Add a commit-msg convention note in CONTRIBUTING.md
-- Format: type(scope): description
-- Types: feat, fix, chore, docs, test, refactor, style, ci
-
-Make an initial commit: "chore: initial project scaffold with CI/CD"
-
-Do NOT set up:
-- Docker (unless the framework requires it)
-- Kubernetes or cloud infrastructure
-- Monitoring or alerting
-- Database migrations (I'll handle that separately)</code></pre>
+Do not start writing docs until I confirm the interrogation is complete.</code></pre>
           </div>
         </div>
 
-        <!-- Prompt 2: Generate CLAUDE.md -->
+        <!-- Step 02 — Answer Every Question -->
         <div class="prompt-section reveal-up">
-          <h3>Generate CLAUDE.md</h3>
-          <p>Creates a shared CLAUDE.md so every team member's Claude follows the same conventions.</p>
-
-          <div class="code-box">
-            <div class="code-box-header">
-              <span class="code-box-label">Prompt &mdash; Generate CLAUDE.md</span>
-              <button class="copy-btn">Copy</button>
-            </div>
-            <pre><code>Generate a CLAUDE.md file for this team project. This file tells Claude Code how to work with this codebase. Every team member will use the same file, so it must be comprehensive and unambiguous.
-
-Ask me these questions first:
-
-1. What is this project? (one sentence)
-2. What is your tech stack? (language, framework, package manager, database, deployment target)
-3. What are the most important files or directories I should know about?
-4. Any hard rules Claude must never break? (e.g., "never commit to main", "never modify the migration files directly", "always use the ORM, never raw SQL")
-5. Any external services or APIs involved? (include auth providers, payment processors, etc.)
-
-Then generate a CLAUDE.md file at the project root with this structure:
-
-## Workflow & Behavior
-- Use conventional commits via /commit for all changes
-- Search episodic memory at the start of each session for prior context
-- Read progress.txt and lessons.md at the start of every session
-- NEVER commit directly to main or dev — always use a feature branch
-- Branch from dev, not from main
-- Enter plan mode (writing-plans) before implementing anything with 3+ steps
-- Use test-driven-development skill — write tests before implementation
-- Open a draft PR early for visibility
-- Request code review before merging using requesting-code-review skill
-- Keep commits small, focused, and independently revertible
-- After completing a feature, update progress.txt
-- After any correction or debugging session, update lessons.md
-- Verify work before marking done — tests pass, CI green, feature works end-to-end
-- For complex multi-file tasks, use subagents to keep the main context window clean
-- Fix bugs autonomously. Don't leave broken code for someone else.
-- Demand elegance — clean abstractions, consistent patterns (skip for trivial one-line fixes)
-- Ask before: deleting files, dropping tables, changing API contracts, modifying CI config, updating dependencies
-
-## Essential Commands
-[Fill based on tech stack — install, dev server, test, lint, build, deploy]
-
-## Architecture Overview
-[Fill based on answers — folder structure, key files, data flow, service boundaries]
-
-## Data Model
-[Fill if relevant — database tables, key relationships, important schemas, migration strategy]
-
-## Development Patterns
-[Fill based on stack — naming conventions, file organization, error handling, logging, API response format]
-
-## Task Management
-- Plan before building. Use writing-plans for anything touching 3+ files.
-- Work one step at a time from IMPLEMENTATION_PLAN.md.
-- Update progress.txt after every completed feature.
-- Capture corrections and debugging insights in lessons.md.
-- Reference PRD.md for product decisions, not assumptions.
-
-## Critical Rules
-[Fill based on answer to question 4, plus these defaults:]
-- Never expose API keys, secrets, or credentials in code — use environment variables
-- Never skip tests to ship faster
-- Never bypass CI checks
-- Always handle errors at API boundaries with consistent error response format
-- Keep dependencies minimal and audited
-- Document breaking changes in PR description
-- Update README when adding new setup steps or changing how to run the project
-- Simplicity first. Minimal impact changes.
-- No lazy fixes — root causes only, no placeholder code or TODO comments
-- No changes without reading the relevant docs first
-
-## Team Conventions
-- PR title format: type(scope): description (matching commit convention)
-- PR must include: what changed, why, how to test
-- Minimum 1 reviewer approval before merge
-- Squash merge feature branches into dev
-- Regular merge (or rebase) dev into main for releases
-
-Target length: 80–120 lines. Comprehensive but scannable.</code></pre>
-          </div>
+          <h3>02 &mdash; Answer Every Question</h3>
+          <p>No prompt for this step &mdash; just discipline. Clarity now prevents guesswork later. Cover every category
+            below in plain English. Your answers become the raw material for the canonical docs in step 03.</p>
+          <ul>
+            <li>Audience and core user action</li>
+            <li>Success states, error states, edge cases</li>
+            <li>Data model: what is saved, displayed, computed</li>
+            <li>Authentication, authorization, third-party services</li>
+            <li>Out-of-scope list for v1 &mdash; just as important as the in-scope list</li>
+            <li>Team boundaries: who owns frontend, backend, infra, deploys</li>
+          </ul>
         </div>
 
-        <!-- Prompt 3: Generate Canonical Docs -->
+        <!-- Step 03 — Generate the Six Canonical Docs -->
         <div class="prompt-section reveal-up">
-          <h3>Generate Canonical Docs</h3>
-          <p>Creates the full documentation set that becomes the shared source of truth for the entire team.</p>
+          <h3>03 &mdash; Generate the Six Canonical Docs</h3>
+          <p>Documentation first. Code second. Always. The full six-doc set becomes your team's shared source of truth.
+            Each doc cross-references the others.</p>
 
           <div class="code-box">
             <div class="code-box-header">
               <span class="code-box-label">Prompt &mdash; Generate Canonical Docs</span>
               <button class="copy-btn">Copy</button>
             </div>
-            <pre><code>Generate the full canonical documentation set for this project. These docs become the shared source of truth for the entire team.
-
-Start with an interrogation:
-"Before writing any code, interrogate my idea in planning mode only. Assume nothing. Ask questions until there are no assumptions left. One question at a time."
-
-Once the interrogation is complete, generate all six files in the project root:
+            <pre><code>Based on our interrogation, generate the full canonical documentation set at the project root. Use the answers from our conversation as source material. Be specific and exhaustive. No ambiguity. Each doc should cross-reference the others.
 
 **PRD.md** — Product requirements: what the product does, who it's for, core features, user stories, success criteria, explicit non-goals for v1. This is the contract for what "done" looks like.
 
-**APP_FLOW.md** — User flows: every screen, every action, every transition. What the user sees and does, step by step. Decision points, success states, error states, and a full screen inventory with routes.
+**APP_FLOW.md** — User flows: every screen, every action, every transition. Decision points, success states, error states, full screen inventory with routes.
 
-**TECH_STACK.md** — Locked dependencies: language, framework, database, auth provider, hosting, CI/CD, package manager. Exact versions. No "or" — pick one of everything. Prevents hallucinated dependencies.
+**TECH_STACK.md** — Locked dependencies: language, framework, database, auth provider, hosting, CI/CD, package manager. Exact versions. No "or" — pick one of everything.
 
 **FRONTEND_GUIDELINES.md** — Design system: colors (exact hex), spacing scale, typography, component patterns, responsive breakpoints, dark/light mode rules, UI library preferences.
 
 **BACKEND_STRUCTURE.md** — Database schema with every table, column, type, and relationship. API endpoint contracts. Authentication logic. Storage rules. Error response format.
 
-**IMPLEMENTATION_PLAN.md** — Step-by-step build sequence. Specific steps like: 1.1 initialize project, 1.2 install deps from TECH_STACK.md, 2.1 build auth per BACKEND_STRUCTURE.md. Each step references the relevant doc. Each step is completable in a single session.
+**IMPLEMENTATION_PLAN.md** — Step-by-step build sequence. Specific steps like: 1.1 initialize project, 1.2 install deps from TECH_STACK.md, 2.1 build auth per BACKEND_STRUCTURE.md. Each step references the relevant doc and is completable in a single session.</code></pre>
+          </div>
+        </div>
 
-Be specific and exhaustive. No ambiguity. Docs should cross-reference each other.
+        <!-- Step 04 — Write CLAUDE.md (+ lessons.md) -->
+        <div class="prompt-section reveal-up">
+          <h3>04 &mdash; Write CLAUDE.md (+ lessons.md)</h3>
+          <p>Now that the docs exist, distil their rules into a CLAUDE.md every team member's Claude reads at session
+            start. Create lessons.md alongside it &mdash; the self-improvement loop that makes AI smarter about your
+            codebase over time.</p>
 
-After generating, update CLAUDE.md to reference all six docs and add:
-- "Reference the canonical docs for all product and architecture decisions"
-- "Never contradict what's in the docs — update the doc first if something needs to change"</code></pre>
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Generate CLAUDE.md + lessons.md</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Generate a shared CLAUDE.md at the project root and an empty lessons.md alongside it. CLAUDE.md must reference all six canonical docs (PRD, APP_FLOW, TECH_STACK, FRONTEND_GUIDELINES, BACKEND_STRUCTURE, IMPLEMENTATION_PLAN) and condense their rules into Claude-readable instructions.
+
+Structure:
+
+## Workflow & Behavior
+- Read CLAUDE.md, progress.txt, and lessons.md at the start of every session
+- Reference the canonical docs for all product and architecture decisions — never contradict them; update the doc first if something needs to change
+- Use conventional commits via /commit for all changes
+- NEVER commit directly to main or dev — always work on a feature branch from dev
+- Enter plan mode (writing-plans) before implementing anything with 3+ steps
+- Use test-driven-development — write tests before implementation
+- Open a draft PR early for visibility
+- Request code review (requesting-code-review) before merging
+- Keep commits small, focused, independently revertible
+- After completing a feature, update progress.txt
+- After every correction or debugging session, update lessons.md with the pattern that caused the issue and the rule that prevents it
+- Verify before marking done — tests pass, CI green, feature works end-to-end
+- Fix bugs autonomously. Do not leave broken code behind.
+- Ask before: deleting files, dropping tables, changing API contracts, modifying CI config, updating dependencies
+
+## Essential Commands
+[Fill from TECH_STACK.md — install, dev server, test, lint, build, deploy]
+
+## Architecture Overview
+[Summarise from BACKEND_STRUCTURE.md and APP_FLOW.md — folder structure, key files, data flow, service boundaries]
+
+## Critical Rules
+[Distil from PRD.md non-goals, BACKEND_STRUCTURE.md auth/storage rules, plus:]
+- Never expose API keys, secrets, or credentials in code — environment variables only
+- Never skip tests to ship faster
+- Never bypass CI checks
+- Simplicity first. No lazy fixes — root causes only.
+
+## Team Conventions
+- PR title format: type(scope): description
+- PR must include: what changed, why, how to test
+- Minimum 1 reviewer approval before merge
+- Squash merge feature branches into dev. Regular merge dev → main for releases.
+
+Also create lessons.md with this header and nothing else:
+"Team knowledge base — corrections, patterns to avoid, and debugging solutions. AI reads this at session start. Update after every debugging session with: (1) the pattern that caused the issue, (2) the rule that prevents it."
+
+Target CLAUDE.md length: 80–120 lines. Comprehensive but scannable.</code></pre>
+          </div>
+        </div>
+
+        <!-- Step 05 — Create progress.txt -->
+        <div class="prompt-section reveal-up">
+          <h3>05 &mdash; Create progress.txt</h3>
+          <p>The session-state tracker. AI has no memory between sessions; this file is the bridge. Update it after
+            every completed feature so the next session picks up exactly where you left off.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Create progress.txt</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Create a progress.txt file at the project root with exactly this structure (sections empty to start). I will update it after every completed feature, and AI must read it at the start of every session.
+
+COMPLETED:
+
+IN PROGRESS:
+
+NEXT:
+
+KNOWN BUGS:
+
+BLOCKED:
+
+Then add a line to CLAUDE.md confirming: "Read progress.txt at session start; update it after every completed feature."</code></pre>
+          </div>
+        </div>
+
+        <!-- Step 06 — Gather UI Screenshots -->
+        <div class="prompt-section reveal-up">
+          <h3>06 &mdash; Gather UI Screenshots</h3>
+          <p>Visual references prevent AI from inventing UI from scratch. Collect screenshots of apps, components, and
+            patterns you want to mimic before any frontend work begins.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Set up screenshots folder</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Set up a /screenshots folder at the project root and walk me through what to collect.
+
+Required references (5–10 minimum for a team project):
+- 2–3 apps with similar user flows to ours
+- Components I want to mimic: navigation, tables, forms, empty states, loading states
+- Color palettes, typography samples, dashboard layouts I like
+- Mobile-first references for responsive behaviour
+- Any client-supplied brand or style references (if applicable)
+
+File-naming convention: kebab-case, descriptive — dashboard-ref.png, button-states.png, mobile-nav.png, error-empty-state.png.
+
+Then add this line to CLAUDE.md and FRONTEND_GUIDELINES.md: "When building UI, reference /screenshots before generating new visuals. Match the established visual language; do not invent."</code></pre>
+          </div>
+        </div>
+
+        <!-- Step 07 — Initialize Git & Push -->
+        <div class="prompt-section reveal-up">
+          <h3>07 &mdash; Initialize Git &amp; Push</h3>
+          <p>Now &mdash; only now &mdash; lock everything you've created into version control. The initial commit
+            captures docs, CLAUDE.md, progress.txt, and the screenshots folder before a single line of product code
+            is written.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Git init &amp; first push</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Initialize git for this project and push to GitHub.
+
+- Initialize a git repo if one doesn't exist.
+- Create a .gitignore appropriate for the stack (reference TECH_STACK.md).
+- Create a README.md with: project name, one-line description, tech stack, how to run locally, how to run tests, contribution guidelines, branch strategy.
+- Stage everything created so far: PRD.md, APP_FLOW.md, TECH_STACK.md, FRONTEND_GUIDELINES.md, BACKEND_STRUCTURE.md, IMPLEMENTATION_PLAN.md, CLAUDE.md, lessons.md, progress.txt, /screenshots, README.md, .gitignore.
+- Initial commit: "chore: initial scaffold with canonical docs".
+- Help me create a new GitHub repo and push.</code></pre>
+          </div>
+        </div>
+
+        <!-- Step 07b — Project Tooling (optional) -->
+        <div class="prompt-section reveal-up">
+          <h3>07b &mdash; Project Tooling <span class="badge" style="margin-left: 0.5rem;">Optional</span></h3>
+          <p>Not part of the canonical Vibe 101 procedure, but essential for team work: branches, CI/CD, linting, and
+            contribution conventions. Run after step 07 once the repo is on GitHub.</p>
+
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-label">Prompt &mdash; Team tooling layer</span>
+              <button class="copy-btn">Copy</button>
+            </div>
+            <pre><code>Now set up the team-grade tooling layer for this repo.
+
+**Branches:**
+- Create a `dev` branch from main.
+- Document branch naming convention in README: feature/, fix/, chore/, docs/.
+
+**Linting & formatting:**
+- Add a linting config (ESLint, ruff, etc.) with team-friendly defaults.
+- Add an .editorconfig for consistent formatting across editors.
+
+**CI/CD:**
+- .github/workflows/ci.yml: runs on push to main/dev and on all PRs. Steps: install deps → lint → test → build (if applicable).
+- .github/workflows/deploy.yml: triggers on push to main only. Placeholder deploy steps (I'll fill in specifics).
+
+**Branch protection (document in README, do NOT enforce — I'll set it in GitHub):**
+- main: require PR, 1 review, CI pass, no direct push.
+- dev: require PR, CI pass.
+
+**Contribution conventions:**
+- CONTRIBUTING.md with: PR title format `type(scope): description`, commit format, types (feat, fix, chore, docs, test, refactor, style, ci), review requirements, squash-merge policy.
+
+Commit: "chore: add CI/CD and team conventions".
+
+Do NOT set up: Docker, Kubernetes, monitoring, alerting, database migrations.</code></pre>
           </div>
         </div>
 
@@ -507,6 +564,7 @@ After generating, update CLAUDE.md to reference all six docs and add:
     <a href="#workflow">Workflow</a>
     <a href="#why">Why</a>
     <a href="#prompts">Prompts</a>
+    <a href="changelog.html">Changelog</a>
   </nav>
   <div class="mobile-scrim" id="mobileScrim"></div>
   <script>
